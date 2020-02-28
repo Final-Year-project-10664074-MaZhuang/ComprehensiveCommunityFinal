@@ -18,3 +18,213 @@
 2020-02-28 02:00:55,052 INFO [main] c.m.f.f.LoggerTest [StartupInfoLogger.java:61] Started LoggerTest in 2.865 seconds (JVM running for 4.011)
 2020-02-28 02:00:55,529 INFO [main] c.m.f.f.LoggerTest [LoggerTest.java:18] info logger
 2020-02-28 02:00:55,555 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:01:43,460 INFO [Thread-13] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:01:43,861 INFO [restartedMain] c.m.f.f.FinalcommunityApplication [StartupInfoLogger.java:55] Starting FinalcommunityApplication on Genshushu with PID 20452 (D:\IDEAWorkSpace\finalcommunity\target\classes started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:01:43,862 INFO [restartedMain] c.m.f.f.FinalcommunityApplication [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:01:44,161 INFO [restartedMain] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:92] Tomcat initialized with port(s): 8887 (http)
+2020-02-28 04:01:44,162 INFO [restartedMain] o.a.c.c.StandardService [DirectJDKLog.java:173] Starting service [Tomcat]
+2020-02-28 04:01:44,163 INFO [restartedMain] o.a.c.c.StandardEngine [DirectJDKLog.java:173] Starting Servlet engine: [Apache Tomcat/9.0.30]
+2020-02-28 04:01:44,237 INFO [restartedMain] o.a.c.c.C.[.[.[/] [DirectJDKLog.java:173] Initializing Spring embedded WebApplicationContext
+2020-02-28 04:01:44,237 INFO [restartedMain] o.s.w.c.ContextLoader [ServletWebServerApplicationContext.java:284] Root WebApplicationContext: initialization completed in 371 ms
+2020-02-28 04:01:44,320 INFO [restartedMain] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:01:44,339 INFO [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:01:44,410 INFO [restartedMain] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:01:44,411 INFO [restartedMain] o.a.c.c.StandardService [DirectJDKLog.java:173] Stopping service [Tomcat]
+2020-02-28 04:01:44,416 INFO [restartedMain] o.s.b.a.l.ConditionEvaluationReportLoggingListener [ConditionEvaluationReportLoggingListener.java:136] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-02-28 04:01:46,087 INFO [restartedMain] c.m.f.f.FinalcommunityApplication [StartupInfoLogger.java:55] Starting FinalcommunityApplication on Genshushu with PID 20452 (D:\IDEAWorkSpace\finalcommunity\target\classes started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:01:46,088 INFO [restartedMain] c.m.f.f.FinalcommunityApplication [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:01:46,531 INFO [restartedMain] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:92] Tomcat initialized with port(s): 8887 (http)
+2020-02-28 04:01:46,533 INFO [restartedMain] o.a.c.c.StandardService [DirectJDKLog.java:173] Starting service [Tomcat]
+2020-02-28 04:01:46,534 INFO [restartedMain] o.a.c.c.StandardEngine [DirectJDKLog.java:173] Starting Servlet engine: [Apache Tomcat/9.0.30]
+2020-02-28 04:01:46,625 INFO [restartedMain] o.a.c.c.C.[.[.[/] [DirectJDKLog.java:173] Initializing Spring embedded WebApplicationContext
+2020-02-28 04:01:46,626 INFO [restartedMain] o.s.w.c.ContextLoader [ServletWebServerApplicationContext.java:284] Root WebApplicationContext: initialization completed in 534 ms
+2020-02-28 04:01:46,737 INFO [restartedMain] o.a.c.c.StandardService [DirectJDKLog.java:173] Stopping service [Tomcat]
+2020-02-28 04:01:46,749 INFO [restartedMain] o.s.b.a.l.ConditionEvaluationReportLoggingListener [ConditionEvaluationReportLoggingListener.java:136] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2020-02-28 04:01:49,490 INFO [main] c.m.f.f.MainTests [StartupInfoLogger.java:55] Starting MainTests on Genshushu with PID 2392 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:01:49,493 INFO [main] c.m.f.f.MainTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:01:52,345 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:01:52,502 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:01:52,953 INFO [main] c.m.f.f.MainTests [StartupInfoLogger.java:61] Started MainTests in 4.211 seconds (JVM running for 6.175)
+2020-02-28 04:01:54,450 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:04:17,445 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 11496 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:04:17,449 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:04:20,204 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:04:20,373 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:04:20,838 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.229 seconds (JVM running for 6.064)
+2020-02-28 04:04:42,543 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:09:23,541 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 632 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:09:23,543 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:09:25,760 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:09:25,913 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:09:26,369 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 3.397 seconds (JVM running for 4.573)
+2020-02-28 04:09:27,131 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:09:37,956 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 23720 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:09:37,959 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:09:40,803 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:09:41,078 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:09:41,559 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.371 seconds (JVM running for 5.997)
+2020-02-28 04:09:42,255 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:11:01,869 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 12924 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:11:01,872 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:11:04,120 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:11:04,271 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:11:04,743 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 3.367 seconds (JVM running for 4.52)
+2020-02-28 04:11:05,407 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:26:39,393 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 26532 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:26:39,397 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:26:42,323 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:26:42,505 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:26:42,965 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.367 seconds (JVM running for 6.022)
+2020-02-28 04:26:44,522 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:27:12,477 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 19532 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:27:12,482 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:27:15,998 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:27:16,131 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:27:16,629 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.982 seconds (JVM running for 6.542)
+2020-02-28 04:27:22,548 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:27:53,483 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 13748 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:27:53,485 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:27:56,438 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:27:56,599 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:27:57,054 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.066 seconds (JVM running for 5.234)
+2020-02-28 04:27:57,786 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:28:15,729 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 19164 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:28:15,734 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:28:18,698 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:28:18,868 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:28:19,338 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.418 seconds (JVM running for 5.848)
+2020-02-28 04:28:20,058 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:29:59,550 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 19348 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:29:59,553 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:30:02,058 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:30:02,205 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:30:02,692 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 3.666 seconds (JVM running for 5.003)
+2020-02-28 04:30:24,470 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:46:11,075 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 24168 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:46:11,075 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:46:12,937 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:46:13,059 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:46:13,374 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 2.791 seconds (JVM running for 4.001)
+2020-02-28 04:46:14,599 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:46:31,840 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 21196 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:46:31,844 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:46:34,504 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:46:34,641 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:46:35,088 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.11 seconds (JVM running for 5.501)
+2020-02-28 04:46:36,777 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:48:51,651 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 17972 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:48:51,655 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:48:54,327 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:48:54,458 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:48:54,936 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.096 seconds (JVM running for 5.783)
+2020-02-28 04:48:56,354 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:49:14,308 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 3380 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:49:14,310 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:49:17,046 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:49:17,207 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:49:17,655 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.101 seconds (JVM running for 5.492)
+2020-02-28 04:49:39,322 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:51:41,745 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 3504 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:51:41,747 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:51:44,003 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:51:44,139 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:51:44,606 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 3.353 seconds (JVM running for 4.575)
+2020-02-28 04:51:45,976 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:52:52,034 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 14260 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:52:52,038 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:52:54,760 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:52:54,922 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:52:55,384 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 4.059 seconds (JVM running for 5.263)
+2020-02-28 04:53:00,550 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:58:25,388 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 4428 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 04:58:25,390 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 04:58:27,306 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 04:58:27,454 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 04:58:27,878 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 2.959 seconds (JVM running for 4.102)
+2020-02-28 04:58:33,192 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:05:22,828 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 10468 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:05:22,831 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:05:25,448 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:05:25,601 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 05:05:26,084 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 3.844 seconds (JVM running for 5.168)
+2020-02-28 05:05:27,726 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:08:16,756 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 13012 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:08:16,759 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:08:18,657 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:08:18,755 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 05:08:19,079 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 2.782 seconds (JVM running for 3.913)
+2020-02-28 05:08:22,443 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:13:07,063 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 16152 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:13:07,064 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:13:09,048 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:13:09,149 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 05:13:09,499 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 2.91 seconds (JVM running for 4.072)
+2020-02-28 05:13:11,140 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:16:22,517 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 21572 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:16:22,519 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:16:24,382 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:16:24,483 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 05:16:24,848 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 2.813 seconds (JVM running for 3.942)
+2020-02-28 05:16:25,798 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:17:13,516 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 3540 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:17:13,518 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:17:15,437 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:17:15,546 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 05:17:15,890 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 2.88 seconds (JVM running for 3.977)
+2020-02-28 05:17:18,677 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:18:37,666 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 20200 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:18:37,668 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:18:39,579 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:18:39,682 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 05:18:40,001 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 2.803 seconds (JVM running for 3.928)
+2020-02-28 05:18:41,688 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:29:46,829 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 26952 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:29:46,829 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:29:48,912 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:29:49,022 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 05:29:49,369 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 3.05 seconds (JVM running for 4.35)
+2020-02-28 05:29:51,033 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:30:16,740 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:55] Starting MailTests on Genshushu with PID 24184 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:30:16,742 INFO [main] c.m.f.f.MailTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:30:18,818 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:30:18,954 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 05:30:19,421 INFO [main] c.m.f.f.MailTests [StartupInfoLogger.java:61] Started MailTests in 3.19 seconds (JVM running for 4.388)
+2020-02-28 05:30:21,885 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:48:27,936 INFO [restartedMain] c.m.f.f.FinalcommunityApplication [StartupInfoLogger.java:55] Starting FinalcommunityApplication on Genshushu with PID 25756 (D:\IDEAWorkSpace\finalcommunity\target\classes started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:48:27,940 INFO [restartedMain] c.m.f.f.FinalcommunityApplication [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:48:27,979 INFO [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [DeferredLog.java:225] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2020-02-28 05:48:27,980 INFO [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor [DeferredLog.java:225] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2020-02-28 05:48:28,974 INFO [restartedMain] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:92] Tomcat initialized with port(s): 8887 (http)
+2020-02-28 05:48:28,979 INFO [restartedMain] o.a.c.h.Http11NioProtocol [DirectJDKLog.java:173] Initializing ProtocolHandler ["http-nio-8887"]
+2020-02-28 05:48:28,980 INFO [restartedMain] o.a.c.c.StandardService [DirectJDKLog.java:173] Starting service [Tomcat]
+2020-02-28 05:48:28,980 INFO [restartedMain] o.a.c.c.StandardEngine [DirectJDKLog.java:173] Starting Servlet engine: [Apache Tomcat/9.0.30]
+2020-02-28 05:48:29,122 INFO [restartedMain] o.a.c.c.C.[.[.[/community] [DirectJDKLog.java:173] Initializing Spring embedded WebApplicationContext
+2020-02-28 05:48:29,122 INFO [restartedMain] o.s.w.c.ContextLoader [ServletWebServerApplicationContext.java:284] Root WebApplicationContext: initialization completed in 1142 ms
+2020-02-28 05:48:29,447 INFO [restartedMain] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:48:29,494 INFO [restartedMain] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-28 05:48:29,622 INFO [restartedMain] o.s.b.d.a.OptionalLiveReloadServer [OptionalLiveReloadServer.java:58] LiveReload server is running on port 35729
+2020-02-28 05:48:29,641 INFO [restartedMain] o.a.c.h.Http11NioProtocol [DirectJDKLog.java:173] Starting ProtocolHandler ["http-nio-8887"]
+2020-02-28 05:48:29,682 INFO [restartedMain] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:204] Tomcat started on port(s): 8887 (http) with context path '/community'
+2020-02-28 05:48:29,688 INFO [restartedMain] c.m.f.f.FinalcommunityApplication [StartupInfoLogger.java:61] Started FinalcommunityApplication in 2.192 seconds (JVM running for 3.344)
+2020-02-28 05:49:15,465 INFO [http-nio-8887-exec-1] o.a.c.c.C.[.[.[/community] [DirectJDKLog.java:173] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2020-02-28 05:49:15,466 INFO [http-nio-8887-exec-1] o.s.w.s.DispatcherServlet [FrameworkServlet.java:525] Initializing Servlet 'dispatcherServlet'
+2020-02-28 05:49:15,471 INFO [http-nio-8887-exec-1] o.s.w.s.DispatcherServlet [FrameworkServlet.java:547] Completed initialization in 5 ms
+2020-02-28 05:54:14,185 INFO [Thread-5] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:54:14,565 INFO [restartedMain] c.m.f.f.FinalcommunityApplication [StartupInfoLogger.java:55] Starting FinalcommunityApplication on Genshushu with PID 25756 (D:\IDEAWorkSpace\finalcommunity\target\classes started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-28 05:54:14,566 INFO [restartedMain] c.m.f.f.FinalcommunityApplication [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-28 05:54:14,842 INFO [restartedMain] o.s.b.w.e.t.TomcatWebServer [TomcatWebServer.java:92] Tomcat initialized with port(s): 8887 (http)
+2020-02-28 05:54:14,843 INFO [restartedMain] o.a.c.h.Http11NioProtocol [DirectJDKLog.java:173] Initializing ProtocolHandler ["http-nio-8887"]
+2020-02-28 05:54:14,843 INFO [restartedMain] o.a.c.c.StandardService [DirectJDKLog.java:173] Starting service [Tomcat]
+2020-02-28 05:54:14,844 INFO [restartedMain] o.a.c.c.StandardEngine [DirectJDKLog.java:173] Starting Servlet engine: [Apache Tomcat/9.0.30]
+2020-02-28 05:54:14,911 INFO [restartedMain] o.a.c.c.C.[.[.[/community] [DirectJDKLog.java:173] Initializing Spring embedded WebApplicationContext
+2020-02-28 05:54:14,911 INFO [restartedMain] o.s.w.c.ContextLoader [ServletWebServerApplicationContext.java:284] Root WebApplicationContext: initialization completed in 342 ms
+2020-02-28 05:54:15,046 INFO [restartedMain] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:54:15,055 INFO [restartedMain] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-02-28 05:54:15,056 INFO [restartedMain] o.a.c.c.StandardService [DirectJDKLog.java:173] Stopping service [Tomcat]
+2020-02-28 05:54:15,061 INFO [restartedMain] o.s.b.a.l.ConditionEvaluationReportLoggingListener [ConditionEvaluationReportLoggingListener.java:136] 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
