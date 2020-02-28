@@ -6,3 +6,9 @@
 com.mz.finalcommunity.finalcommunity.controller.AlphaController#getCookie(String)
 to {GET /hello/cookie/set}: There is already 'alphaController' bean method
 com.mz.finalcommunity.finalcommunity.controller.AlphaController#setCookie(HttpServletResponse) mapped.
+2020-02-28 20:24:28,339 WARN [http-nio-8887-exec-4] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [258] milliseconds.
+2020-02-28 20:26:33,168 WARN [http-nio-8887-exec-4] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [298] milliseconds.
+2020-02-28 21:47:19,701 WARN [http-nio-8887-exec-5] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [306] milliseconds.
+2020-02-28 21:52:27,982 WARN [http-nio-8887-exec-7] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [286] milliseconds.
+2020-02-28 21:53:17,911 WARN [HikariPool-1 housekeeper] c.z.h.p.HikariPool [HikariPool.java:779] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=53s635ms835µs93ns).
+2020-02-28 21:53:58,871 WARN [http-nio-8887-exec-2] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [285] milliseconds.
