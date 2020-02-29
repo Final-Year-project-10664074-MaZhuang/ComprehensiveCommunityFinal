@@ -136,7 +136,7 @@
                     </a>
                     <div class="media-body">
                         <h6 class="mt-0 mb-3">
-                            <a href="#" th:utext="${map.post.title}"></a>
+                            <a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.title}"></a>
                             <span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">Sticky</span>
                             <span class="badge badge-secondary bg-danger" th:if="${map.post.status==1}">The essence</span>
                         </h6>
@@ -152,7 +152,7 @@
                     </div>
                 </li>
             </ul>
-            <!-- 分页 -->
+            <!-- pagination -->
             <nav class="mt-5" th:if="${page.row>0}">
                 <ul class="pagination justify-content-center">
                     <li class="page-item">
