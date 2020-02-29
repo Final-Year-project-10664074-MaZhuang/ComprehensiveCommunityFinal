@@ -37,6 +37,15 @@ public class LoginController implements CommunityConstant {
     @Value("${server.servlet.context-path}")
     private String contextPath;
 
+    @Value("${github.client.id}")
+    private String clientId;
+
+    @Value("${github.client.secret}")
+    private String clientSecret;
+
+    @Value("${github.redirect.uri}")
+    private String redirectUri;
+
     @RequestMapping(path = "/register", method = RequestMethod.GET)
     public String getRegisterPage() {
         return "/site/register";
@@ -51,7 +60,7 @@ public class LoginController implements CommunityConstant {
     public String register(Model model, User user) {
         Map<String, Object> map = userService.register(user);
         if (map == null || map.isEmpty()) {
-            model.addAttribute("msg", "注册成功,我们已经向您的邮箱发送了一封激活邮件,请尽快激活!");
+            model.addAttribute("msg", "Registration is successful, we have sent an activation email to your email, please activate as soon as possible!");
             model.addAttribute("target", "/index");
             return "/site/operate-result";
         } else {
@@ -67,13 +76,13 @@ public class LoginController implements CommunityConstant {
     public String activation(Model model, @PathVariable("userId") int userId, @PathVariable("code") String code) {
         int result = userService.activation(userId, code);
         if (result == ACTIVATION_SUCCESS) {
-            model.addAttribute("msg", "激活成功,您的账号已经可以正常使用了!");
+            model.addAttribute("msg", "Activation is successful, your account is ready to use!");
             model.addAttribute("target", "/login");
         } else if (result == ACTIVATION_REPEAT) {
-            model.addAttribute("msg", "无效操作,该账号已经激活过了!");
+            model.addAttribute("msg", "Invalid operation, the account has been activated!");
             model.addAttribute("target", "/index");
         } else {
-            model.addAttribute("msg", "激活失败,您提供的激活码不正确!");
+            model.addAttribute("msg", "Activation failed, the activation code you provided is incorrect!");
             model.addAttribute("target", "/index");
         }
         return "/site/operate-result";
@@ -81,34 +90,34 @@ public class LoginController implements CommunityConstant {
 
     @RequestMapping(path = "/kaptcha", method = RequestMethod.GET)
     public void getKaptcha(HttpServletResponse response, HttpSession session) {
-        // 生成验证码
+        // Generate verification code
         String text = kaptchaProducer.createText();
         BufferedImage image = kaptchaProducer.createImage(text);
 
-        // 将验证码存入session
+        // Store verification code into session
         session.setAttribute("kaptcha", text);
 
-        // 将突图片输出给浏览器
+        // Output burst image to browser
         response.setContentType("image/png");
         try {
             OutputStream os = response.getOutputStream();
             ImageIO.write(image, "png", os);
         } catch (IOException e) {
-            logger.error("响应验证码失败:" + e.getMessage());
+            logger.error("Response verification code failed:" + e.getMessage());
         }
     }
 
     @RequestMapping(path = "/login", method = RequestMethod.POST)
     public String login(String username, String password, String code, boolean rememberme,
                         Model model, HttpSession session, HttpServletResponse response) {
-        // 检查验证码
+        // Check verification code
         String kaptcha = (String) session.getAttribute("kaptcha");
         if (StringUtils.isBlank(kaptcha) || StringUtils.isBlank(code) || !kaptcha.equalsIgnoreCase(code)) {
-            model.addAttribute("codeMsg", "验证码不正确!");
+            model.addAttribute("codeMsg", "Incorrect verification code!");
             return "/site/login";
         }
 
-        // 检查账号,密码
+        // Check account, password
         int expiredSeconds = rememberme ? REMEMBER_EXPIRED_SECONDS : DEFAULT_EXPIRED_SECONDS;
         Map<String, Object> map = userService.login(username, password, expiredSeconds);
         if (map.containsKey("ticket")) {
@@ -135,10 +144,10 @@ public class LoginController implements CommunityConstant {
                            @RequestParam(name = "state") String state,
                            HttpServletResponse response) {
         AccessToken accessToken = new AccessToken();
-        accessToken.setClient_id("c879b05c56023c6499fa");
-        accessToken.setClient_secret("774aaa7fb02e46fcba3faf9e844880c19ef4034f");
+        accessToken.setClient_id(clientId);
+        accessToken.setClient_secret(clientSecret);
         accessToken.setCode(code);
-        accessToken.setRedirect_uri("http://localhost:8887/community/callback");
+        accessToken.setRedirect_uri(redirectUri);
         accessToken.setState(state);
         String access_Token = userService.getAccessToken(accessToken);
         Map<String, Object> map = userService.getUser(access_Token);

@@ -190,18 +190,20 @@ public class UserService implements CommunityConstant {
                 user.setCreateTime(new Date());
                 userMapper.insertUser(user);
                 loginTicket.setUserId(user.getId());
-            }else {
+            } else {
                 loginTicket.setUserId(u.getId());
             }
             loginTicket.setTicket(CommunityUtil.generateUUID());
             loginTicket.setStatus(0);
-            loginTicket.setExpired(new Date(System.currentTimeMillis()+3600 * 24 * 100 * 1000));
+            loginTicket.setExpired(new Date(System.currentTimeMillis() + 3600 * 24 * 100 * 1000));
             loginTicketMapper.insertLoginTicket(loginTicket);
-            map.put("ticket",loginTicket.getTicket());
+            map.put("ticket", loginTicket.getTicket());
             return map;
 
-        } catch (IOException e) {
-        }
+        } catch (IOException e) { }
         return null;
+    }
+    public LoginTicket findLoginTicket(String ticket){
+        return loginTicketMapper.selectByTicket(ticket);
     }
 }

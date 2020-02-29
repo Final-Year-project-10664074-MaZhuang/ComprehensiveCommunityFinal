@@ -12,6 +12,6 @@ function send_letter() {
 }
 
 function delete_msg() {
-	// TODO 删除数据
+	// TODO delete data
 	$(this).parents(".media").remove();
 }
