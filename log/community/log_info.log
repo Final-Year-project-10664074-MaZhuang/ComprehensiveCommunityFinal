@@ -602,3 +602,9 @@
 2020-02-29 07:14:23,429 INFO [http-nio-8887-exec-1] o.s.w.s.DispatcherServlet [FrameworkServlet.java:547] Completed initialization in 4 ms
 2020-02-29 07:14:23,462 INFO [http-nio-8887-exec-1] c.z.h.HikariDataSource [HikariDataSource.java:110] HikariPool-1 - Starting...
 2020-02-29 07:14:23,543 INFO [http-nio-8887-exec-1] c.z.h.HikariDataSource [HikariDataSource.java:123] HikariPool-1 - Start completed.
+2020-02-29 18:09:10,646 INFO [main] c.m.f.f.SensitiveTests [StartupInfoLogger.java:55] Starting SensitiveTests on Genshushu with PID 22260 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-02-29 18:09:10,666 INFO [main] c.m.f.f.SensitiveTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-02-29 18:09:13,715 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-02-29 18:09:13,936 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-02-29 18:09:14,343 INFO [main] c.m.f.f.SensitiveTests [StartupInfoLogger.java:61] Started SensitiveTests in 4.473 seconds (JVM running for 6.64)
+2020-02-29 18:09:15,049 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
