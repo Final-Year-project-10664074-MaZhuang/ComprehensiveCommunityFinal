@@ -1,6 +1,7 @@
 package com.mz.finalcommunity.finalcommunity.controller;
 
 import com.google.code.kaptcha.Producer;
+import com.mz.finalcommunity.finalcommunity.entity.AccessToken;
 import com.mz.finalcommunity.finalcommunity.entity.User;
 import com.mz.finalcommunity.finalcommunity.service.UserService;
 import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
@@ -11,10 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 
 import javax.imageio.ImageIO;
 import javax.servlet.http.Cookie;
@@ -132,4 +130,27 @@ public class LoginController implements CommunityConstant {
         return "redirect:/login";
     }
 
+    @GetMapping("/callback")
+    public String callback(@RequestParam(name = "code") String code,
+                           @RequestParam(name = "state") String state,
+                           HttpServletResponse response) {
+        AccessToken accessToken = new AccessToken();
+        accessToken.setClient_id("c879b05c56023c6499fa");
+        accessToken.setClient_secret("774aaa7fb02e46fcba3faf9e844880c19ef4034f");
+        accessToken.setCode(code);
+        accessToken.setRedirect_uri("http://localhost:8887/community/callback");
+        accessToken.setState(state);
+        String access_Token = userService.getAccessToken(accessToken);
+        Map<String, Object> map = userService.getUser(access_Token);
+        if (map != null) {
+            if (map.containsKey("ticket")) {
+                Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
+                cookie.setPath(contextPath);
+                cookie.setMaxAge(3600 * 24 * 100 * 1000);
+                response.addCookie(cookie);
+                return "redirect:/index";
+            }
+        }
+        return "/site/login";
+    }
 }
