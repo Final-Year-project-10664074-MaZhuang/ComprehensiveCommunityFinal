@@ -2,8 +2,10 @@ package com.mz.finalcommunity.finalcommunity.service;
 
 import com.mz.finalcommunity.finalcommunity.dao.DiscussPostMapper;
 import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
+import com.mz.finalcommunity.finalcommunity.util.SensitiveFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
@@ -12,11 +14,29 @@ public class DiscussPostService {
     @Autowired
     private DiscussPostMapper discussPostMapper;
 
+    @Autowired
+    private SensitiveFilter sensitiveFilter;
+
     public List<DiscussPost> findDiscussPosts(int userId, int offset, int limit) {
         return discussPostMapper.selectDiscussPosts(userId, offset, limit);
     }
 
     public int findDiscussPostRows(int userId){
         return discussPostMapper.selectDiscussPostRows(userId);
+    }
+
+    public int addDiscussPost(DiscussPost post){
+        if(post==null){
+            throw new IllegalArgumentException("param can not be null");
+        }
+
+        //Escape HTML tags
+        post.setTitle(HtmlUtils.htmlEscape(post.getTitle()));
+        post.setContent(HtmlUtils.htmlEscape(post.getContent()));
+        //sensitive filter
+        post.setTitle(sensitiveFilter.filter(post.getTitle()));
+        post.setContent(sensitiveFilter.filter(post.getContent()));
+
+        return discussPostMapper.insertDiscussPost(post);
     }
 }
