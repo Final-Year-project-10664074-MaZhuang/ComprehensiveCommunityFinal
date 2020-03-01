@@ -1,5 +1,6 @@
 package com.mz.finalcommunity.finalcommunity.controller;
 
+import com.mz.finalcommunity.finalcommunity.annotation.LoginRequired;
 import com.mz.finalcommunity.finalcommunity.entity.Comment;
 import com.mz.finalcommunity.finalcommunity.service.CommentService;
 import com.mz.finalcommunity.finalcommunity.util.HostHolder;
@@ -20,6 +21,7 @@ public class CommentController {
     @Autowired
     private HostHolder hostHolder;
 
+    @LoginRequired
     @RequestMapping(path = "/add/{discussPostId}",method = RequestMethod.POST)
     public String addComment(@PathVariable("discussPostId") int discussPostId, Comment comment){
         comment.setUserId(hostHolder.getUserThreadLocal().getId());

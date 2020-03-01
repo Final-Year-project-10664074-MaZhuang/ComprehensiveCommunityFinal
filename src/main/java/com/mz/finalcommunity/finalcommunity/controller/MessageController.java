@@ -1,5 +1,6 @@
 package com.mz.finalcommunity.finalcommunity.controller;
 
+import com.mz.finalcommunity.finalcommunity.annotation.LoginRequired;
 import com.mz.finalcommunity.finalcommunity.entity.Message;
 import com.mz.finalcommunity.finalcommunity.entity.Page;
 import com.mz.finalcommunity.finalcommunity.entity.User;
@@ -41,6 +42,7 @@ public class MessageController {
     @Autowired
     private TemplateEngine templateEngine;
 
+    @LoginRequired
     //Private message list
     @RequestMapping(path = "/letter/list", method = RequestMethod.GET)
     public String getLetterList(Model model, Page page) {
@@ -74,6 +76,7 @@ public class MessageController {
         return "/site/letter";
     }
 
+    @LoginRequired
     @RequestMapping(path = "/letter/detail/{conversationId}", method = RequestMethod.GET)
     public String getLetterDetail(@PathVariable("conversationId") String conversationId, Page page, Model model) {
         //comment pagination
