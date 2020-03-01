@@ -856,3 +856,51 @@
 2020-03-01 07:04:29,498 INFO [http-nio-8887-exec-7] c.m.f.f.a.ServiceLogAspect [ServiceLogAspect.java:35] User[0:0:0:0:0:0:0:1], At[01/03/2020 07:04:29], Visit[com.mz.finalcommunity.finalcommunity.service.UserService.findUserById].
 2020-03-01 07:04:29,515 INFO [http-nio-8887-exec-5] c.m.f.f.a.ServiceLogAspect [ServiceLogAspect.java:35] User[0:0:0:0:0:0:0:1], At[01/03/2020 07:04:29], Visit[com.mz.finalcommunity.finalcommunity.service.UserService.findLoginTicket].
 2020-03-01 07:04:29,520 INFO [http-nio-8887-exec-5] c.m.f.f.a.ServiceLogAspect [ServiceLogAspect.java:35] User[0:0:0:0:0:0:0:1], At[01/03/2020 07:04:29], Visit[com.mz.finalcommunity.finalcommunity.service.UserService.findUserById].
+2020-03-01 08:06:58,117 INFO [main] c.m.f.f.RedisTests [StartupInfoLogger.java:55] Starting RedisTests on Genshushu with PID 26804 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-03-01 08:06:58,120 INFO [main] c.m.f.f.RedisTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-03-01 08:06:59,421 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:249] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-03-01 08:06:59,425 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:127] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-03-01 08:06:59,467 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:187] Finished Spring Data repository scanning in 23ms. Found 0 Redis repository interfaces.
+2020-03-01 08:07:00,096 INFO [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [PostProcessorRegistrationDelegate.java:330] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-01 08:07:02,962 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-01 08:07:03,139 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-03-01 08:07:03,844 INFO [main] c.m.f.f.RedisTests [StartupInfoLogger.java:61] Started RedisTests in 6.584 seconds (JVM running for 8.794)
+2020-03-01 08:07:04,756 INFO [main] i.l.c.EpollProvider [EpollProvider.java:68] Starting without optional epoll library
+2020-03-01 08:07:04,759 INFO [main] i.l.c.KqueueProvider [KqueueProvider.java:70] Starting without optional kqueue library
+2020-03-01 08:07:06,139 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-03-01 08:10:16,206 INFO [main] c.m.f.f.RedisTests [StartupInfoLogger.java:55] Starting RedisTests on Genshushu with PID 3020 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-03-01 08:10:16,209 INFO [main] c.m.f.f.RedisTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-03-01 08:10:17,659 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:249] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-03-01 08:10:17,665 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:127] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-03-01 08:10:17,716 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:187] Finished Spring Data repository scanning in 26ms. Found 0 Redis repository interfaces.
+2020-03-01 08:10:18,579 INFO [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [PostProcessorRegistrationDelegate.java:330] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-01 08:10:21,398 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-01 08:10:21,607 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-03-01 08:10:22,271 INFO [main] c.m.f.f.RedisTests [StartupInfoLogger.java:61] Started RedisTests in 6.82 seconds (JVM running for 8.951)
+2020-03-01 08:10:23,146 INFO [main] i.l.c.EpollProvider [EpollProvider.java:68] Starting without optional epoll library
+2020-03-01 08:10:23,152 INFO [main] i.l.c.KqueueProvider [KqueueProvider.java:70] Starting without optional kqueue library
+2020-03-01 08:10:24,450 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-03-01 08:14:13,372 INFO [main] c.m.f.f.RedisTests [StartupInfoLogger.java:55] Starting RedisTests on Genshushu with PID 892 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-03-01 08:14:13,376 INFO [main] c.m.f.f.RedisTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-03-01 08:14:14,975 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:249] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-03-01 08:14:14,978 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:127] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-03-01 08:14:15,019 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:187] Finished Spring Data repository scanning in 20ms. Found 0 Redis repository interfaces.
+2020-03-01 08:14:15,647 INFO [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [PostProcessorRegistrationDelegate.java:330] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-01 08:14:18,638 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-01 08:14:18,915 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-03-01 08:14:19,697 INFO [main] c.m.f.f.RedisTests [StartupInfoLogger.java:61] Started RedisTests in 7.073 seconds (JVM running for 8.49)
+2020-03-01 08:14:20,668 INFO [main] i.l.c.EpollProvider [EpollProvider.java:68] Starting without optional epoll library
+2020-03-01 08:14:20,671 INFO [main] i.l.c.KqueueProvider [KqueueProvider.java:70] Starting without optional kqueue library
+2020-03-01 08:14:22,118 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
+2020-03-01 08:17:37,106 INFO [main] c.m.f.f.RedisTests [StartupInfoLogger.java:55] Starting RedisTests on Genshushu with PID 4500 (started by 26862 in D:\IDEAWorkSpace\finalcommunity)
+2020-03-01 08:17:37,109 INFO [main] c.m.f.f.RedisTests [SpringApplication.java:651] No active profile set, falling back to default profiles: default
+2020-03-01 08:17:38,608 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:249] Multiple Spring Data modules found, entering strict repository configuration mode!
+2020-03-01 08:17:38,612 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:127] Bootstrapping Spring Data Redis repositories in DEFAULT mode.
+2020-03-01 08:17:38,676 INFO [main] o.s.d.r.c.RepositoryConfigurationDelegate [RepositoryConfigurationDelegate.java:187] Finished Spring Data repository scanning in 40ms. Found 0 Redis repository interfaces.
+2020-03-01 08:17:39,321 INFO [main] o.s.c.s.PostProcessorRegistrationDelegate$BeanPostProcessorChecker [PostProcessorRegistrationDelegate.java:330] Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2020-03-01 08:17:42,694 INFO [main] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:171] Initializing ExecutorService 'applicationTaskExecutor'
+2020-03-01 08:17:42,907 INFO [main] o.s.b.a.w.s.WelcomePageHandlerMapping [WelcomePageHandlerMapping.java:58] Adding welcome page template: index
+2020-03-01 08:17:43,659 INFO [main] c.m.f.f.RedisTests [StartupInfoLogger.java:61] Started RedisTests in 7.473 seconds (JVM running for 9.711)
+2020-03-01 08:17:44,554 INFO [main] i.l.c.EpollProvider [EpollProvider.java:68] Starting without optional epoll library
+2020-03-01 08:17:44,556 INFO [main] i.l.c.KqueueProvider [KqueueProvider.java:70] Starting without optional kqueue library
+2020-03-01 08:17:45,852 INFO [SpringContextShutdownHook] o.s.s.c.ThreadPoolTaskExecutor [ExecutorConfigurationSupport.java:208] Shutting down ExecutorService 'applicationTaskExecutor'
