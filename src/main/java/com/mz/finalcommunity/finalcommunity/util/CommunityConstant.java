@@ -27,4 +27,13 @@ public interface CommunityConstant {
      */
     int REMEMBER_EXPIRED_SECONDS = 3600 * 24 * 100;
 
+    /**
+     * article
+     */
+    int ENTITY_TYPE_POST = 1;
+
+    /**
+     * comment
+     */
+    int ENTITY_TYPE_COMMENT = 2;
 }
