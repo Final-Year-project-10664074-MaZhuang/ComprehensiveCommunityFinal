@@ -2,6 +2,7 @@ package com.mz.finalcommunity.finalcommunity.controller;
 
 import com.mz.finalcommunity.finalcommunity.annotation.LoginRequired;
 import com.mz.finalcommunity.finalcommunity.entity.User;
+import com.mz.finalcommunity.finalcommunity.service.LikeService;
 import com.mz.finalcommunity.finalcommunity.service.UserService;
 import com.mz.finalcommunity.finalcommunity.util.CommunityUtil;
 import com.mz.finalcommunity.finalcommunity.util.HostHolder;
@@ -37,6 +38,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private HostHolder hostHolder;
+    @Autowired
+    private LikeService likeService;
     @LoginRequired
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
     public String getSettingPage() {
@@ -91,5 +94,23 @@ public class UserController {
         } catch (IOException e) {
             logger.error("Failed to read avatar", e.getMessage());
         }
+    }
+
+    //profile
+    @RequestMapping(path = "profile/{userId}",method = RequestMethod.GET)
+    public String getProfilePage(@PathVariable("userId") int userId,Model model){
+        User user = userService.findUserById(userId);
+        if(user==null){
+            throw new RuntimeException("This user does not exist");
+        }
+
+        //user information
+        model.addAttribute("user",user);
+
+        //likes count
+        int LikeCount = likeService.findUserLikeCount(userId);
+        model.addAttribute("likeCount",LikeCount);
+
+        return "/site/profile";
     }
 }

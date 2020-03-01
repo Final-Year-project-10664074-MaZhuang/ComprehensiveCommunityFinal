@@ -47,7 +47,7 @@
                                      style="width:30px;"/>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item text-center" href="site/profile.html">Your profile</a>
+                                <a class="dropdown-item text-center" th:href="@{|/user/profile/${loginUser.id}|}">Your profile</a>
                                 <a class="dropdown-item text-center" th:href="@{/user/setting}">Account Settings</a>
                                 <a class="dropdown-item text-center" th:href="@{/logout}">Sign out</a>
                                 <div class="dropdown-divider"></div>
@@ -130,7 +130,7 @@
             <!-- List of posts -->
             <ul class="list-unstyled">
                 <li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${discussPosts}">
-                    <a href="site/profile.html">
+                    <a th:href="@{|/user/profile/${map.user.id}|}">
                         <img th:src="${map.user.headerUrl}" class="mr-4 rounded-circle" alt="Profile Picture"
                              style="width:50px;height:50px;">
                     </a>
