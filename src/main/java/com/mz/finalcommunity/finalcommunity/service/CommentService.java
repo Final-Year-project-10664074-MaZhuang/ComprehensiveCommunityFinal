@@ -2,21 +2,51 @@ package com.mz.finalcommunity.finalcommunity.service;
 
 import com.mz.finalcommunity.finalcommunity.dao.CommentMapper;
 import com.mz.finalcommunity.finalcommunity.entity.Comment;
+import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
+import com.mz.finalcommunity.finalcommunity.util.SensitiveFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.List;
 
 @Service
-public class CommentService {
+public class CommentService implements CommunityConstant {
     @Autowired
     private CommentMapper commentMapper;
 
-    public List<Comment> findCommentsByEntity(int entityType,int entityId,int offset,int limit){
-        return commentMapper.selectCommentsByEntity(entityType,entityId,offset,limit);
+    @Autowired
+    private SensitiveFilter sensitiveFilter;
+
+    @Autowired
+    private DiscussPostService discussPostService;
+
+    public List<Comment> findCommentsByEntity(int entityType, int entityId, int offset, int limit) {
+        return commentMapper.selectCommentsByEntity(entityType, entityId, offset, limit);
     }
 
-    public int findCommentCount(int entityType,int entityId){
-        return commentMapper.selectCountByEntity(entityType,entityId);
+    public int findCommentCount(int entityType, int entityId) {
+        return commentMapper.selectCountByEntity(entityType, entityId);
+    }
+
+    @Transactional(isolation = Isolation.READ_COMMITTED, propagation = Propagation.REQUIRED)
+    public int addComment(Comment comment) {
+        if (comment == null) {
+            throw new IllegalArgumentException("Parameter cannot be empty");
+        }
+        //add comment
+        comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
+        comment.setContent(sensitiveFilter.filter(comment.getContent()));
+        int rows = commentMapper.insertComment(comment);
+
+        //update comment count
+        if (comment.getEntityType() == ENTITY_TYPE_POST) {
+            int count = commentMapper.selectCountByEntity(comment.getEntityType(), comment.getEntityId());
+            discussPostService.updateCommentCount(comment.getEntityId(), count);
+        }
+        return rows;
     }
 }
