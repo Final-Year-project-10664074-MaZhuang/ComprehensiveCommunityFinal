@@ -31,7 +31,7 @@
                             <a class="nav-link" th:href="@{/index}">HomePage</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser!=null}">
-                            <a class="nav-link position-relative" href="site/letter.html">Message<span
+                            <a class="nav-link position-relative" th:href="@{/letter/list}">Message<span
                                     class="badge badge-danger">12</span></a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
@@ -142,7 +142,7 @@
                         </h6>
                         <div class="text-muted font-size-12">
                             <u class="mr-3" th:utext="${map.user.username}"></u> posted on <b
-                                th:text="${map.post.createTime}">2019-04-15 15:32:18</b>
+                                th:text="${#dates.format(map.post.createTime,'dd-MM-yyyy HH:mm:ss')}">2019-04-15 15:32:18</b>
                             <ul class="d-inline float-right">
                                 <li class="d-inline ml-2">like 11</li>
                                 <li class="d-inline ml-2">|</li>

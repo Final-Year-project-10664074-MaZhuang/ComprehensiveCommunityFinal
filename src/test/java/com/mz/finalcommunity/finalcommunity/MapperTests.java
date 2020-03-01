@@ -1,8 +1,10 @@
 package com.mz.finalcommunity.finalcommunity;
 
 import com.mz.finalcommunity.finalcommunity.dao.DiscussPostMapper;
+import com.mz.finalcommunity.finalcommunity.dao.MessageMapper;
 import com.mz.finalcommunity.finalcommunity.dao.UserMapper;
 import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
+import com.mz.finalcommunity.finalcommunity.entity.Message;
 import com.mz.finalcommunity.finalcommunity.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,8 @@ public class MapperTests {
     private UserMapper userMapper;
     @Autowired
     private DiscussPostMapper discussPostMapper;
+    @Autowired
+    private MessageMapper messageMapper;
 
     @Test
     public void testSelectUser(){
@@ -65,5 +69,27 @@ public class MapperTests {
 
         int rows = discussPostMapper.selectDiscussPostRows(149);
         System.out.println(rows);
+    }
+
+    @Test
+    public void testSelectLetters(){
+        List<Message> list = messageMapper.selectConversations(111, 0, 20);
+        for (Message message : list) {
+            System.out.println(message);
+        }
+
+        int count = messageMapper.selectConversationCount(111);
+        System.out.println(count);
+
+        List<Message> list1 = messageMapper.selectLetters("111_112", 0, 10);
+        for (Message message : list1) {
+            System.out.println(message);
+        }
+
+        int count1 = messageMapper.selectLetterCount("111_112");
+        System.out.println(count1);
+
+        int i = messageMapper.selectLetterUnread(131, "111_131");
+        System.out.println(i);
     }
 }
