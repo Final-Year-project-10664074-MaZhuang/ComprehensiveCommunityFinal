@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
+    <title>Received new message</title>
+</head>
+<body>
+	<div>
+		<p>
+			Hello, <b th:text="${targetName}"></b>
+		</p>
+		<p>
+			You have received a new message from <b th:text="${fromName}"></b>,
+			please click the
+			<a th:href="${url}">link</a> for details.
+			<br>
+			<hr>
+			<br>
+			<i th:text="${fromName}"></i>&nbsp;says:&nbsp;<br><b th:text="${content}"></b>
+			<hr>
+		</p>
+	</div>
+</body>
+</html>
