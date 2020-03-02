@@ -36,4 +36,9 @@ public interface CommunityConstant {
      * comment
      */
     int ENTITY_TYPE_COMMENT = 2;
+
+    /**
+     * user
+     */
+    int ENTITY_TYPE_USER = 3;
 }

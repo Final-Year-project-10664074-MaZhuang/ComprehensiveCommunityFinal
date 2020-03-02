@@ -1,5 +1,6 @@
 package com.mz.finalcommunity.finalcommunity.controller;
 
+import com.mz.finalcommunity.finalcommunity.annotation.LoginRequired;
 import com.mz.finalcommunity.finalcommunity.entity.User;
 import com.mz.finalcommunity.finalcommunity.service.LikeService;
 import com.mz.finalcommunity.finalcommunity.util.CommunityUtil;
@@ -20,6 +21,7 @@ public class LikeController {
     @Autowired
     private HostHolder hostHolder;
 
+    @LoginRequired
     @RequestMapping(path = "/like", method = RequestMethod.POST)
     @ResponseBody
     public String like(int entityType, int entityId,int entityUserId) {

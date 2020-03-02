@@ -2,8 +2,10 @@ package com.mz.finalcommunity.finalcommunity.controller;
 
 import com.mz.finalcommunity.finalcommunity.annotation.LoginRequired;
 import com.mz.finalcommunity.finalcommunity.entity.User;
+import com.mz.finalcommunity.finalcommunity.service.FollowService;
 import com.mz.finalcommunity.finalcommunity.service.LikeService;
 import com.mz.finalcommunity.finalcommunity.service.UserService;
+import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
 import com.mz.finalcommunity.finalcommunity.util.CommunityUtil;
 import com.mz.finalcommunity.finalcommunity.util.HostHolder;
 import org.apache.commons.lang3.StringUtils;
@@ -26,25 +28,36 @@ import java.io.IOException;
 
 @Controller
 @RequestMapping("/user")
-public class UserController {
+public class UserController implements CommunityConstant {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+
     @Value("${community.path.upload}")
     private String uploadPath;
+
     @Value("${community.path.domain}")
     private String domain;
+
     @Value("${server.servlet.context-path}")
     private String contextPath;
+
     @Autowired
     private UserService userService;
+
     @Autowired
     private HostHolder hostHolder;
+
     @Autowired
     private LikeService likeService;
+
+    @Autowired
+    private FollowService followService;
+
     @LoginRequired
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
     public String getSettingPage() {
         return "/site/setting";
     }
+
     @LoginRequired
     @RequestMapping(path = "/upload", method = RequestMethod.POST)
     public String uoloadHeader(MultipartFile headerImage, Model model) {
@@ -110,6 +123,19 @@ public class UserController {
         //likes count
         int LikeCount = likeService.findUserLikeCount(userId);
         model.addAttribute("likeCount",LikeCount);
+
+        //follow count
+        long followeeCount = followService.findFolloweeCount(userId,ENTITY_TYPE_USER);
+        model.addAttribute("followeeCount",followeeCount);
+        //fans count
+        long followerCount = followService.findFollowerCount(ENTITY_TYPE_USER,userId);
+        model.addAttribute("followerCount",followerCount);
+        //whether follow
+        boolean hasFollowed =false;
+        if(hostHolder.getUserThreadLocal()!=null){
+            hasFollowed = followService.hasFollowed(hostHolder.getUserThreadLocal().getId(),ENTITY_TYPE_USER,userId);
+        }
+        model.addAttribute("hasFollowed",hasFollowed);
 
         return "/site/profile";
     }
