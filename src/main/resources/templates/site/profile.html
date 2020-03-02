@@ -50,8 +50,8 @@
 							</span>
 						</div>
 						<div class="text-muted mt-3 mb-5">
-							<span>Followed <a class="text-primary" href="followee.html" th:text="${followeeCount}">5</a> people</span>
-							<span class="ml-4">Followed by <a class="text-primary" href="follower.html" th:text="${followerCount}">123</a> people</span>
+							<span>Followed <a class="text-primary" th:href="@{|/followees/${user.id}|}" th:text="${followeeCount}">5</a> people</span>
+							<span class="ml-4">Followed by <a class="text-primary" th:href="@{|/followers/${user.id}|}" th:text="${followerCount}">123</a> people</span>
 							<span class="ml-4">Got <i class="text-danger" th:text="${likeCount}">87</i> likes</span>
 						</div>
 					</div>
