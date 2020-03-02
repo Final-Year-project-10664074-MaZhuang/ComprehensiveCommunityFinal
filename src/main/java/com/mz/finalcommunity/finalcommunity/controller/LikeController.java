@@ -1,9 +1,14 @@
 package com.mz.finalcommunity.finalcommunity.controller;
 
 import com.mz.finalcommunity.finalcommunity.annotation.LoginRequired;
+import com.mz.finalcommunity.finalcommunity.entity.Comment;
+import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
 import com.mz.finalcommunity.finalcommunity.entity.User;
+import com.mz.finalcommunity.finalcommunity.event.EventProducer;
 import com.mz.finalcommunity.finalcommunity.service.LikeService;
+import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
 import com.mz.finalcommunity.finalcommunity.util.CommunityUtil;
+import com.mz.finalcommunity.finalcommunity.util.Event;
 import com.mz.finalcommunity.finalcommunity.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,16 +20,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
-public class LikeController {
+public class LikeController implements CommunityConstant {
     @Autowired
     private LikeService likeService;
     @Autowired
     private HostHolder hostHolder;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @LoginRequired
     @RequestMapping(path = "/like", method = RequestMethod.POST)
     @ResponseBody
-    public String like(int entityType, int entityId,int entityUserId) {
+    public String like(int entityType, int entityId,int entityUserId, int postId) {
         User user = hostHolder.getUserThreadLocal();
         //likes
         likeService.like(user.getId(), entityType, entityId,entityUserId);
@@ -36,6 +44,18 @@ public class LikeController {
         Map<String, Object> map = new HashMap<>();
         map.put("likeCount", likeCount);
         map.put("likeStatus", likeStatus);
+
+        ////Departure like event
+        if(likeStatus==1){
+            Event event = new Event()
+                    .setTopic(TOPIC_LIKE)
+                    .setUserId(hostHolder.getUserThreadLocal().getId())
+                    .setEntityType(entityType)
+                    .setEntityId(entityId)
+                    .setEntityUserId(entityUserId)
+                    .setData("postId",postId);
+            eventProducer.fireEvent(event);
+        }
 
         return CommunityUtil.getJSONString(0, null, map);
     }

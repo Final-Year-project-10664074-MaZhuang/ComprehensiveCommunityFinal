@@ -2,7 +2,12 @@ package com.mz.finalcommunity.finalcommunity.controller;
 
 import com.mz.finalcommunity.finalcommunity.annotation.LoginRequired;
 import com.mz.finalcommunity.finalcommunity.entity.Comment;
+import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
+import com.mz.finalcommunity.finalcommunity.event.EventProducer;
 import com.mz.finalcommunity.finalcommunity.service.CommentService;
+import com.mz.finalcommunity.finalcommunity.service.DiscussPostService;
+import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
+import com.mz.finalcommunity.finalcommunity.util.Event;
 import com.mz.finalcommunity.finalcommunity.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,12 +19,18 @@ import java.util.Date;
 
 @Controller
 @RequestMapping("/comment")
-public class CommentController {
+public class CommentController implements CommunityConstant {
     @Autowired
     private CommentService commentService;
 
     @Autowired
     private HostHolder hostHolder;
+
+    @Autowired
+    private EventProducer eventProducer;
+
+    @Autowired
+    protected DiscussPostService discussPostService;
 
     @LoginRequired
     @RequestMapping(path = "/add/{discussPostId}",method = RequestMethod.POST)
@@ -29,6 +40,22 @@ public class CommentController {
         comment.setCreateTime(new Date());
 
         commentService.addComment(comment);
+
+        //Departure review event
+        Event event = new Event()
+                .setTopic(TOPIC_COMMENT)
+                .setUserId(hostHolder.getUserThreadLocal().getId())
+                .setEntityType(comment.getEntityType())
+                .setEntityId(comment.getEntityId())
+                .setData("postId",discussPostId);
+        if (comment.getEntityType()==ENTITY_TYPE_POST){
+            DiscussPost target = discussPostService.findDiscussPostById(comment.getEntityId());
+            event.setEntityUserId(target.getUserId());
+        }else if(comment.getEntityType()==ENTITY_TYPE_COMMENT) {
+            Comment target = commentService.findCommentById(comment.getEntityId());
+            event.setEntityUserId(target.getUserId());
+        }
+        eventProducer.fireEvent(event);
 
         return "redirect:/discuss/detail/"+discussPostId;
     }

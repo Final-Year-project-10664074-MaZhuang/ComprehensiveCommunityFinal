@@ -3,10 +3,12 @@ package com.mz.finalcommunity.finalcommunity.controller;
 import com.mz.finalcommunity.finalcommunity.annotation.LoginRequired;
 import com.mz.finalcommunity.finalcommunity.entity.Page;
 import com.mz.finalcommunity.finalcommunity.entity.User;
+import com.mz.finalcommunity.finalcommunity.event.EventProducer;
 import com.mz.finalcommunity.finalcommunity.service.FollowService;
 import com.mz.finalcommunity.finalcommunity.service.UserService;
 import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
 import com.mz.finalcommunity.finalcommunity.util.CommunityUtil;
+import com.mz.finalcommunity.finalcommunity.util.Event;
 import com.mz.finalcommunity.finalcommunity.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,9 @@ public class FollowController implements CommunityConstant {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @LoginRequired
     @RequestMapping(path = "/follow", method = RequestMethod.POST)
     @ResponseBody
@@ -37,6 +42,16 @@ public class FollowController implements CommunityConstant {
         User user = hostHolder.getUserThreadLocal();
 
         followService.follow(user.getId(), entityType, entityId);
+
+        ////Departure follow event
+        Event event = new Event()
+                .setTopic(TOPIC_FOLLOW)
+                .setUserId(hostHolder.getUserThreadLocal().getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+        eventProducer.fireEvent(event);
+
         return CommunityUtil.getJSONString(0, "Followed");
     }
 

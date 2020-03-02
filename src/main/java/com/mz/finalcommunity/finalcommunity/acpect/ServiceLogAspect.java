@@ -28,6 +28,9 @@ public class ServiceLogAspect {
     public void before(JoinPoint joinPoint){
         // user[1.2.3.4], at[xxx], visit[com.mz.finalcommunity.finalcommunity.service.xxx()].
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if (attributes==null){
+            return;
+        }
         HttpServletRequest request = attributes.getRequest();
         String ip = request.getRemoteHost();
         String now = new SimpleDateFormat("dd/MM/yyy HH:mm:ss").format(new Date());
