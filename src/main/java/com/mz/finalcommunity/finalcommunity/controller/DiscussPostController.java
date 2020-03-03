@@ -5,12 +5,14 @@ import com.mz.finalcommunity.finalcommunity.entity.Comment;
 import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
 import com.mz.finalcommunity.finalcommunity.entity.Page;
 import com.mz.finalcommunity.finalcommunity.entity.User;
+import com.mz.finalcommunity.finalcommunity.event.EventProducer;
 import com.mz.finalcommunity.finalcommunity.service.CommentService;
 import com.mz.finalcommunity.finalcommunity.service.DiscussPostService;
 import com.mz.finalcommunity.finalcommunity.service.LikeService;
 import com.mz.finalcommunity.finalcommunity.service.UserService;
 import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
 import com.mz.finalcommunity.finalcommunity.util.CommunityUtil;
+import com.mz.finalcommunity.finalcommunity.util.Event;
 import com.mz.finalcommunity.finalcommunity.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -40,6 +42,9 @@ public class DiscussPostController implements CommunityConstant {
     @Autowired
     private LikeService likeService;
 
+    @Autowired
+    private EventProducer eventProducer;
+
     @LoginRequired
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
@@ -55,7 +60,14 @@ public class DiscussPostController implements CommunityConstant {
         discussPost.setCreateTime(new Date());
         discussPostService.addDiscussPost(discussPost);
 
-        //todo error
+        //Trigger post event
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(user.getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(discussPost.getId());
+        eventProducer.fireEvent(event);
+
         return CommunityUtil.getJSONString(0, "Published successfully!!");
     }
 

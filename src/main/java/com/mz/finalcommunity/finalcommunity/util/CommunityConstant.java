@@ -58,7 +58,13 @@ public interface CommunityConstant {
     String TOPIC_FOLLOW = "follow";
 
     /**
+     * topic:publish
+     */
+    String TOPIC_PUBLISH = "publish";
+
+    /**
      * System user ID
      */
     int SYSTEM_USERID = 1;
+
 }

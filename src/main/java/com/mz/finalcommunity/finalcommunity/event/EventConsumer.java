@@ -1,7 +1,10 @@
 package com.mz.finalcommunity.finalcommunity.event;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
 import com.mz.finalcommunity.finalcommunity.entity.Message;
+import com.mz.finalcommunity.finalcommunity.service.DiscussPostService;
+import com.mz.finalcommunity.finalcommunity.service.ElasticsearchService;
 import com.mz.finalcommunity.finalcommunity.service.MessageService;
 import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
 import com.mz.finalcommunity.finalcommunity.util.Event;
@@ -22,6 +25,12 @@ public class EventConsumer implements CommunityConstant {
 
     @Autowired
     private MessageService messageService;
+
+    @Autowired
+    private DiscussPostService discussPostService;
+
+    @Autowired
+    private ElasticsearchService elasticsearchService;
 
     @KafkaListener(topics = {TOPIC_COMMENT,TOPIC_LIKE,TOPIC_FOLLOW})
     public void handleCommentMessage(ConsumerRecord record){
@@ -56,5 +65,24 @@ public class EventConsumer implements CommunityConstant {
 
         message.setContent(JSONObject.toJSONString(content));
         messageService.addMessage(message);
+    }
+
+    //Consumer Post Article Event
+    @KafkaListener(topics = {TOPIC_PUBLISH})
+    public void handlePublishMessage(ConsumerRecord record){
+        if(record==null||record.value()==null){
+            logger.error("The content of the message is empty");
+            return;
+        }
+
+        Event event = JSONObject.parseObject(record.value().toString(),Event.class);
+        if(event==null){
+            logger.error("Message format error");
+            return;
+        }
+
+        DiscussPost post = discussPostService.findDiscussPostById(event.getEntityId());
+        elasticsearchService.saveDiscussPost(post);
+
     }
 }
