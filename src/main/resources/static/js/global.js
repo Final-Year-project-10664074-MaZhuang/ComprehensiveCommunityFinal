@@ -23,7 +23,6 @@ window.alert = function(message) {
 			'</div>'
 		);
 	}
-	console.log(title);
     var h = $(".alert-box").height();
 	var y = h / 2 - 100;
 	if(h > 600) y -= 100;

@@ -63,6 +63,11 @@ public interface CommunityConstant {
     String TOPIC_PUBLISH = "publish";
 
     /**
+     * topic: delete publish
+     */
+    String TOPIC_DELETE = "delete";
+
+    /**
      * System user ID
      */
     int SYSTEM_USERID = 1;
