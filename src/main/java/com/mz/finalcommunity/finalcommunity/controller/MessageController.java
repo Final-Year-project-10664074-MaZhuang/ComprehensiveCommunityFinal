@@ -177,8 +177,8 @@ public class MessageController implements CommunityConstant {
 
         //Query comment notice
         Message message = messageService.findLatestNotice(user.getId(),TOPIC_COMMENT);
-        Map<String ,Object> messageVO = new HashMap<>();
         if(message!=null){
+            Map<String ,Object> messageVO = new HashMap<>();
             messageVO.put("message",message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -193,13 +193,13 @@ public class MessageController implements CommunityConstant {
 
             int unRead = messageService.findNoticeUnread(user.getId(),TOPIC_COMMENT);
             messageVO.put("unread",unRead);
+            model.addAttribute("commentNotice",messageVO);
         }
-        model.addAttribute("commentNotice",messageVO);
 
         //query likes notice
         message = messageService.findLatestNotice(user.getId(),TOPIC_LIKE);
-        messageVO = new HashMap<>();
         if(message!=null){
+            Map<String ,Object> messageVO = new HashMap<>();
             messageVO.put("message",message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -214,12 +214,12 @@ public class MessageController implements CommunityConstant {
 
             int unRead = messageService.findNoticeUnread(user.getId(),TOPIC_LIKE);
             messageVO.put("unread",unRead);
+            model.addAttribute("likeNotice",messageVO);
         }
-        model.addAttribute("likeNotice",messageVO);
         //query follow notice
         message = messageService.findLatestNotice(user.getId(),TOPIC_FOLLOW);
-        messageVO = new HashMap<>();
         if(message!=null){
+            Map<String ,Object> messageVO = new HashMap<>();
             messageVO.put("message",message);
 
             String content = HtmlUtils.htmlUnescape(message.getContent());
@@ -233,8 +233,9 @@ public class MessageController implements CommunityConstant {
 
             int unRead = messageService.findNoticeUnread(user.getId(),TOPIC_FOLLOW);
             messageVO.put("unread",unRead);
+            model.addAttribute("followNotice",messageVO);
         }
-        model.addAttribute("followNotice",messageVO);
+
 
         //Query unread message count
         int letterUnreadCount = messageService.findLetterUnread(user.getId(),null);

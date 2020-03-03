@@ -20,3 +20,8 @@
 2020-03-03 03:35:54,582 WARN [HikariPool-1 housekeeper] c.z.h.p.HikariPool [HikariPool.java:779] HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m27s480ms872µs744ns).
 2020-03-03 03:35:54,637 WARN [http-nio-8887-exec-7] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java:199] Resolved [java.lang.IllegalArgumentException: [multi_match] requires query value]
 2020-03-03 03:38:14,236 WARN [http-nio-8887-exec-3] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver [AbstractHandlerExceptionResolver.java:199] Resolved [java.lang.IllegalArgumentException: [multi_match] requires query value]
+2020-03-03 20:49:35,068 WARN [http-nio-8887-exec-1] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [254] milliseconds.
+2020-03-03 21:48:19,989 WARN [http-nio-8887-exec-2] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [265] milliseconds.
+2020-03-03 21:59:50,634 WARN [http-nio-8887-exec-1] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [265] milliseconds.
+2020-03-03 22:00:54,039 WARN [http-nio-8887-exec-10] o.s.w.s.m.s.DefaultHandlerExceptionResolver [AbstractHandlerExceptionResolver.java:199] Resolved [org.springframework.web.HttpRequestMethodNotSupportedException: Request method 'GET' not supported]
+2020-03-03 22:04:45,028 WARN [http-nio-8887-exec-2] o.a.c.u.SessionIdGeneratorBase [DirectJDKLog.java:173] Creation of SecureRandom instance for session ID generation using [SHA1PRNG] took [331] milliseconds.

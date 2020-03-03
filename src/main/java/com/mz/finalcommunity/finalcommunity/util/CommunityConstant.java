@@ -66,5 +66,17 @@ public interface CommunityConstant {
      * System user ID
      */
     int SYSTEM_USERID = 1;
+    /**
+     * Authority: user
+     */
+    String AUTHORITY_USER = "user";
+    /**
+     * Authority: admin
+     */
+    String AUTHORITY_ADMIN = "admin";
+    /**
+     * Authority: publisher
+     */
+    String AUTHORITY_MODERATOR = "moderator";
 
 }
