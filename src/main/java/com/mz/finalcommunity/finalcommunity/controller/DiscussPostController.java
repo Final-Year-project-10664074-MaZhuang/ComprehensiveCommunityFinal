@@ -10,11 +10,9 @@ import com.mz.finalcommunity.finalcommunity.service.CommentService;
 import com.mz.finalcommunity.finalcommunity.service.DiscussPostService;
 import com.mz.finalcommunity.finalcommunity.service.LikeService;
 import com.mz.finalcommunity.finalcommunity.service.UserService;
-import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
-import com.mz.finalcommunity.finalcommunity.util.CommunityUtil;
-import com.mz.finalcommunity.finalcommunity.util.Event;
-import com.mz.finalcommunity.finalcommunity.util.HostHolder;
+import com.mz.finalcommunity.finalcommunity.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +43,9 @@ public class DiscussPostController implements CommunityConstant {
     @Autowired
     private EventProducer eventProducer;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     @LoginRequired
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
@@ -67,6 +68,9 @@ public class DiscussPostController implements CommunityConstant {
                 .setEntityType(ENTITY_TYPE_POST)
                 .setEntityId(discussPost.getId());
         eventProducer.fireEvent(event);
+        //Calculate score
+        String redisKey = RedisKeyUtil.getPostScoreKey();
+        redisTemplate.opsForSet().add(redisKey, discussPost.getId());
 
         return CommunityUtil.getJSONString(0, "Published successfully!!");
     }
@@ -188,7 +192,9 @@ public class DiscussPostController implements CommunityConstant {
                 .setEntityType(ENTITY_TYPE_POST)
                 .setEntityId(id);
         eventProducer.fireEvent(event);
-
+        //Calculate score
+        String redisKey = RedisKeyUtil.getPostScoreKey();
+        redisTemplate.opsForSet().add(redisKey, id);
         return CommunityUtil.getJSONString(0);
     }
 

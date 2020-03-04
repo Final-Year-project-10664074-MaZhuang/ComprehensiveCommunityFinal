@@ -6,11 +6,9 @@ import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
 import com.mz.finalcommunity.finalcommunity.entity.User;
 import com.mz.finalcommunity.finalcommunity.event.EventProducer;
 import com.mz.finalcommunity.finalcommunity.service.LikeService;
-import com.mz.finalcommunity.finalcommunity.util.CommunityConstant;
-import com.mz.finalcommunity.finalcommunity.util.CommunityUtil;
-import com.mz.finalcommunity.finalcommunity.util.Event;
-import com.mz.finalcommunity.finalcommunity.util.HostHolder;
+import com.mz.finalcommunity.finalcommunity.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,6 +26,9 @@ public class LikeController implements CommunityConstant {
 
     @Autowired
     private EventProducer eventProducer;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @LoginRequired
     @RequestMapping(path = "/like", method = RequestMethod.POST)
@@ -55,6 +56,12 @@ public class LikeController implements CommunityConstant {
                     .setEntityUserId(entityUserId)
                     .setData("postId",postId);
             eventProducer.fireEvent(event);
+        }
+
+        if(entityType==ENTITY_TYPE_POST){
+            //Calculate score
+            String redisKey = RedisKeyUtil.getPostScoreKey();
+            redisTemplate.opsForSet().add(redisKey, postId);
         }
 
         return CommunityUtil.getJSONString(0, null, map);
