@@ -57,4 +57,42 @@ public class RedisTests {
         System.out.println(redisTemplate.opsForSet().pop(redisKey));
         System.out.println(redisTemplate.opsForSet().members(redisKey));
     }
+
+    //Count 200,000 unique data with independent integers
+    @Test
+    public void testHyperLogLog(){
+        String redisKey= "test:hll:01";
+        for (int i = 0; i <= 100000; i++) {
+            redisTemplate.opsForHyperLogLog().add(redisKey,i);
+        }
+
+        for (int i = 0; i <= 100000; i++) {
+            int r = (int) (Math.random() * 100000+1);
+            redisTemplate.opsForHyperLogLog().add(redisKey,r);
+        }
+
+        Long size = redisTemplate.opsForHyperLogLog().size(redisKey);
+        System.out.println(size);
+    }
+
+    //Combine the 3 sets of data, and then count the independent integers of the combined duplicate data(30000)result(20000)
+    @Test
+    public void testHyperLogLogUnion(){
+        String redisKey2= "test:hll:02";
+        for (int i = 1; i <= 10000; i++) {
+            redisTemplate.opsForHyperLogLog().add(redisKey2,i);
+        }
+        String redisKey3= "test:hll:03";
+        for (int i = 5001; i <= 15000; i++) {
+            redisTemplate.opsForHyperLogLog().add(redisKey3,i);
+        }
+        String redisKey4= "test:hll:04";
+        for (int i = 10001; i <= 20000; i++) {
+            redisTemplate.opsForHyperLogLog().add(redisKey4,i);
+        }
+        String unionKey= "test:hll:union";
+        redisTemplate.opsForHyperLogLog().union(unionKey,redisKey2,redisKey3,redisKey4);
+        Long size = redisTemplate.opsForHyperLogLog().size(unionKey);
+        System.out.println(size);
+    }
 }
