@@ -165,7 +165,7 @@ public class MessageController implements CommunityConstant {
             context.setVariable("url", url);
             context.setVariable("fromName",hostHolder.getUserThreadLocal().getUsername());
             String contents = templateEngine.process("/mail/message", context);
-            mailClient.sendMail(target.getEmail(), "Activate your account", contents);
+            mailClient.sendMail(target.getEmail(), "You received a message", contents);
         }
 
         return CommunityUtil.getJSONString(0);
