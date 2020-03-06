@@ -79,6 +79,22 @@ public class LoginController implements CommunityConstant {
         }
     }
 
+    @RequestMapping(path = "/bind", method = RequestMethod.POST)
+    public String bind(Model model, String email) {
+        String mail = userService.bind(email);
+        if (mail != null || !mail.isEmpty()) {
+            model.addAttribute("msg", "Bind successful, we have sent an activation email to your email, please activate as soon as possible!");
+            model.addAttribute("target", "/index");
+            return "/site/operate-result";
+        } else if(mail=="1"){
+            model.addAttribute("emailMsg", email+": The mailbox is already bound");
+            return "/site/Bindmail";
+        }else {
+            model.addAttribute("emailMsg", email);
+            return "/site/Bindmail";
+        }
+    }
+
     // http://localhost:8080/community/activation/101/code
     @RequestMapping(path = "/activation/{userId}/{code}", method = RequestMethod.GET)
     public String activation(Model model, @PathVariable("userId") int userId, @PathVariable("code") String code) {
@@ -179,7 +195,9 @@ public class LoginController implements CommunityConstant {
         String access_Token = userService.getAccessToken(accessToken);
         Map<String, Object> map = userService.getUser(access_Token);
         if (map != null) {
-            if (map.containsKey("ticket")) {
+            if(map.get("email")==null||map.get("email")==""){
+                return "/site/Bindmail";
+            }else if (map.containsKey("ticket")) {
                 Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
                 cookie.setPath(contextPath);
                 cookie.setMaxAge(3600 * 24 * 100 * 1000);

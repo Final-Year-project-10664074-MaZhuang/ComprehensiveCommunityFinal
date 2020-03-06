@@ -1,16 +1,8 @@
 package com.mz.finalcommunity.finalcommunity.controller;
 
-import com.mz.finalcommunity.finalcommunity.dao.DiscussPostMapper;
-import com.mz.finalcommunity.finalcommunity.dao.UserMapper;
-import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
-import com.mz.finalcommunity.finalcommunity.entity.User;
 import com.mz.finalcommunity.finalcommunity.service.AlphaService;
-import com.mz.finalcommunity.finalcommunity.util.CommunityUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -135,4 +127,10 @@ public class AlphaController {
         System.out.println(code);
         return "get Cookie";
     }
+
+    @RequestMapping(path = "/test",method = RequestMethod.GET)
+        public String index(){
+            return "test";
+        }
+
 }

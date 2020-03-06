@@ -167,7 +167,6 @@ public class MessageController implements CommunityConstant {
             String contents = templateEngine.process("/mail/message", context);
             mailClient.sendMail(target.getEmail(), "You received a message", contents);
         }
-
         return CommunityUtil.getJSONString(0);
     }
 

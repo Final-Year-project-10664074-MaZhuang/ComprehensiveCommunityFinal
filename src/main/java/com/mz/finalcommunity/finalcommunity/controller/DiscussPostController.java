@@ -6,10 +6,7 @@ import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
 import com.mz.finalcommunity.finalcommunity.entity.Page;
 import com.mz.finalcommunity.finalcommunity.entity.User;
 import com.mz.finalcommunity.finalcommunity.event.EventProducer;
-import com.mz.finalcommunity.finalcommunity.service.CommentService;
-import com.mz.finalcommunity.finalcommunity.service.DiscussPostService;
-import com.mz.finalcommunity.finalcommunity.service.LikeService;
-import com.mz.finalcommunity.finalcommunity.service.UserService;
+import com.mz.finalcommunity.finalcommunity.service.*;
 import com.mz.finalcommunity.finalcommunity.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.*;
 
 @Controller
@@ -71,7 +69,6 @@ public class DiscussPostController implements CommunityConstant {
         //Calculate score
         String redisKey = RedisKeyUtil.getPostScoreKey();
         redisTemplate.opsForSet().add(redisKey, discussPost.getId());
-
         return CommunityUtil.getJSONString(0, "Published successfully!!");
     }
 

@@ -49,6 +49,8 @@ public class UserService implements CommunityConstant {
     @Autowired
     private RedisTemplate redisTemplate;
 
+    private User gitUser=new User();
+
     public User findUserById(int id) {
         //return userMapper.selectById(id);
         User user = getCache(id);
@@ -104,6 +106,29 @@ public class UserService implements CommunityConstant {
         String content = templateEngine.process("/mail/activation", context);
         mailClient.sendMail(user.getEmail(), "Activate your account", content);
         return map;
+    }
+
+    public String bind(String email){
+        if (StringUtils.isBlank(email)) {
+            return null;
+        }
+        User byEmail = userMapper.selectByEmail(email);
+        if(byEmail==null){
+            gitUser.setEmail(email);
+            gitUser.setStatus(0);
+            gitUser.setActivationCode(CommunityUtil.generateUUID());
+            userMapper.insertUser(gitUser);
+            //send email
+            Context context = new Context();
+            context.setVariable("email", email);
+            String url = domain + contextPath + "/activation/" + gitUser.getId() + "/" + gitUser.getActivationCode();
+            context.setVariable("url", url);
+            String content = templateEngine.process("/mail/activation", context);
+            mailClient.sendMail(email, "Activate your account", content);
+            return email;
+        }else {
+            return "1";
+        }
     }
 
     public int activation(int userId, String code) {
@@ -199,28 +224,31 @@ public class UserService implements CommunityConstant {
             JSONObject json = JSONObject.parseObject(string);
             User u = userMapper.selectByName(json.getString("login"));
             if (u == null) {
-                User user = new User();
-                user.setUsername(json.getString("login"));
-                user.setHeaderUrl(json.getString("avatar_url"));
-                user.setEmail(json.getString("email"));
-                user.setActivationCode(CommunityUtil.generateUUID());
-                user.setType(0);
-                user.setStatus(1);
-                user.setCreateTime(new Date());
-                userMapper.insertUser(user);
-                loginTicket.setUserId(user.getId());
-            } else {
-                loginTicket.setUserId(u.getId());
-            }
-            loginTicket.setTicket(CommunityUtil.generateUUID());
-            loginTicket.setStatus(0);
-            loginTicket.setExpired(new Date(System.currentTimeMillis() + 3600 * 24 * 100 * 1000));
-            //loginTicketMapper.insertLoginTicket(loginTicket);
-            String redisKey = RedisKeyUtil.getTicketKey(loginTicket.getTicket());
-            redisTemplate.opsForValue().set(redisKey,loginTicket);
-            map.put("ticket", loginTicket.getTicket());
-            return map;
+                gitUser.setUsername(json.getString("login"));
+                gitUser.setHeaderUrl(json.getString("avatar_url"));
+                gitUser.setEmail(json.getString("email"));
+                gitUser.setType(0);
+                gitUser.setStatus(0);
+                gitUser.setCreateTime(new Date());
+                String tes = gitUser.getEmail();
+                System.out.println(tes);
 
+                map.put("email", gitUser.getEmail());
+                return map;
+            }else {
+                map.put("email",u.getEmail());
+                if(map.get("email")!=null||map.get("email")!=""){
+                    loginTicket.setUserId(u.getId());
+                    loginTicket.setTicket(CommunityUtil.generateUUID());
+                    loginTicket.setStatus(0);
+                    loginTicket.setExpired(new Date(System.currentTimeMillis() + 3600 * 24 * 100 * 1000));
+                    //loginTicketMapper.insertLoginTicket(loginTicket);
+                    String redisKey = RedisKeyUtil.getTicketKey(loginTicket.getTicket());
+                    redisTemplate.opsForValue().set(redisKey,loginTicket);
+                    map.put("ticket", loginTicket.getTicket());
+                }
+                return map;
+            }
         } catch (IOException e) { }
         return null;
     }

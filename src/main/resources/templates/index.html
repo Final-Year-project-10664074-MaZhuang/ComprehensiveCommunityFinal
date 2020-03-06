@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -15,6 +15,7 @@
 </head>
 <body>
 <div class="nk-container">
+
     <!-- header -->
     <header class="bg-dark sticky-top" th:fragment="header">
         <div class="container">
@@ -36,6 +37,9 @@
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser!=null}">
                             <a class="nav-link position-relative" th:href="@{/letter/list}">Message<span
                                     class="badge badge-danger" th:text="${allUnreadCount!=0?allUnreadCount:''}">12</span></a>
+                                    <audio  autoplay="autoplay" id="auto"
+                                            src="http://data.huiyi8.com/2017/gha/03/17/1702.mp3"
+                                            th:if="${allUnreadCount!=0}"></audio>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
                             <a class="nav-link" th:href="@{/register}">Register</a>
@@ -68,6 +72,7 @@
         </div>
     </header>
 
+
     <!-- content -->
     <div class="main">
         <div class="container">
@@ -75,10 +80,10 @@
                 <!-- Filter by -->
                 <ul class="nav nav-tabs mb-3">
                     <li class="nav-item">
-                        <a th:class="|nav-link ${orderMode==0?'active':''}|" th:href="@{/index(orderMode=0)}">Newest</a>
+                        <a th:class="|nav-link ${orderMode==1?'active':''}|" th:href="@{/index(orderMode=1)}">Most Popular</a>
                     </li>
                     <li class="nav-item">
-                        <a th:class="|nav-link ${orderMode==1?'active':''}|" th:href="@{/index(orderMode=1)}">Most Popular</a>
+                        <a th:class="|nav-link ${orderMode==0?'active':''}|" th:href="@{/index(orderMode=0)}">Newest</a>
                     </li>
                 </ul>
                 <button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal"
