@@ -5,6 +5,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.mz.finalcommunity.finalcommunity.dao.DiscussPostMapper;
 import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
+import com.mz.finalcommunity.finalcommunity.util.HostHolder;
 import com.mz.finalcommunity.finalcommunity.util.SensitiveFilter;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -33,6 +34,8 @@ public class DiscussPostService {
     private int maxSize;
     @Value("${caffeine.posts.expire-seconds}")
     private int expireSeconds;
+    @Autowired
+    private HostHolder hostHolder;
 
     //caffeine core interface:cache,loadingCache,AsyncLoadingCache
 
@@ -41,6 +44,7 @@ public class DiscussPostService {
 
     //post count cache
     private LoadingCache<Integer,Integer> postRowsCache;
+
 
     //init
     @PostConstruct

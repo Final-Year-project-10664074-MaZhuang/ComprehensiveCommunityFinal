@@ -42,8 +42,8 @@
 					</div>
 				</form>
 				<!-- modify password -->
-				<h6 class="text-left text-info border-bottom pb-2 mt-5">Change Password</h6>
-				<form class="mt-5">				
+				<h6 class="text-left text-info border-bottom pb-2 mt-5" th:if="${loginUser.password!=null}">Change Password</h6>
+				<form class="mt-5" th:if="${loginUser.password!=null}">
 					<div class="form-group row mt-4">
 						<label for="old-password" class="col-sm-2 col-form-label text-right">Original password:</label>
 						<div class="col-sm-10">

@@ -1,7 +1,10 @@
 package com.mz.finalcommunity.finalcommunity.controller;
 
 import com.mz.finalcommunity.finalcommunity.annotation.LoginRequired;
+import com.mz.finalcommunity.finalcommunity.entity.DiscussPost;
+import com.mz.finalcommunity.finalcommunity.entity.Page;
 import com.mz.finalcommunity.finalcommunity.entity.User;
+import com.mz.finalcommunity.finalcommunity.service.DiscussPostService;
 import com.mz.finalcommunity.finalcommunity.service.FollowService;
 import com.mz.finalcommunity.finalcommunity.service.LikeService;
 import com.mz.finalcommunity.finalcommunity.service.UserService;
@@ -18,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletOutputStream;
@@ -25,6 +29,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -51,6 +59,9 @@ public class UserController implements CommunityConstant {
 
     @Autowired
     private FollowService followService;
+
+    @Autowired
+    private DiscussPostService discussPostService;
 
     @LoginRequired
     @RequestMapping(path = "/setting", method = RequestMethod.GET)
@@ -138,5 +149,40 @@ public class UserController implements CommunityConstant {
         model.addAttribute("hasFollowed",hasFollowed);
 
         return "/site/profile";
+    }
+
+    @RequestMapping(path = "/myPost/{userId}",method = RequestMethod.GET)
+    public String getMyPostPage(@PathVariable("userId") int userId,Page page, @RequestParam(name = "orderMode", defaultValue = "1") int orderMode,
+                                Model model){
+
+        User user = userService.findUserById(userId);
+        if (user != null) {
+            model.addAttribute("user",user);
+
+        }else {
+            throw new RuntimeException("This user does not exist");
+        }
+
+        page.setRow(discussPostService.findDiscussPostRows(userId));
+        page.setPath("/user/myPost/"+userId+"?orderMode="+orderMode);
+        model.addAttribute("row",page.getRow());
+
+        List<DiscussPost> myPostList = discussPostService.findDiscussPosts(userId, page.getOffset(), page.getLimit(), 1);
+        List<Map<String, Object>> myPosts = new ArrayList<>();
+        if (myPostList != null) {
+            for (DiscussPost post : myPostList) {
+                Map<String, Object> map = new HashMap<>();
+                map.put("post", post);
+
+
+                long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST, post.getId());
+                map.put("likeCount", likeCount);
+
+                myPosts.add(map);
+            }
+        }
+        model.addAttribute("myPosts", myPosts);
+        model.addAttribute("orderMode",orderMode);
+        return "/site/my-post";
     }
 }
