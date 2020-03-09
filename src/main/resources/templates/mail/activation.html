@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <link rel="icon" href="https://static.nowcoder.com/images/logo_87_87.png"/>
+    <title>Activate the account</title>
+</head>
+<body>
+	<div>
+		<p>
+			Hello, <b th:text="${email}">xxx@xxx.com</b>
+		</p>
+		<p>
+			You are registering, this is an activation email, please click this
+			<a th:href="${url}">link</a>,
+			to activate your account!
+		</p>
+	</div>
+</body>
+</html>
