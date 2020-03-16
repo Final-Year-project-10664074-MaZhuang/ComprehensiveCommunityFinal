@@ -12,7 +12,7 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 @Component
 public class MailClient {
-    private static final Logger logger = LoggerFactory.getLogger(MailClient.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(MailClient.class);
     @Autowired
     private JavaMailSender mailSender;
     @Value("${spring.mail.username}")
@@ -27,7 +27,7 @@ public class MailClient {
             helper.setText(content,true);
             mailSender.send(helper.getMimeMessage());
         } catch (MessagingException e) {
-            logger.error("Email failed:"+e.getMessage());
+            LOGGER.error("Email failed:"+e.getMessage());
         }
     }
 }

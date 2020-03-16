@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="https://github.com/Ma-Zhuang/Pic/blob/master/1583260475126.png?raw=true"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/global.css}"/>
+    <link rel="stylesheet" th:href="@{/css/login.css}"/>
+    <title>Account Settings</title>
+</head>
+<body>
+<div class="nk-container">
+    <!-- header -->
+    <header th:replace="index::header">
+    </header>
+
+    <!-- content -->
+    <div class="main">
+        <div class="container p-5 mt-3 mb-3">
+            <!-- upload header image -->
+            <h6 class="text-left text-info border-bottom pb-2">Upload Avatar</h6>
+            <form class="mt-5" method="post" enctype="multipart/form-data" th:action="@{/user/upload}">
+                <div class="form-group row mt-4">
+                    <label for="head-image" class="col-sm-2 col-form-label text-right">Choose Avatar:</label>
+                    <div class="col-sm-10">
+                        <div class="custom-file">
+                            <input type="file" th:class="|custom-file-input ${error!=null?'is-invalid':''}|"
+                                   id="head-image" name="headerImage" lang="es" required="">
+                            <label class="custom-file-label" for="head-image" data-browse="File">Choose a
+                                picture</label>
+                            <div class="invalid-feedback" th:text="${error}">
+                                Incorrect verification code!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10 text-center">
+                        <button type="submit" class="btn btn-info text-white form-control">Upload</button>
+                    </div>
+                </div>
+            </form>
+            <!-- modify password -->
+            <h6 class="text-left text-info border-bottom pb-2 mt-5"th:if="${loginUser.password!=null}">Change
+                Password</h6>
+            <form class="mt-5" method="post" th:action="@{/user/changePass}" th:if="${loginUser.password!=null}">
+                <div class="form-group row mt-4">
+                    <label for="old-password" class="col-sm-2 col-form-label text-right">Original password:</label>
+                    <div class="col-sm-10">
+                        <input type="password" th:class="|form-control ${opassError!=null?'is-invalid':''}|" id="old-password"
+                               name="oldPassword" placeholder="Please enter the original password!" required>
+                        <div class="invalid-feedback" th:text="${opassError}">
+                            The password must be at least 8 characters long!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <label for="new-password" class="col-sm-2 col-form-label text-right">New password:</label>
+                    <div class="col-sm-10">
+                        <input type="password" th:class="|form-control ${npassError!=null?'is-invalid':''}|" id="new-password"
+                               name="newPassword" placeholder="Please enter the new password!" required>
+                        <div class="invalid-feedback" th:text="${npassError}">
+                            The password must be at least 8 characters long!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <label for="confirm-password" class="col-sm-2 col-form-label text-right">Confirm password:</label>
+                    <div class="col-sm-10">
+                        <input type="password" th:class="|form-control ${cpassError!=null?'is-invalid':''}|" id="confirm-password"
+                               name="cPassword" placeholder="Enter the new password again!" required>
+                        <div class="invalid-feedback" th:text="${cpassError}">
+                            The passwords entered twice do not match!
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row mt-4">
+                    <div class="col-sm-2"></div>
+                    <div class="col-sm-10 text-center">
+                        <button type="submit" class="btn btn-info text-white form-control">Save</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- foot -->
+    <footer th:replace="index::footer">
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.js"
+        crossorigin="anonymous"></script>
+<script th:src="@{/js/global.js}"></script>
+<script>
+    $(function () {
+        bsCustomFileInput.init();
+    });
+</script>
+</body>
+</html>

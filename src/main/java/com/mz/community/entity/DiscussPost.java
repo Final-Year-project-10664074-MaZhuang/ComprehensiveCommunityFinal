@@ -4,17 +4,25 @@ import lombok.Data;
 import lombok.ToString;
 
 import java.util.Date;
+
 @Data
 @ToString
-public class User {
+public class DiscussPost {
     private int id;
-    private String username;
-    private String password;
-    private String salt;
-    private String email;
+
+    private int userId;
+
+    private String title;
+
+    private String content;
+
     private int type;
+
     private int status;
-    private String activationCode;
-    private String headerUrl;
+
     private Date createTime;
+
+    private int commentCount;
+
+    private double score;
 }

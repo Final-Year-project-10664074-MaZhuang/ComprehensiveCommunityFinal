@@ -17,33 +17,31 @@
 <div class="nk-container bg-gray">
 
     <!-- header -->
-    <header class="bg-dark sticky-top" th:fragment="header">
+    <header class="bg-dark sticky-top">
         <div class="container">
             <!-- nav -->
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <!-- logo -->
-                <a class="navbar-brand" href="#"></a>
-
-
+                <a class="navbar-brand" th:href="@{/index}"></a>
                 <!-- function -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" th:href="@{/}">HomePage</a>
+                            <a class="nav-link" th:href="@{/index}">HomePage</a>
+                        </li>
+                        <li class="nav-item ml-3 btn-group-vertical">
+                            <a class="nav-link" th:href="@{/discussIndex}">Article</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical">
                             <a class="nav-link" th:href="@{/question}">Question</a>
-                        </li>
-                        <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" th:href="@{/article}">Article</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser!=null}">
                             <a class="nav-link position-relative" th:href="@{/letter/list}">Message<span
                                     class="badge badge-danger"
                                     th:text="${allUnreadCount!=0?allUnreadCount:''}">12</span></a>
-                            <audio autoplay="autoplay" id="auto"
+                            <!--<audio autoplay="autoplay" id="auto"
                                    src="http://data.huiyi8.com/2017/gha/03/17/1702.mp3"
-                                   th:if="${allUnreadCount!=0}"></audio>
+                                   th:if="${allUnreadCount!=0}"></audio>-->
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
                             <a class="nav-link" th:href="@{/register}">Register</a>
@@ -68,11 +66,11 @@
                         </li>
                     </ul>
                     <!-- search -->
-                    <form class="form-inline my-2 my-lg-0" method="get" th:action="@{/search}">
+                    <!--<form class="form-inline my-2 my-lg-0" method="get" th:action="@{/search}">
                         <input class="form-control mr-sm-2" type="search" aria-label="Search" name="keyword"
                                th:value="${keyword}"/>
                         <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-                    </form>
+                    </form>-->
                 </div>
             </nav>
         </div>
@@ -86,14 +84,14 @@
                     <img class="logo" src="https://github.com/Ma-Zhuang/Pic/blob/master/Q&ALOGO472x472.png?raw=true">
                     <form class="form-inline my-2 my-lg-0" method="get" th:action="@{/search}">
                         <input class="searchBar" type="search">
-                        <button class="btnSearch" type="submit" style="color:white";>Search</button>
+                        <button class="btnSearch" type="submit" style="color:white" ;>Search</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
     <!-- footer -->
-    <footer class="bg-dark" th:fragment="footer">
+    <footer class="bg-dark">
         <div class="container">
             <p class="m-0 text-center text-white">
                 © 2020

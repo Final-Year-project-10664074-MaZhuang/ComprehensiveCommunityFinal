@@ -17,12 +17,12 @@ public interface CommunityConstant {
     int ACTIVATION_FAILURE = 2;
 
     /**
-     * Timeout for the default login credentials
+     * Timeout for the default login credentials 12 hours
      */
     int DEFAULT_EXPIRED_SECONDS = 3600 * 12;
 
     /**
-     * Remember state login credentials timeout
+     * Remember state login credentials timeout 100 days
      */
     int REMEMBER_EXPIRED_SECONDS = 3600 * 24 * 100;
 
