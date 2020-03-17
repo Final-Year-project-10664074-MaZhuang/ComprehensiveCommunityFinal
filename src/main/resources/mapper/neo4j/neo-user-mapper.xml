@@ -6,4 +6,7 @@
     <select id="selectByName" resultType="User">
         match(n:User) where n.username='${username}' return n.username as username
     </select>
+    <insert id="insertUser" parameterType="User">
+        create(:User{UserId:#{id},Username:#{username},email:#{email},header_url:#{headerUrl}})
+    </insert>
 </mapper>

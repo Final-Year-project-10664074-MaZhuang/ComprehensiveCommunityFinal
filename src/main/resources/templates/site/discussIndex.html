@@ -11,6 +11,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/global.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/editormd.min.css}"/>
     <title>HomePage</title>
 </head>
 <body>
@@ -101,10 +103,11 @@
                 </button>
             </div>
             <!-- Pop-up box -->
-            <div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="publishModalLabel"
+            <div class="modal fade container-fluid" id="publishModal" tabindex="-1" role="dialog"
+                 aria-labelledby="publishModalLabel"
                  aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
+                <div class="modal-dialog modal-lg row" role="document">
+                    <div class="modal-content col-lg-9 col-md-12 col-sm-12 col-xs-12">
                         <div class="modal-header">
                             <h5 class="modal-title" id="publishModalLabel">New post</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -114,12 +117,47 @@
                         <div class="modal-body">
                             <form>
                                 <div class="form-group">
-                                    <label for="recipient-name" class="col-form-label">Title：</label>
+                                    <label for="recipient-name" class="col-form-label">Title (Enter title)：</label>
                                     <input type="text" class="form-control" id="recipient-name">
                                 </div>
+                                <div class="form-group" id="question-editor">
+                                    <label for="message-text" class="col-form-label">Text (Enter what is
+                                        posted)：</label>
+                                    <textarea class="form-control" id="message-text" rows="15"
+                                              style="display: none"></textarea>
+                                </div>
                                 <div class="form-group">
-                                    <label for="message-text" class="col-form-label">Text：</label>
-                                    <textarea class="form-control" id="message-text" rows="15"></textarea>
+                                    <label for="recipient-name" class="col-form-label">Tags (Enter tags separated by
+                                        commas)：</label>
+                                    <input type="text" class="form-control" id="tag-name" onclick="showSelectTag();">
+                                    <div id="selectTags" class="tag-tab">
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
+                                                   role="tab" aria-controls="home" aria-selected="true">Select Tags</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile"
+                                                   role="tab" aria-controls="profile" aria-selected="false">Create
+                                                    Tags</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent" style="margin-top: 10px">
+                                            <div class="tab-pane fade show active" id="home" role="tabpanel"
+                                                 aria-labelledby="home-tab">
+                                                <span class="badge badge-info" style="margin-right: 10px"
+                                                      th:each="tag:${AllTags}">
+                                                    <span class="glyphicon glyphicon-tags">
+                                                        <b onclick="selectTag(this)" th:data-tag="${tag.tagName}"
+                                                           th:utext="${tag.tagName}">String</b>
+                                                    </span>
+                                                </span>
+                                            </div>
+                                            <div class="tab-pane fade" id="profile" role="tabpanel"
+                                                 aria-labelledby="profile-tab">...
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -127,6 +165,12 @@
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
                             <button type="button" class="btn btn-primary" id="publishBtn">Publish</button>
                         </div>
+                    </div>
+                    <div class="modal-content col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        <h3>Post Rule</h3>
+                        <span>1. Title: Please give a brief overview of what you want to publish</span>
+                        <br>
+                        <span>2. Select tags: Please select one or more tags, separating each tag with a comma</span>
                     </div>
                 </div>
             </div>
@@ -168,6 +212,13 @@
                                 <li class="d-inline ml-2">|</li>
                                 <li class="d-inline ml-2">Reply <span th:text="${map.post.commentCount}"></span></li>
                             </ul>
+                            <div>
+                                <span class="badge badge-info" style="margin-right: 10px" th:each="tags:${map.postTags}">
+                                    <span class="glyphicon glyphicon-tags">
+                                        <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">String</span>
+                                    </span>
+                                </span>
+                            </div>
                         </div>
                     </div>
                 </li>
@@ -215,6 +266,19 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/global.js}"></script>
 <script th:src="@{/js/index.js}"></script>
-
+<script th:src="@{/js/editormd.min.js}"></script>
+<script th:src="@{/js/languages/en.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        var editor = editormd("question-editor", {
+            width: "100%",
+            height: 350,
+            path: CONTEXT_PATH + "/js/lib/",
+            delay: 0,
+            watch: false,
+            placeholder: "Detail Information"
+        });
+    });
+</script>
 </body>
 </html>

@@ -40,4 +40,12 @@ public class CommunityUtil {
     public static String getJSONString(int code){
         return getJSONString(code,null,null);
     }
+
+    /*public static void main(String[] args) {
+        String[] tag = {"java","c++","C#"};
+        Map<String,Object> map = new HashMap<>();
+        map.put("name","zhangsan");
+        map.put("tags",tag);
+        System.out.println(getJSONString(0,"ok",map));
+    }*/
 }

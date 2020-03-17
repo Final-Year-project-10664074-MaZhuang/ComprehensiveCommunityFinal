@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.mz.community.dao.mysqlMapper.LoginTicketMapper;
 import com.mz.community.dao.mysqlMapper.UserMapper;
+import com.mz.community.dao.neo4jMapper.NeoUserMapper;
 import com.mz.community.entity.AccessToken;
 import com.mz.community.entity.LoginTicket;
 import com.mz.community.entity.User;
@@ -31,6 +32,10 @@ public class UserService implements CommunityConstant {
     private static final Logger LOGGER = LoggerFactory.getLogger(UserService.class);
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private NeoUserMapper neoUserMapper;
+
     @Autowired
     private MailClient mailClient;
     @Autowired
@@ -105,7 +110,10 @@ public class UserService implements CommunityConstant {
         if (user.getStatus() == 1) {
             return ACTIVATION_REPEAT;
         } else if (user.getActivationCode().equals(code)) {
+            //Data sync to mysql
             userMapper.updateStatus(userId, 1);
+            //Data sync to neo4j
+            neoUserMapper.insertUser(user);
             return ACTIVATION_SUCCESS;
         } else {
             return ACTIVATION_FAILURE;
@@ -189,7 +197,10 @@ public class UserService implements CommunityConstant {
                 gitUser.setCreateTime(new Date());
                 if (gitUser.getEmail() != null) {
                     gitUser.setStatus(1);
+                    //Data sync to mysql
                     userMapper.insertUser(gitUser);
+                    //Data sync to neo4j
+                    neoUserMapper.insertUser(gitUser);
                     LoginTicket loginTicket = setTicket(gitUser.getId(), 0);
                     map.put("ticket", loginTicket.getTicket());
                     return map;
@@ -213,7 +224,10 @@ public class UserService implements CommunityConstant {
             gitUser.setEmail(email);
             gitUser.setStatus(0);
             gitUser.setActivationCode(CommunityUtil.generateUUID());
+            //Data sync to mysql
             userMapper.insertUser(gitUser);
+            //Data sync to neo4j
+            neoUserMapper.insertUser(gitUser);
             //send email
             Context context = new Context();
             context.setVariable("email", email);

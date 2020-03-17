@@ -1,7 +1,16 @@
 html {
 	height: 100%;
 }
-
+.pop{
+	max-width: inherit;
+}
+.tag-tab{
+	display: none;
+	margin-top: 10px;
+}
+.popUp{
+	left: 2%;
+}
 body {
 	background: #eee;
 	font-family: arial, STHeiti, 'Times New Roman', \5b8b\4f53;
