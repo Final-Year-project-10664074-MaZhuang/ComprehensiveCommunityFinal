@@ -13,6 +13,6 @@ public interface DiscussPostMapper {
     int selectDiscussPostRows(@Param("userId") int userId);
 
     int insertDiscussPost(DiscussPost discussPost);
-
+    int updateCommentCount(int id, int commentCount);
     DiscussPost selectDiscussPostById(int id);
 }

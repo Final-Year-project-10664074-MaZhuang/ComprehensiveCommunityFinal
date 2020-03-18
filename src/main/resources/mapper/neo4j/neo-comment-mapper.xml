@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.community.dao.neo4jMapper.NeoCommentMapper">
+    <insert id="insertComment">
+        match(u:User{UserId:#{userId}})
+        match(d:DiscussPost{PostId:#{postId}})
+        create(u)-[:COMMENT]->(d)
+    </insert>
+</mapper>

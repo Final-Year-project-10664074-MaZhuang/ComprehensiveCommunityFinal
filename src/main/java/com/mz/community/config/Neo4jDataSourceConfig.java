@@ -12,7 +12,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
-
 @Configuration
 @MapperScan(basePackages = "com.mz.community.dao.neo4jMapper",sqlSessionFactoryRef = "Neo4jSqlSessionFactory")
 public class Neo4jDataSourceConfig {

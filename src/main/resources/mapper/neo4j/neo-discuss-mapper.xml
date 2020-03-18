@@ -16,7 +16,7 @@
         MATCH (n:Tags) RETURN n.tagName as tagName
     </select>
     <insert id="insertDiscussPost" parameterType="DiscussPost">
-        create(:DiscussPost{PostId:#{id},userId:#{userId},title:#{title},content:#{content}})
+        create(:DiscussPost{PostId:#{id},userId:#{userId},title:#{title},content:#{content},status:#{status}})
     </insert>
 
     <insert id="insertTags" parameterType="Tags">
