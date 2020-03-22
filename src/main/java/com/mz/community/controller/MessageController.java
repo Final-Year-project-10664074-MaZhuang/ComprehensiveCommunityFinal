@@ -140,7 +140,9 @@ public class MessageController implements CommunityConstant {
 
     @RequestMapping(path = "/letter/send", method = RequestMethod.POST)
     @ResponseBody
-    public String sendLetter(String toName, String content) {
+    public String sendLetter(String toName, String content, int online) {
+        System.out.println(toName);
+        System.out.println(content);
         User target = userService.findUserByName(toName);
         if (target == null) {
             return CommunityUtil.getJSONString(1, "The target user does not exist");
@@ -156,7 +158,7 @@ public class MessageController implements CommunityConstant {
         message.setContent(content);
         message.setCreateTime(new Date());
         int i = messageService.addMessage(message);
-        if (i > 0) {
+        if (i > 0 && online != 1) {
             //send email
             Context context = new Context();
             context.setVariable("targetName", target.getUsername());

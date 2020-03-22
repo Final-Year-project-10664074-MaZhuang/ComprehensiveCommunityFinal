@@ -2,6 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="https://github.com/Ma-Zhuang/Pic/blob/master/1583260475126.png?raw=true"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -21,7 +22,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-8">
-                    <h6><b class="square"></b> Message from <i class="text-success" th:utext="${target.username}">username</i>
+                    <h6><b class="square"></b> Message from <i class="text-success" th:utext="${target.username}">
+                        username
+                    </i>
                     </h6>
                 </div>
                 <div class="col-4 text-right">
@@ -37,13 +40,22 @@
                 <div class="modal-dialog modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Send Message</h5>
+                            <h5 class="modal-title" id="exampleModalLabel">Send Message to <span
+                                    th:utext="${target.username}"></span></h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <input type="hidden" id="recipient-id"
+                                   th:value="${target.id}">
+                            <input type="hidden" id="aheader"
+                                   th:value="${target.headerUrl}">
+                            <input type="hidden" id="bheader"
+                                   th:value="${loginUser.headerUrl}">
+                            <input type="hidden" id="toName"
+                                   th:value="${target.username}">
+                            <!--<form>
                                 <div class="form-group">
                                     <label for="recipient-name" class="col-form-label">To：</label>
                                     <input type="text" class="form-control" id="recipient-name"
@@ -53,11 +65,14 @@
                                     <label for="message-text" class="col-form-label">Content：</label>
                                     <textarea class="form-control" id="message-text" rows="10"></textarea>
                                 </div>
-                            </form>
+                            </form>-->
+                            <div class="talk_show" id="words"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                            <button type="button" class="btn btn-primary" id="sendBtn">Send</button>
+                            <!--<button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>-->
+                            <input type="text" class="talk_word" id="talkwords">
+                            <button type="button" class="btn btn-primary" id="sendBtn">Send
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -78,11 +93,12 @@
             </div>
 
             <!-- message list -->
+            <input type="hidden" id="userId" th:value="${loginUser.id}">
             <ul class="list-unstyled mt-4">
                 <li class="media pb-3 pt-3 mb-2" th:each="map:${letters}">
                     <a th:href="@{|/user/profile/${map.fromUser.id}|}">
                         <img th:src="${map.fromUser.headerUrl}" class="mr-4 rounded-circle user-header"
-                             alt="profile picture">
+                             alt="profile picture" th:if="${loginUser.id!=map.fromUser.id}">
                     </a>
                     <div class="toast show d-lg-block" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
@@ -96,6 +112,10 @@
                             content
                         </div>
                     </div>
+                    <a th:href="@{|/user/profile/${map.fromUser.id}|}">
+                        <img th:src="${map.fromUser.headerUrl}" class="mr-4 rounded-circle user-header"
+                             alt="profile picture" th:if="${loginUser.id==map.fromUser.id}">
+                    </a>
                 </li>
             </ul>
             <!-- pagination -->
@@ -114,6 +134,8 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/global.js}"></script>
 <script th:src="@{/js/letter.js}"></script>
+<script src="http://cdn.bootcss.com/stomp.js/2.3.3/stomp.min.js"></script>
+<script src="https://cdn.bootcss.com/sockjs-client/1.1.4/sockjs.min.js"></script>
 <script>
     function back() {
         location.href = CONTEXT_PATH + "/letter/list";
