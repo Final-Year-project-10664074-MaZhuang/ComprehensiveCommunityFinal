@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserService implements CommunityConstant {
@@ -51,7 +52,11 @@ public class UserService implements CommunityConstant {
     private User gitUser = new User();
 
     public User findUserById(int userId) {
-        return userMapper.selectById(userId);
+        User user = getCache(userId);
+        if (user == null) {
+            user = initCache(userId);
+        }
+        return user;
     }
 
     public Map<String, Object> register(User user) {
@@ -115,6 +120,7 @@ public class UserService implements CommunityConstant {
             userMapper.updateStatus(userId, 1);
             //Data sync to neo4j
             neoUserMapper.insertUser(user);
+            clearCache(userId);
             return ACTIVATION_SUCCESS;
         } else {
             return ACTIVATION_FAILURE;
@@ -265,7 +271,9 @@ public class UserService implements CommunityConstant {
     }
 
     public int updateHeader(int userId,String headerUrl){
-        return userMapper.updateHeader(userId,headerUrl);
+        int rows = userMapper.updateHeader(userId, headerUrl);
+        clearCache(userId);
+        return rows;
     }
 
     public int updatePassword(int userId,String password){
@@ -276,4 +284,37 @@ public class UserService implements CommunityConstant {
         return userMapper.selectByName(username);
     }
 
+    /**
+     * Fetch data from the cache first
+     *
+     * @param userId
+     * @return
+     */
+    private User getCache(int userId) {
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        return (User) redisTemplate.opsForValue().get(redisKey);
+    }
+
+    /**
+     * Initialize the cache when no data is retrieved from the cache
+     *
+     * @param userId
+     * @return
+     */
+    private User initCache(int userId) {
+        User user = userMapper.selectById(userId);
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        redisTemplate.opsForValue().set(redisKey, user, 3600, TimeUnit.SECONDS);
+        return user;
+    }
+
+    /**
+     * Clear cache when data changes
+     *
+     * @param userId
+     */
+    private void clearCache(int userId) {
+        String redisKey = RedisKeyUtil.getUserKey(userId);
+        redisTemplate.delete(redisKey);
+    }
 }
