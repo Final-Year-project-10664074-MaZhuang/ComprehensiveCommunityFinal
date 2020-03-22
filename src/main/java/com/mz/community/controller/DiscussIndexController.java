@@ -1,6 +1,7 @@
 package com.mz.community.controller;
 
 import com.mz.community.Service.DiscussPostService;
+import com.mz.community.Service.LikeService;
 import com.mz.community.Service.UserService;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.entity.DiscussPost;
@@ -18,6 +19,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.mz.community.util.CommunityConstant.ENTITY_TYPE_POST;
+
 @Controller
 public class DiscussIndexController {
     @Autowired
@@ -26,6 +29,8 @@ public class DiscussIndexController {
     private UserService userService;
     @Autowired
     private NeoDiscussPostMapper neoDiscussPostMapper;
+    @Autowired
+    private LikeService likeService;
 
     @RequestMapping(value = "/discussIndex",method = RequestMethod.GET)
     public String getDiscussIndex(Model model, Page page){
@@ -42,6 +47,8 @@ public class DiscussIndexController {
                 map.put("postTags",tags);
                 User user = userService.findUserById(post.getUserId());
                 map.put("user",user);
+                long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST, post.getId());
+                map.put("likeCount", likeCount);
                 discussPosts.add(map);
             }
         }

@@ -10,8 +10,8 @@ public class HomeController {
     public String index() {
         return "index";
     }
-    @RequestMapping(path = "/ws",method = RequestMethod.GET)
-    public String ws() {
-        return "wsTest";
+    @RequestMapping(path = "/error",method = RequestMethod.GET)
+    public String getErrorPage(){
+        return "/error/500";
     }
 }
