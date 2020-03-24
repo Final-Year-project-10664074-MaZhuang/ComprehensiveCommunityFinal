@@ -21,4 +21,8 @@ public interface NeoDiscussPostMapper {
 
     int insertRelationDiscussPost(int userId,int postId,String[] tagName);
 
+    int updateDiscussPostStatus(int postId,int status);
+
+    int updateDiscussPostScore(int postId,double score);
+
 }

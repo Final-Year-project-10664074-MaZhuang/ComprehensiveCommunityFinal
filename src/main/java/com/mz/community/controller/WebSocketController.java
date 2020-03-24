@@ -13,7 +13,6 @@ public class WebSocketController {
     @MessageMapping("/reply")
     public void methodWithMessage(Message message){
         //System.out.println(name);
-        System.out.println("进入reply");
         System.out.println("SendToUser = "+message.getToId()
         +"FromUser = "+message.getFromId()
         +"Content = "+message.getContent());

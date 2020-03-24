@@ -22,39 +22,25 @@ public class DiscussPostService {
     @Autowired
     private SensitiveFilter sensitiveFilter;
 
-    public List<DiscussPost> findDiscussPosts(int userId,int offset,int limit){
-        return discussPostMapper.selectDiscussPosts(userId,offset,limit);
+    public List<DiscussPost> findDiscussPosts(int userId,int offset,int limit,int orderMode){
+        return discussPostMapper.selectDiscussPosts(userId,offset,limit,orderMode);
     }
     public int findDiscussPostRows(int userId){
         return discussPostMapper.selectDiscussPostRows(userId);
     }
 
-    public int addDiscussPost(DiscussPost post, Tags tags){
+    public int addDiscussPost(DiscussPost post){
         if(post==null){
             throw new IllegalArgumentException("Post param can not be null");
         }
-        if(tags==null){
-            throw new IllegalArgumentException("Tags param can not be null");
-        }
 
-        String[] tagsArray = tags.getTagName().split(",");
-        for (String aTag : tagsArray) {
-            Tags tag = neoDiscussPostMapper.selectTagByTagName(aTag);
-            if(tag==null){
-                tags.setTagName(aTag);
-                neoDiscussPostMapper.insertTags(tags);
-            }
-        }
         //transfer html
         post.setTitle(HtmlUtils.htmlEscape(post.getTitle()));
         post.setContent(HtmlUtils.htmlEscape(post.getContent()));
         //filter sensitive word
         post.setTitle(sensitiveFilter.filter(post.getTitle()));
         post.setContent(sensitiveFilter.filter(post.getContent()));
-
-        discussPostMapper.insertDiscussPost(post);
-        neoDiscussPostMapper.insertDiscussPost(post);
-        return neoDiscussPostMapper.insertRelationDiscussPost(post.getUserId(),post.getId(),tagsArray);
+        return discussPostMapper.insertDiscussPost(post);
     }
 
     public List<Tags> findAllTags(){
@@ -66,5 +52,16 @@ public class DiscussPostService {
     }
     public int updateCommentCount(int id, int commentCount) {
         return discussPostMapper.updateCommentCount(id, commentCount);
+    }
+    public int updateType(int id, int type) {
+        return discussPostMapper.updateType(id, type);
+    }
+
+    public int updateStatus(int id, int status) {
+        return discussPostMapper.updateStatus(id, status);
+    }
+
+    public int updateScore(int id, double score) {
+        return discussPostMapper.updateScore(id, score);
     }
 }

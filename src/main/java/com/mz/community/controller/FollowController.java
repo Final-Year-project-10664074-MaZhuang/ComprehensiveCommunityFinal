@@ -1,11 +1,13 @@
 package com.mz.community.controller;
 
 import com.mz.community.Service.FollowService;
-import com.mz.community.Service.NeoFollowService;
 import com.mz.community.Service.UserService;
 import com.mz.community.annotation.LoginRequired;
+import com.mz.community.entity.Event;
 import com.mz.community.entity.Page;
 import com.mz.community.entity.User;
+import com.mz.community.event.EventProducer;
+import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.CommunityUtil;
 import com.mz.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +21,17 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 import java.util.Map;
 
-import static com.mz.community.util.CommunityConstant.ENTITY_TYPE_USER;
-
 @Controller
-public class FollowController {
+public class FollowController implements CommunityConstant {
     @Autowired
     private FollowService followService;
     @Autowired
     private HostHolder hostHolder;
-    @Autowired
-    private NeoFollowService neoFollowService;
+
     @Autowired
     private UserService userService;
+    @Autowired
+    private EventProducer eventProducer;
 
     @LoginRequired
     @RequestMapping(path = "/follow",method = RequestMethod.POST)
@@ -38,7 +39,14 @@ public class FollowController {
     public String follow(int entityType,int entityId){
         User user = hostHolder.getUser();
         followService.follow(user.getId(),entityType,entityId);
-        neoFollowService.addFollow(user.getId(),entityId);
+        //Departure follow event
+        Event event = new Event()
+                .setTopic(TOPIC_FOLLOW)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+        eventProducer.fireEvent(event);
         return CommunityUtil.getJSONString(0,"Followed");
     }
 
@@ -48,7 +56,13 @@ public class FollowController {
     public String unFollow(int entityType, int entityId) {
         User user = hostHolder.getUser();
         followService.unFollow(user.getId(), entityType, entityId);
-        neoFollowService.deleteFollow(user.getId(),entityId);
+        Event event = new Event()
+                .setTopic(TOPIC_UNFOLLOW)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(entityType)
+                .setEntityId(entityId)
+                .setEntityUserId(entityId);
+        eventProducer.fireEvent(event);
         return CommunityUtil.getJSONString(0, "UnFollowed");
     }
 

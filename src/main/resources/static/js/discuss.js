@@ -60,7 +60,7 @@ function setDelete() {
         function (data) {
             data = $.parseJSON(data);
             if (data.code == 0) {
-                location.href = CONTEXT_PATH + "/index";
+                location.href = CONTEXT_PATH + "/discussIndex";
             } else {
                 alert(data.msg);
             }

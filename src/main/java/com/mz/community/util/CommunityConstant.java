@@ -55,7 +55,10 @@ public interface CommunityConstant {
      * topic:follow
      */
     String TOPIC_FOLLOW = "follow";
-
+    /**
+     * topic:follow
+     */
+    String TOPIC_UNFOLLOW = "unfollow";
     /**
      * topic:publish
      */

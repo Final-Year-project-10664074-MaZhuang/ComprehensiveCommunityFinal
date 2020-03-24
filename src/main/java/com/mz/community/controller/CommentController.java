@@ -4,9 +4,14 @@ import com.mz.community.Service.CommentService;
 import com.mz.community.Service.DiscussPostService;
 import com.mz.community.annotation.LoginRequired;
 import com.mz.community.entity.Comment;
+import com.mz.community.entity.DiscussPost;
+import com.mz.community.entity.Event;
+import com.mz.community.event.EventProducer;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.HostHolder;
+import com.mz.community.util.RedisKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,14 +28,14 @@ public class CommentController implements CommunityConstant {
     @Autowired
     private HostHolder hostHolder;
 
-    /*@Autowired
-    private EventProducer eventProducer;*/
+    @Autowired
+    private EventProducer eventProducer;
 
     @Autowired
     protected DiscussPostService discussPostService;
 
-   /* @Autowired
-    private RedisTemplate redisTemplate;*/
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @LoginRequired
     @RequestMapping(path = "/add/{discussPostId}", method = RequestMethod.POST)
@@ -42,9 +47,9 @@ public class CommentController implements CommunityConstant {
         commentService.addComment(comment,hostHolder.getUser().getId());
 
         //Departure review event
-        /*Event event = new Event()
+        Event event = new Event()
                 .setTopic(TOPIC_COMMENT)
-                .setUserId(hostHolder.getUserThreadLocal().getId())
+                .setUserId(hostHolder.getUser().getId())
                 .setEntityType(comment.getEntityType())
                 .setEntityId(comment.getEntityId())
                 .setData("postId", discussPostId);
@@ -68,7 +73,7 @@ public class CommentController implements CommunityConstant {
             //Calculate score
             String redisKey = RedisKeyUtil.getPostScoreKey();
             redisTemplate.opsForSet().add(redisKey, discussPostId);
-        }*/
+        }
 
         return "redirect:/discuss/detail/" + discussPostId;
     }

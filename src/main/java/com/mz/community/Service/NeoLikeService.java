@@ -9,10 +9,10 @@ public class NeoLikeService {
     @Autowired
     private NeoLikeMapper neoLikeMapper;
     public void addLike(int userId,int entityId){
-        neoLikeMapper.deleteLike(userId,entityId);
+        neoLikeMapper.insertLike(userId,entityId);
     }
 
     public void deleteLike(int userId,int entityId){
-        neoLikeMapper.insertLike(userId,entityId);
+        neoLikeMapper.deleteLike(userId,entityId);
     }
 }

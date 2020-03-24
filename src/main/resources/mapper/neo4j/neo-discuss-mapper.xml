@@ -16,7 +16,7 @@
         MATCH (n:Tags) RETURN n.tagName as tagName
     </select>
     <insert id="insertDiscussPost" parameterType="DiscussPost">
-        create(:DiscussPost{PostId:#{id},userId:#{userId},title:#{title},content:#{content},status:#{status}})
+        create(:DiscussPost{PostId:#{id},userId:#{userId},title:#{title},content:#{content},status:#{status},score:#{score}})
     </insert>
 
     <insert id="insertTags" parameterType="Tags">
@@ -31,4 +31,10 @@
         match(t:Tags) where t.tagName in #{tagName}
         create (d1)-[:TAGS]->(t)
     </insert>
+    <update id="updateDiscussPostStatus">
+        match(d:DiscussPost{PostId:#{postId}}) set d.status=#{status}
+    </update>
+    <update id="updateDiscussPostScore">
+        match(d:DiscussPost{PostId:#{postId}}) set d.score=#{score}
+    </update>
 </mapper>

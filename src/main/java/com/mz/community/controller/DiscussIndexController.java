@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,11 +34,12 @@ public class DiscussIndexController {
     private LikeService likeService;
 
     @RequestMapping(value = "/discussIndex",method = RequestMethod.GET)
-    public String getDiscussIndex(Model model, Page page){
+    public String getDiscussIndex(Model model, Page page,
+                                  @RequestParam(name = "orderMode", defaultValue = "1") int orderMode){
         page.setRows(discussPostService.findDiscussPostRows(0));
-        page.setPath("/discussIndex");
+        page.setPath("/discussIndex?orderMode=" + orderMode);
 
-        List<DiscussPost> list = discussPostService.findDiscussPosts(0, page.getOffset(), page.getLimit());
+        List<DiscussPost> list = discussPostService.findDiscussPosts(0, page.getOffset(), page.getLimit(),orderMode);
         List<Map<String,Object>> discussPosts = new ArrayList<>();
         if (list!=null){
             for (DiscussPost post: list) {
@@ -55,6 +57,7 @@ public class DiscussIndexController {
         List<Tags> tags = discussPostService.findAllTags();
         model.addAttribute("AllTags",tags);
         model.addAttribute("discussPosts",discussPosts);
+        model.addAttribute("orderMode", orderMode);
         return "site/discussIndex";
     }
 }

@@ -7,11 +7,14 @@ import com.mz.community.Service.UserService;
 import com.mz.community.annotation.LoginRequired;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.entity.*;
+import com.mz.community.event.EventProducer;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.CommunityUtil;
 import com.mz.community.util.HostHolder;
+import com.mz.community.util.RedisKeyUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +39,10 @@ public class DiscussPostController implements CommunityConstant {
     private LikeService likeService;
     @Autowired
     private NeoDiscussPostMapper neoDiscussPostMapper;
+    @Autowired
+    private EventProducer eventProducer;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @LoginRequired
     @RequestMapping(path = "/add", method = RequestMethod.POST)
@@ -50,13 +57,24 @@ public class DiscussPostController implements CommunityConstant {
             return CommunityUtil.getJSONString(403, "You are not logged in!!!");
         }
         DiscussPost post = new DiscussPost();
-        Tags tags = new Tags();
         post.setUserId(user.getId());
         post.setTitle(title);
         post.setContent(content);
         post.setCreateTime(new Date());
-        tags.setTagName(tag);
-        discussPostService.addDiscussPost(post, tags);
+        discussPostService.addDiscussPost(post);
+        if(tag==null){
+            throw new IllegalArgumentException("Tags param can not be null");
+        }
+        String[] tagsArray = tag.split(",");
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(user.getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(post.getId())
+                .setTags(tagsArray);
+        eventProducer.fireEvent(event);
+        String redisKey = RedisKeyUtil.getPostScoreKey();
+        redisTemplate.opsForSet().add(redisKey,post.getId());
         return CommunityUtil.getJSONString(0, "Published successfully");
     }
 
@@ -144,5 +162,55 @@ public class DiscussPostController implements CommunityConstant {
         model.addAttribute("comments", commentVoList);
 
         return "/site/discuss-detail";
+    }
+    //Sticky
+    @RequestMapping(path = "/top", method = RequestMethod.POST)
+    @ResponseBody
+    public String setTop(int id) {
+        discussPostService.updateType(id, 1);
+        //Trigger post event
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id);
+        eventProducer.fireEvent(event);
+
+        return CommunityUtil.getJSONString(0);
+    }
+
+    //Set to essence
+    @RequestMapping(path = "/wonderful", method = RequestMethod.POST)
+    @ResponseBody
+    public String setWonderful(int id) {
+        discussPostService.updateStatus(id, 1);
+        //Trigger post event
+        Event event = new Event()
+                .setTopic(TOPIC_PUBLISH)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id)
+                .setStatus(1);
+        eventProducer.fireEvent(event);
+        //Calculate score
+        String redisKey = RedisKeyUtil.getPostScoreKey();
+        redisTemplate.opsForSet().add(redisKey, id);
+        return CommunityUtil.getJSONString(0);
+    }
+
+    //delete
+    @RequestMapping(path = "/delete", method = RequestMethod.POST)
+    @ResponseBody
+    public String setDelete(int id) {
+        discussPostService.updateStatus(id, 2);
+        //Trigger delete post event
+        Event event = new Event()
+                .setTopic(TOPIC_DELETE)
+                .setUserId(hostHolder.getUser().getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(id)
+                .setStatus(2);
+        eventProducer.fireEvent(event);
+        return CommunityUtil.getJSONString(0);
     }
 }
