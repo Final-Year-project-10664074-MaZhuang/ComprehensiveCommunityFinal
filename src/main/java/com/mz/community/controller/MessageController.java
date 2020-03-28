@@ -1,12 +1,12 @@
 package com.mz.community.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mz.community.Service.MessageService;
-import com.mz.community.Service.UserService;
 import com.mz.community.annotation.LoginRequired;
 import com.mz.community.entity.Message;
 import com.mz.community.entity.Page;
 import com.mz.community.entity.User;
+import com.mz.community.service.MessageService;
+import com.mz.community.service.UserService;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.CommunityUtil;
 import com.mz.community.util.HostHolder;

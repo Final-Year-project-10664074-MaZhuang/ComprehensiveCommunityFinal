@@ -1,12 +1,12 @@
 package com.mz.community.controller;
 
-import com.mz.community.Service.FollowService;
-import com.mz.community.Service.UserService;
 import com.mz.community.annotation.LoginRequired;
 import com.mz.community.entity.Event;
 import com.mz.community.entity.Page;
 import com.mz.community.entity.User;
 import com.mz.community.event.EventProducer;
+import com.mz.community.service.FollowService;
+import com.mz.community.service.UserService;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.CommunityUtil;
 import com.mz.community.util.HostHolder;

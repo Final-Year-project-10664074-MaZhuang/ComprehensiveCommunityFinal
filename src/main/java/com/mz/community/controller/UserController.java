@@ -1,10 +1,10 @@
 package com.mz.community.controller;
 
-import com.mz.community.Service.FollowService;
-import com.mz.community.Service.LikeService;
-import com.mz.community.Service.UserService;
 import com.mz.community.annotation.LoginRequired;
 import com.mz.community.entity.User;
+import com.mz.community.service.FollowService;
+import com.mz.community.service.LikeService;
+import com.mz.community.service.UserService;
 import com.mz.community.util.CommunityUtil;
 import com.mz.community.util.HostHolder;
 import com.qiniu.util.Auth;

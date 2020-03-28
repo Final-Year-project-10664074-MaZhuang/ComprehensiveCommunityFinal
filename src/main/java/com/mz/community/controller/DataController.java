@@ -1,6 +1,6 @@
 package com.mz.community.controller;
 
-import com.mz.community.Service.DataService;
+import com.mz.community.service.DataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;

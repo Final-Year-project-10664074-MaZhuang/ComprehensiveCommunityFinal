@@ -19,11 +19,11 @@ public class DiscussPost {
     @Field(type = FieldType.Integer)
     private int userId;
 
-    @Field(type = FieldType.Text,analyzer = "StandardAnalyzer_english",searchAnalyzer = "StandardAnalyzer_english")
+    @Field(type = FieldType.Text,analyzer = "ik_max_word",searchAnalyzer = "ik_smart")
     //@Field(type = FieldType.Text)
     private String title;
 
-    @Field(type = FieldType.Text,analyzer = "StandardAnalyzer_english",searchAnalyzer = "StandardAnalyzer_english")
+    @Field(type = FieldType.Text,analyzer = "ik_max_word",searchAnalyzer = "ik_smart")
     //@Field(type = FieldType.Text)
     private String content;
 

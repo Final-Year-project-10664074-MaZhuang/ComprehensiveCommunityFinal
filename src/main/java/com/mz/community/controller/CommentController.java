@@ -1,12 +1,12 @@
 package com.mz.community.controller;
 
-import com.mz.community.Service.CommentService;
-import com.mz.community.Service.DiscussPostService;
 import com.mz.community.annotation.LoginRequired;
 import com.mz.community.entity.Comment;
 import com.mz.community.entity.DiscussPost;
 import com.mz.community.entity.Event;
 import com.mz.community.event.EventProducer;
+import com.mz.community.service.CommentService;
+import com.mz.community.service.DiscussPostService;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.HostHolder;
 import com.mz.community.util.RedisKeyUtil;

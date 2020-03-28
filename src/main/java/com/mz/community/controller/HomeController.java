@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class HomeController {
+    @RequestMapping(path = "/",method = RequestMethod.GET)
+    public String root() {
+        return "forward:/index";
+    }
     @RequestMapping(path = "/index",method = RequestMethod.GET)
     public String index() {
         return "index";

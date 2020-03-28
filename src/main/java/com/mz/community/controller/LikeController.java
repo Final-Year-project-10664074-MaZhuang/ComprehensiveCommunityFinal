@@ -1,10 +1,10 @@
 package com.mz.community.controller;
 
-import com.mz.community.Service.LikeService;
 import com.mz.community.annotation.LoginRequired;
 import com.mz.community.entity.Event;
 import com.mz.community.entity.User;
 import com.mz.community.event.EventProducer;
+import com.mz.community.service.LikeService;
 import com.mz.community.util.CommunityUtil;
 import com.mz.community.util.HostHolder;
 import com.mz.community.util.RedisKeyUtil;

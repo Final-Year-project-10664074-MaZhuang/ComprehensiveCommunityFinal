@@ -1,4 +1,4 @@
-package com.mz.community.Service;
+package com.mz.community.service;
 
 import com.mz.community.entity.User;
 import com.mz.community.util.CommunityConstant;

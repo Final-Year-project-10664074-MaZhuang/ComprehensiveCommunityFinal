@@ -6,7 +6,7 @@ $(function () {
 });
 
 function connect() {
-    var socket = new SockJS("/community/chat");
+    var socket = new SockJS("/chat");
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         console.log("connect: " + frame);

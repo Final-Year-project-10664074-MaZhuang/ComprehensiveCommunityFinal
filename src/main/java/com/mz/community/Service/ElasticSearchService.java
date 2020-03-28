@@ -1,4 +1,4 @@
-package com.mz.community.Service;
+package com.mz.community.service;
 
 import com.mz.community.dao.elasticsearch.DiscussPostRepository;
 import com.mz.community.entity.DiscussPost;
@@ -93,11 +93,6 @@ public class ElasticSearchService {
                 }
                 return new AggregatedPageImpl(list, pageable,
                         hits.getTotalHits(), response.getAggregations(), response.getScrollId(), hits.getMaxScore());
-            }
-
-            @Override
-            public <T> T mapSearchHit(SearchHit searchHit, Class<T> aClass) {
-                return null;
             }
         });
     }

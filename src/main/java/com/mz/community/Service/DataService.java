@@ -1,4 +1,4 @@
-package com.mz.community.Service;
+package com.mz.community.service;
 
 import com.mz.community.util.RedisKeyUtil;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -10,7 +10,7 @@ import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 import org.elasticsearch.search.fetch.subphase.highlight.HighlightField;
 import org.elasticsearch.search.sort.SortBuilders;
 import org.elasticsearch.search.sort.SortOrder;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
@@ -137,11 +137,6 @@ public class ElasticSearchTests {
                 }
                 return new AggregatedPageImpl(list, pageable, hits.getTotalHits(),
                         response.getAggregations(), response.getScrollId(), hits.getMaxScore());
-            }
-
-            @Override
-            public <T> T mapSearchHit(SearchHit searchHit, Class<T> aClass) {
-                return null;
             }
         });
         System.out.println(page.getTotalElements());

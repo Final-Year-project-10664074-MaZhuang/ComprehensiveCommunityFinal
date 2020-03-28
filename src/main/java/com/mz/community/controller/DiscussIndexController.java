@@ -1,13 +1,13 @@
 package com.mz.community.controller;
 
-import com.mz.community.Service.DiscussPostService;
-import com.mz.community.Service.LikeService;
-import com.mz.community.Service.UserService;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.entity.DiscussPost;
 import com.mz.community.entity.Page;
 import com.mz.community.entity.Tags;
 import com.mz.community.entity.User;
+import com.mz.community.service.DiscussPostService;
+import com.mz.community.service.LikeService;
+import com.mz.community.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

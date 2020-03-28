@@ -1,4 +1,4 @@
-package com.mz.community.Service;
+package com.mz.community.service;
 
 import com.mz.community.dao.neo4jMapper.NeoLikeMapper;
 import org.springframework.beans.factory.annotation.Autowired;

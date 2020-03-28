@@ -1,4 +1,4 @@
-package com.mz.community.Service;
+package com.mz.community.service;
 
 import com.mz.community.dao.mysqlMapper.MessageMapper;
 import com.mz.community.entity.Message;
