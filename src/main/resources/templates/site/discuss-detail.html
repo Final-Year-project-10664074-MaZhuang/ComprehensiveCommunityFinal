@@ -64,10 +64,10 @@
                     </div>
                     <div>
                         <span class="badge badge-info" style="margin-right: 10px" th:each="tags:${postTags}">
-                                    <span class="glyphicon glyphicon-tags">
-                                        <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">String</span>
-                                    </span>
-                                </span>
+                            <a th:href="@{|/discuss/tag/${tags.tagName}|}" class="glyphicon glyphicon-tags" style="color: white">
+                                <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">Spring</span>
+                            </a>
+                        </span>
                     </div>
                 </div>
             </div>

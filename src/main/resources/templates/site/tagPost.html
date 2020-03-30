@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="https://github.com/Ma-Zhuang/Pic/blob/master/1583260475126.png?raw=true"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/css/global.css}"/>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
+    <link rel="stylesheet" th:href="@{/css/editormd.min.css}"/>
+    <title th:utext="${tagName}">Tag</title>
+</head>
+<body>
+<div class="nk-container">
+    <!-- header -->
+    <header th:replace="site/discussIndex::header">
+    </header>
+
+    <!-- content -->
+    <div class="main">
+        <div class="container">
+            <!-- List of posts -->
+            <div class="row">
+                <ul class="list-unstyled col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                    <li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${discussPosts}">
+                        <a th:href="@{|/user/profile/${map.user.id}|}">
+                            <img th:src="${map.user.headerUrl}" class="mr-4 rounded-circle" alt="Profile Picture"
+                                 style="width:50px;height:50px;">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="mt-0 mb-3">
+                                <a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.title}"></a>
+                                <span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">Sticky</span>
+                                <span class="badge badge-secondary bg-danger"
+                                      th:if="${map.post.status==1}">The essence</span>
+                            </h6>
+                            <div class="text-muted font-size-12">
+                                <u class="mr-3" th:utext="${map.user.username}"></u>
+                                <ul class="d-inline float-right">
+                                    <li class="d-inline ml-2">Likes <span th:text="${map.likeCount}">11</span></li>
+                                    <li class="d-inline ml-2">|</li>
+                                    <li class="d-inline ml-2">Reply <span th:text="${map.post.commentCount}"></span>
+                                    </li>
+                                </ul>
+                                <div>
+                                <span class="badge badge-info" style="margin-right: 10px"
+                                      th:each="tags:${map.postTags}">
+                                    <a th:href="@{|/discuss/tag/${tags.tagName}|}" class="glyphicon glyphicon-tags" style="color: white">
+                                        <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">Spring</span>
+                                    </a>
+                                </span>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <h5>Hot Tags</h5>
+                    <hr>
+                    <span class="badge badge-info" style="margin-right: 10px"
+                          th:each="hotTag:${hotTags}">
+                            <a th:href="@{|/discuss/tag/${hotTag.tagName}|}" class="glyphicon glyphicon-tags" style="color: white">
+                                <span th:utext="${hotTag.tagName}" th:if="${hotTag.tagName!=null}">Spring</span>
+                            </a>
+                        </span>
+                    <hr>
+                </div>
+            </div>
+
+            <!-- pagination-->
+            <nav class="mt-5" th:replace="site/discussIndex::pagination"></nav>
+        </div>
+    </div>
+
+    <!-- foot -->
+    <footer th:replace="site/discussIndex::footer">
+    </footer>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script th:src="@{/js/global.js}"></script>
+<script th:src="@{/js/index.js}"></script>
+<script th:src="@{/js/editormd.min.js}"></script>
+<script th:src="@{/js/languages/en.js}"></script>
+<script type="text/javascript">
+    $(function () {
+        var editor = editormd("question-editor", {
+            width: "100%",
+            height: 350,
+            path: CONTEXT_PATH + "/js/lib/",
+            delay: 0,
+            watch: false,
+            placeholder: "Detail Information"
+        });
+    });
+</script>
+</body>
+</html>

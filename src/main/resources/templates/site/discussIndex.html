@@ -19,8 +19,8 @@
 <div class="nk-container">
 
     <!-- header -->
-    <header class="bg-dark sticky-top" th:fragment="header">
-        <div class="container">
+    <header class="bg-dark sticky-top row" th:fragment="header">
+        <div class="container col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <!-- nav -->
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <!-- logo -->
@@ -37,10 +37,7 @@
                             <a class="nav-link" th:href="@{/index}">HomePage</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" th:href="@{/discussIndex}">Article</a>
-                        </li>
-                        <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" th:href="@{/question}">Question</a>
+                            <a class="nav-link" th:href="@{/discussIndex}">Question</a>
                         </li>
                         <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser!=null}">
                             <a class="nav-link position-relative" th:href="@{/letter/list}">Message<span
@@ -190,39 +187,55 @@
             </div>
 
             <!-- List of posts -->
-            <ul class="list-unstyled">
-                <li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${discussPosts}">
-                    <a th:href="@{|/user/profile/${map.user.id}|}">
-                        <img th:src="${map.user.headerUrl}" class="mr-4 rounded-circle" alt="Profile Picture"
-                             style="width:50px;height:50px;">
-                    </a>
-                    <div class="media-body">
-                        <h6 class="mt-0 mb-3">
-                            <a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.title}"></a>
-                            <span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">Sticky</span>
-                            <span class="badge badge-secondary bg-danger"
-                                  th:if="${map.post.status==1}">The essence</span>
-                        </h6>
-                        <div class="text-muted font-size-12">
-                            <u class="mr-3" th:utext="${map.user.username}"></u> posted on <b
-                                th:text="${map.post.createTime}">2019-04-15
-                            15:32:18</b>
-                            <ul class="d-inline float-right">
-                                <li class="d-inline ml-2">Likes <span th:text="${map.likeCount}">11</span></li>
-                                <li class="d-inline ml-2">|</li>
-                                <li class="d-inline ml-2">Reply <span th:text="${map.post.commentCount}"></span></li>
-                            </ul>
-                            <div>
-                                <span class="badge badge-info" style="margin-right: 10px" th:each="tags:${map.postTags}">
-                                    <span class="glyphicon glyphicon-tags">
-                                        <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">String</span>
-                                    </span>
+            <div class="row">
+                <ul class="list-unstyled col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                    <li class="media pb-3 pt-3 mb-3 border-bottom" th:each="map:${discussPosts}">
+                        <a th:href="@{|/user/profile/${map.user.id}|}">
+                            <img th:src="${map.user.headerUrl}" class="mr-4 rounded-circle" alt="Profile Picture"
+                                 style="width:50px;height:50px;">
+                        </a>
+                        <div class="media-body">
+                            <h6 class="mt-0 mb-3">
+                                <a th:href="@{|/discuss/detail/${map.post.id}|}" th:utext="${map.post.title}"></a>
+                                <span class="badge badge-secondary bg-primary" th:if="${map.post.type==1}">Sticky</span>
+                                <span class="badge badge-secondary bg-danger"
+                                      th:if="${map.post.status==1}">The essence</span>
+                            </h6>
+                            <div class="text-muted font-size-12">
+                                <u class="mr-3" th:utext="${map.user.username}"></u> posted on <b
+                                    th:text="${map.post.createTime}">2019-04-15
+                                15:32:18</b>
+                                <ul class="d-inline float-right">
+                                    <li class="d-inline ml-2">Likes <span th:text="${map.likeCount}">11</span></li>
+                                    <li class="d-inline ml-2">|</li>
+                                    <li class="d-inline ml-2">Reply <span th:text="${map.post.commentCount}"></span>
+                                    </li>
+                                </ul>
+                                <div>
+                                <span class="badge badge-info" style="margin-right: 10px"
+                                      th:each="tags:${map.postTags}">
+                                    <a th:href="@{|/discuss/tag/${tags.tagName}|}" class="glyphicon glyphicon-tags" style="color: white">
+                                        <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">Spring</span>
+                                    </a>
                                 </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </li>
-            </ul>
+                    </li>
+                </ul>
+                <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                    <h5>Hot Tags</h5>
+                    <hr>
+                        <span class="badge badge-info" style="margin-right: 10px"
+                              th:each="hotTag:${hotTags}">
+                            <a th:href="@{|/discuss/tag/${hotTag.tagName}|}" class="glyphicon glyphicon-tags" style="color: white">
+                                <span th:utext="${hotTag.tagName}" th:if="${hotTag.tagName!=null}">Spring</span>
+                            </a>
+                        </span>
+                    <hr>
+                </div>
+            </div>
+
             <!-- pagination-->
             <nav class="mt-5" th:if="${page.rows>0}" th:fragment="pagination">
                 <ul class="pagination justify-content-center">
@@ -248,8 +261,8 @@
     </div>
 
     <!-- footer -->
-    <footer class="bg-dark" th:fragment="footer">
-        <div class="container">
+    <footer class="bg-dark row" th:fragment="footer">
+        <div class="container col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <p class="m-0 text-center text-white">
                 © 2020
                 <a href="https://github.com/Final-Year-project-10664074-MaZhuang/ComprehensiveCommunityFinal">

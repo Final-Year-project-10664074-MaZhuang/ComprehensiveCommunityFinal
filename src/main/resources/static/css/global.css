@@ -152,8 +152,9 @@ a:hover {
 	height: 50px;
 }
 .logo{
-	width: 425px;
-	height: 425px;
+	/*width: 425px;
+	height: 425px;*/
+	margin-left: 400px;
 }
 em {
 	font-style: normal;

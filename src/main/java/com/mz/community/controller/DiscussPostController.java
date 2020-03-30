@@ -4,10 +4,7 @@ import com.mz.community.annotation.LoginRequired;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.entity.*;
 import com.mz.community.event.EventProducer;
-import com.mz.community.service.CommentService;
-import com.mz.community.service.DiscussPostService;
-import com.mz.community.service.LikeService;
-import com.mz.community.service.UserService;
+import com.mz.community.service.*;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.CommunityUtil;
 import com.mz.community.util.HostHolder;
@@ -43,6 +40,8 @@ public class DiscussPostController implements CommunityConstant {
     private EventProducer eventProducer;
     @Autowired
     private RedisTemplate redisTemplate;
+    @Autowired
+    private TagsService tagsService;
 
     @LoginRequired
     @RequestMapping(path = "/add", method = RequestMethod.POST)
@@ -212,5 +211,33 @@ public class DiscussPostController implements CommunityConstant {
                 .setStatus(2);
         eventProducer.fireEvent(event);
         return CommunityUtil.getJSONString(0);
+    }
+
+    @RequestMapping(path = "/tag/{tagName}",method = RequestMethod.GET)
+    public String getPostByTag(@PathVariable("tagName") String tagName,Model model, Page page){
+        page.setRows(tagsService.findPostByTagRows(tagName));
+        page.setPath("/tag/"+tagName);
+        List<DiscussPost> postByTag = tagsService.findPostByTag(tagName, page.getOffset(), page.getLimit());
+        List<Map<String,Object>> discussPosts = new ArrayList<>();
+        if (postByTag!=null){
+            for (DiscussPost post : postByTag) {
+                Map<String,Object> map = new HashMap<>();
+                map.put("post",post);
+                List<Tags> tags = neoDiscussPostMapper.selectTagsByDiscussPostId(post.getId());
+                map.put("postTags",tags);
+                User user = userService.findUserById(post.getUserId());
+                map.put("user",user);
+                long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST, post.getId());
+                map.put("likeCount", likeCount);
+                discussPosts.add(map);
+            }
+        }
+        List<Tags> tags = discussPostService.findAllTags();
+        model.addAttribute("AllTags",tags);
+        List<Tags> hotTags = tagsService.findHotTags();
+        model.addAttribute("hotTags",hotTags);
+        model.addAttribute("discussPosts",discussPosts);
+        model.addAttribute("tagName",tagName);
+        return "site/tagPost";
     }
 }

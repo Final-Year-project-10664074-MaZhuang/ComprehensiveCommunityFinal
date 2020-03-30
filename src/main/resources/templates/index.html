@@ -17,25 +17,22 @@
 <div class="nk-container bg-gray">
 
     <!-- header -->
-    <header class="bg-dark sticky-top">
-        <div class="container">
+    <header class="bg-dark sticky-top row">
+        <div class="container col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <!-- nav -->
             <nav class="navbar navbar-expand-lg navbar-dark">
                 <!-- logo -->
-                <a class="navbar-brand" th:href="@{/index}"></a>
+                <a class="navbar-brand col-lg-3 col-md-12 col-sm-12 col-xs-12" th:href="@{/index}"></a>
                 <!-- function -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item ml-3 btn-group-vertical">
+                        <li class="nav-item col-lg-3 col-md-12 col-sm-12 col-xs-12 btn-group-vertical">
                             <a class="nav-link" th:href="@{/index}">HomePage</a>
                         </li>
-                        <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" th:href="@{/discussIndex}">Article</a>
+                        <li class="nav-item col-lg-3 col-md-12 col-sm-12 col-xs-12 btn-group-vertical">
+                            <a class="nav-link" th:href="@{/discussIndex}">Question</a>
                         </li>
-                        <li class="nav-item ml-3 btn-group-vertical">
-                            <a class="nav-link" th:href="@{/question}">Question</a>
-                        </li>
-                        <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser!=null}">
+                        <li class="nav-item col-lg-3 col-md-12 col-sm-12 col-xs-12 btn-group-vertical" th:if="${loginUser!=null}">
                             <a class="nav-link position-relative" th:href="@{/letter/list}">Message<span
                                     class="badge badge-danger"
                                     th:text="${allUnreadCount!=0?allUnreadCount:''}">12</span></a>
@@ -43,13 +40,13 @@
                                    src="http://data.huiyi8.com/2017/gha/03/17/1702.mp3"
                                    th:if="${allUnreadCount!=0}"></audio>-->
                         </li>
-                        <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
+                        <li class="nav-item col-lg-3 col-md-12 col-sm-12 col-xs-12 btn-group-vertical" th:if="${loginUser==null}">
                             <a class="nav-link" th:href="@{/register}">Register</a>
                         </li>
-                        <li class="nav-item ml-3 btn-group-vertical" th:if="${loginUser==null}">
+                        <li class="nav-item col-lg-3 col-md-12 col-sm-12 col-xs-12 btn-group-vertical" th:if="${loginUser==null}">
                             <a class="nav-link" th:href="@{/login}">Sign in</a>
                         </li>
-                        <li class="nav-item ml-3 btn-group-vertical dropdown" th:if="${loginUser!=null}">
+                        <li class="nav-item col-lg-3 col-md-12 col-sm-12 col-xs-12 btn-group-vertical dropdown" th:if="${loginUser!=null}">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <img th:src="${loginUser.headerUrl}" class="rounded-circle"
@@ -76,23 +73,18 @@
         </div>
     </header>
 
-    <div class="main-header">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-md-4"></div>
-                <div class="col-md-4"><!--https://github.com/Ma-Zhuang/Pic/blob/master/Q&ALOGO472x472.png?raw=true-->
-                    <img class="logo" src="https://github.com/Ma-Zhuang/Pic/blob/master/Q&ALOGO472x472.png?raw=true">
-                    <form class="form-inline my-2 my-lg-0" method="get" th:action="@{/search}">
-                        <input class="searchBar" type="search">
-                        <button class="btnSearch" type="submit" style="color:white" ;>Search</button>
-                    </form>
-                </div>
-            </div>
+    <div class="main-header row">
+        <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <img class="logo" src="https://github.com/Ma-Zhuang/Pic/blob/master/Q&ALOGO472x472.png?raw=true">
+            <form class="form-inline logo" method="get" th:action="@{/search}">
+                <input class="searchBar" type="search">
+                <button class="btnSearch" type="submit" style="color:white" ;>Search</button>
+            </form>
         </div>
     </div>
     <!-- footer -->
-    <footer class="bg-dark">
-        <div class="container">
+    <footer class="bg-dark row">
+        <div class="container col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <p class="m-0 text-center text-white">
                 © 2020
                 <a href="https://github.com/Final-Year-project-10664074-MaZhuang/ComprehensiveCommunityFinal">
