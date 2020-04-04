@@ -13,11 +13,13 @@ public interface NeoDiscussPostMapper {
 
     List<Tags> selectTags();
 
+    List<Tags> selectAllTags(int offset,int limit);
+
     List<Tags> selectTagsByDiscussPostId(int postId);
 
     int insertDiscussPost(DiscussPost discussPost);
 
-    int insertTags(Tags tags);
+    int insertTags(String tagName);
 
     int insertRelationDiscussPost(int userId,int postId,String[] tagName);
 
@@ -25,4 +27,5 @@ public interface NeoDiscussPostMapper {
 
     int updateDiscussPostScore(int postId,double score);
 
+    int selectTagsTagNumber(String tagName);
 }

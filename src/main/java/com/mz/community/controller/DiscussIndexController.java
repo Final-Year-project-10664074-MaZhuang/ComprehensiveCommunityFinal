@@ -37,7 +37,7 @@ public class DiscussIndexController {
     @Autowired
     private TagsService tagsService;
 
-    @RequestMapping(value = "/discussIndex",method = RequestMethod.GET)
+    @RequestMapping(path = "/discussIndex",method = RequestMethod.GET)
     public String getDiscussIndex(Model model, Page page,
                                   @RequestParam(name = "orderMode", defaultValue = "1") int orderMode){
         page.setRows(discussPostService.findDiscussPostRows(0));
@@ -69,7 +69,9 @@ public class DiscussIndexController {
     @RequestMapping(path = "/myPost/{userId}", method = RequestMethod.GET)
     public String getMyPostPage(@PathVariable("userId") int userId, Page page, @RequestParam(name = "orderMode", defaultValue = "1") int orderMode,
                                 Model model) {
-
+        if(userId==182){
+            return "/site/Crawler-post";
+        }
         User user = userService.findUserById(userId);
         if (user != null) {
             model.addAttribute("user", user);

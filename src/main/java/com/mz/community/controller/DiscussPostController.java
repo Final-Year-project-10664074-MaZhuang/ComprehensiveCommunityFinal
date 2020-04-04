@@ -47,7 +47,6 @@ public class DiscussPostController implements CommunityConstant {
     @RequestMapping(path = "/add", method = RequestMethod.POST)
     @ResponseBody
     public String addDiscussPost(String title, String content, String tag) {
-        System.out.println(tag);
         if (StringUtils.isBlank(title) || StringUtils.isBlank(content)) {
             return CommunityUtil.getJSONString(403, "Can't post empty content");
         }

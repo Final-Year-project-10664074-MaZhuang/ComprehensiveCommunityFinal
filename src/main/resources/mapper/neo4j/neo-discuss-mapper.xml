@@ -5,7 +5,11 @@
 <mapper namespace="com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper">
 
     <select id="selectTagByTagName" resultType="Tags">
-        match(n:Tags) where n.tagName='${tagName}' return n.tagName as tagName
+        match(n:Tags) where n.tagName=#{tagName} return n.tagName as tagName
+    </select>
+
+    <select id="selectTagsTagNumber" resultType="int">
+        match(:DiscussPost)-[r:TAGS]-(:Tags{tagName:#{tagName}}) return count(r)
     </select>
 
     <select id="selectTagsByDiscussPostId" resultType="Tags">
@@ -13,14 +17,20 @@
     </select>
 
     <select id="selectTags" resultType="Tags">
-        MATCH (n:Tags) RETURN n.tagName as tagName
+        MATCH (n:Tags) RETURN n.tagName as tagName order by tagName
     </select>
+
+    <select id="selectAllTags" resultType="Tags">
+        MATCH (:DiscussPost)-[r:TAGS]->(n:Tags) with n.tagName as tagName,count(r) as c
+            return tagName order by c desc skip #{offset} limit #{limit}
+    </select>
+
     <insert id="insertDiscussPost" parameterType="DiscussPost">
         create(:DiscussPost{PostId:#{id},userId:#{userId},title:#{title},content:#{content},status:#{status},score:#{score},type:#{type},create_Time:'${createTime}',commentCount:#{commentCount}})
     </insert>
 
-    <insert id="insertTags" parameterType="Tags">
-        create(:Tags{tagName:#{tagName}})
+    <insert id="insertTags" parameterType="string">
+        MERGE(:Tags{tagName:#{tagName}})
     </insert>
 
     <insert id="insertRelationDiscussPost">

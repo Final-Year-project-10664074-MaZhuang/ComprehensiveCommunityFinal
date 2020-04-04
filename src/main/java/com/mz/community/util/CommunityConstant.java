@@ -70,6 +70,11 @@ public interface CommunityConstant {
     String TOPIC_DELETE = "delete";
 
     /**
+     * topic: Crawler question
+     */
+    String TOPIC_CRAWLER = "crawler";
+
+    /**
      * System user ID
      */
     int SYSTEM_USERID = 1;

@@ -12,8 +12,8 @@
         match(d:DiscussPost)-[r:TAGS]->(t:Tags{tagName:#{tagName}})
         with d.PostId as id,d.userId as userId,d.content as content,d.type as type,
             d.score as score,d.commentCount as commentCount,d.create_Time as createTime,
-            d.status as status,d.title as title
-        where status=0 return id,userId,title,content,type,status,commentCount,score
+            d.status as status,d.title as title,d.linkUrl as linkUrl
+        where status=0 return id,userId,title,content,type,status,commentCount,linkUrl,score
         order by score skip #{offset} limit #{limit}
     </select>
 

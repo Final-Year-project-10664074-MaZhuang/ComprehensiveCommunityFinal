@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -25,6 +26,8 @@ public class EventConsumer implements CommunityConstant {
     private NeoFollowService neoFollowService;
     @Autowired
     private NeoLikeService neoLikeService;
+    @Autowired
+    private CrawlerService crawlerService;
 
     @Autowired
     private NeoDiscussPostMapper neoDiscussPostMapper;
@@ -125,5 +128,23 @@ public class EventConsumer implements CommunityConstant {
         }
         elasticSearchService.deleteDiscussPost(event.getEntityId());
         neoDiscussPostMapper.updateDiscussPostStatus(event.getEntityId(),event.getStatus());
+    }
+
+    @KafkaListener(topics = {TOPIC_CRAWLER})
+    public void handleCrawlerPost(ConsumerRecord record){
+        if (record == null || record.value() == null) {
+            LOGGER.error("The content of the crawler is empty");
+            return;
+        }
+
+        Event event = JSONObject.parseObject(record.value().toString(), Event.class);
+        if (event == null) {
+            LOGGER.error("crawler format error");
+            return;
+        }
+        List<DiscussPost> crawlerFromStackOverFlow = crawlerService.getCrawlerFromStackOverFlow(event.getTags());
+        for (DiscussPost discussPost : crawlerFromStackOverFlow) {
+            elasticSearchService.saveDiscussPost(discussPost);
+        }
     }
 }

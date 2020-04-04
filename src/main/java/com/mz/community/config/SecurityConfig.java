@@ -51,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Comm
                 ).antMatchers(
                 "/discuss/delete",
                 "/data/**",
+                "/tagManagement",
+                "/addTags",
                 "/actuator/**"
         )
                 .hasAnyAuthority(

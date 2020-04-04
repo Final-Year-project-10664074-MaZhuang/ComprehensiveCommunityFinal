@@ -78,6 +78,13 @@ public class ElasticSearchService {
                     post.setCreateTime(new Date(Long.valueOf(createTime)));
                     String commentCount = hit.getSourceAsMap().get("commentCount").toString();
                     post.setCommentCount(Integer.valueOf(commentCount));
+                    int type = (int) hit.getSourceAsMap().get("type");
+                    //String linkUrl = hit.getSourceAsMap().get("linkUrl").toString();
+                    if(type==4){
+                        post.setLinkUrl(hit.getSourceAsMap().get("linkUrl").toString());
+                    }else {
+                        post.setLinkUrl(null);
+                    }
 
                     //result
                     HighlightField titleField = hit.getHighlightFields().get("title");

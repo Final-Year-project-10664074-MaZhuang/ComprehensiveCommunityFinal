@@ -41,4 +41,10 @@ public class DiscussPost {
 
     @Field(type = FieldType.Double)
     private double score;
+
+    @Field(type = FieldType.Text)
+    private String linkUrl;
+
+    @Field(type = FieldType.Text)
+    private String[] tagName;
 }

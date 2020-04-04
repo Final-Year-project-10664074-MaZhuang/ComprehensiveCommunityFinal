@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mz.community.dao.neo4jMapper.NeoCrawlerDiscussPostMapper">
+
+    <select id="selectMaxPostId" resultType="int">
+        match(d:DiscussPost) return d.PostId order by d.PostId desc limit 1
+    </select>
+
+    <insert id="insertCrawler" parameterType="java.util.List">
+        <foreach collection="discussPostList" item="post">
+            MERGE(:DiscussPost{PostId:#{post.id},userId:#{post.userId},title:#{post.title},content:#{post.content},status:#{post.status},score:#{post.score},type:#{post.type},create_Time:'${post.createTime}',commentCount:#{post.commentCount},linkUrl:#{post.linkUrl}})
+        </foreach>
+    </insert>
+
+    <insert id="insertCrawlerTags" parameterType="java.util.List">
+        <foreach collection="tagsList" item="tags">
+            MERGE(:Tags{tagName:#{tags.tagName}})
+        </foreach>
+    </insert>
+
+</mapper>
