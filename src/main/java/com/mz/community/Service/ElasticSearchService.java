@@ -45,6 +45,7 @@ public class ElasticSearchService {
 
         SearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.multiMatchQuery(keyWord, "title", "content"))
+                .withSort(SortBuilders.scoreSort().order(SortOrder.DESC))
                 .withSort(SortBuilders.fieldSort("type").order(SortOrder.DESC))
                 .withSort(SortBuilders.fieldSort("score").order(SortOrder.DESC))
                 .withSort(SortBuilders.fieldSort("createTime").order(SortOrder.DESC))
@@ -79,7 +80,6 @@ public class ElasticSearchService {
                     String commentCount = hit.getSourceAsMap().get("commentCount").toString();
                     post.setCommentCount(Integer.valueOf(commentCount));
                     int type = (int) hit.getSourceAsMap().get("type");
-                    //String linkUrl = hit.getSourceAsMap().get("linkUrl").toString();
                     if(type==4){
                         post.setLinkUrl(hit.getSourceAsMap().get("linkUrl").toString());
                     }else {

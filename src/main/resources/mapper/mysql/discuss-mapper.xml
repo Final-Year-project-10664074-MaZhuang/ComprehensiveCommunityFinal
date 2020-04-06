@@ -15,7 +15,7 @@
         select
         <include refid="selectFields"></include>
         from discuss_post
-        where status!=2
+        where status!=2 and type!=4
         <if test="userId!=0">
             and user_id=#{userId}
         </if>
@@ -31,7 +31,7 @@
     <select id="selectDiscussPostRows" resultType="int">
         select count(id)
         from discuss_post
-        where status!=2
+        where status!=2 and type!=4
         <if test="userId!=0">
             and user_id=#{userId}
         </if>
@@ -47,6 +47,17 @@
     <insert id="insertDiscussPost" parameterType="DiscussPost" keyProperty="id">
         insert into discuss_post(<include refid="insertFields"></include>)
         values ( #{userId},#{title},#{content},#{type},#{status},#{createTime},#{commentCount},#{score} )
+    </insert>
+
+    <insert id="insertDiscussPostList" parameterType="java.util.List" keyProperty="id">
+        insert into discuss_post(<include refid="insertFields"></include>)
+        values
+        <foreach collection="discussPostCollect" item="post" separator=",">
+            (
+             #{post.userId},#{post.title},#{post.content},#{post.type},#{post.status},#{post.createTime},#{post.commentCount},#{post.score}
+             )
+        </foreach>
+
     </insert>
 
     <update id="updateCommentCount">

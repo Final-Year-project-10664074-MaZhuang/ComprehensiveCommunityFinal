@@ -20,4 +20,6 @@ public interface DiscussPostMapper {
     int updateStatus(int id, int status);
 
     int updateScore(int id, double score);
+
+    int insertDiscussPostList(@Param("discussPostCollect")List<DiscussPost> discussPostCollect);
 }

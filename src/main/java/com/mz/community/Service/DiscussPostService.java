@@ -139,4 +139,8 @@ public class DiscussPostService {
     public int updateScore(int id, double score) {
         return discussPostMapper.updateScore(id, score);
     }
+
+    public int addDiscussPostList(List<DiscussPost> discussPostCollect) {
+        return discussPostMapper.insertDiscussPostList(discussPostCollect);
+    }
 }

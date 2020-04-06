@@ -66,6 +66,15 @@
                             </a>
                         </span>
                     <hr>
+                    <br>
+                    <div th:if="${zeroPostList!=null}">
+                        <h5>0 Answer</h5>
+                        <hr>
+                        <div th:each="zero:${zeroPostList}">
+                            <a th:href="@{|/discuss/detail/${zero.id}|}" th:utext="${zero.title}"></a>
+                        </div>
+                        <hr>
+                    </div>
                 </div>
             </div>
 
@@ -85,7 +94,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/global.js}"></script>
 <script th:src="@{/js/index.js}"></script>
-<script th:src="@{/js/editormd.min.js}"></script>
+<script th:src="@{/js/editormd.js}"></script>
 <script th:src="@{/js/languages/en.js}"></script>
 <script type="text/javascript">
     $(function () {

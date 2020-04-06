@@ -75,6 +75,11 @@ public interface CommunityConstant {
     String TOPIC_CRAWLER = "crawler";
 
     /**
+     * topic: Visit second
+     */
+    String TOPIC_VISITSECOND = "visitTime";
+
+    /**
      * System user ID
      */
     int SYSTEM_USERID = 1;

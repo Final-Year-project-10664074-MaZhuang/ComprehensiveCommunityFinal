@@ -45,9 +45,9 @@
                             </ul>
                             <div>
                                 <span class="badge badge-info" style="margin-right: 10px" th:each="tags:${map.postTags}">
-                                    <span class="glyphicon glyphicon-tags">
+                                    <a th:href="@{|/discuss/tag/${tags.tagName}|}" class="glyphicon glyphicon-tags" style="color: white">
                                         <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">String</span>
-                                    </span>
+                                    </a>
                                 </span>
                             </div>
                         </div>

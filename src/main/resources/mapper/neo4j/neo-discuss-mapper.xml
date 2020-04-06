@@ -4,6 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper">
 
+    <select id="selectZeroReply" resultType="DiscussPost">
+        match(d:DiscussPost)
+        with d.PostId as id,d.userId as userId,d.content as content,d.type as type,
+            d.score as score,d.commentCount as commentCount,d.create_Time as createTime,
+            d.status as status,d.title as title,d.linkUrl as linkUrl
+        where status=0 and commentCount=0 return id,userId,title,content,type,status,commentCount,linkUrl,score
+        order by score, createTime skip #{offset} limit #{limit}
+    </select>
+
     <select id="selectTagByTagName" resultType="Tags">
         match(n:Tags) where n.tagName=#{tagName} return n.tagName as tagName
     </select>
@@ -25,6 +34,12 @@
             return tagName order by c desc skip #{offset} limit #{limit}
     </select>
 
+    <select id="selectVisitSecondByUserId" resultType="double">
+        match(:User{UserId:#{userId}})-[r:VISIT]->(:DiscussPost{PostId:#{entityId}}) return r.second
+    </select>
+
+
+
     <insert id="insertDiscussPost" parameterType="DiscussPost">
         create(:DiscussPost{PostId:#{id},userId:#{userId},title:#{title},content:#{content},status:#{status},score:#{score},type:#{type},create_Time:'${createTime}',commentCount:#{commentCount}})
     </insert>
@@ -41,10 +56,21 @@
         match(t:Tags) where t.tagName in #{tagName}
         create (d1)-[:TAGS]->(t)
     </insert>
+
+    <insert id="insertVisitSecond">
+        match(u:User{UserId:#{userId}})
+             match(d:DiscussPost{PostId:#{entityId}})
+        MERGE(u)-[:VISIT{second:#{second}}]->(d)
+    </insert>
+
     <update id="updateDiscussPostStatus">
         match(d:DiscussPost{PostId:#{postId}}) set d.status=#{status}
     </update>
     <update id="updateDiscussPostScore">
         match(d:DiscussPost{PostId:#{postId}}) set d.score=#{score}
+    </update>
+
+    <update id="updateVisitSecond">
+        match(:User{UserId:#{userId}})-[r:VISIT]->(:DiscussPost{PostId:#{entityId}}) set r.second =#{second}
     </update>
 </mapper>

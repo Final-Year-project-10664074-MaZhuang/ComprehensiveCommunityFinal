@@ -1,5 +1,6 @@
 package com.mz.community.controller;
 
+import com.mz.community.dao.elasticsearch.DiscussPostRepository;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.entity.Event;
 import com.mz.community.entity.Page;
@@ -7,6 +8,7 @@ import com.mz.community.entity.Tags;
 import com.mz.community.event.EventProducer;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.CommunityUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,7 +26,13 @@ public class CrawlerController implements CommunityConstant {
     @Autowired
     private EventProducer eventProducer;
     @Autowired
+    private DiscussPostRepository discussRepository;
+    @Autowired
     private NeoDiscussPostMapper neoDiscussPostMapper;
+    @RequestMapping(path = "/deleteAllES",method = RequestMethod.GET)
+    public void deleteAllES(){
+        discussRepository.deleteAll();
+    }
 
     @RequestMapping(path = "/tagManagement",method = RequestMethod.GET)
     public String getTagManagementPage(Model model, Page page){
@@ -47,7 +55,7 @@ public class CrawlerController implements CommunityConstant {
     @RequestMapping(path = "/addTags",method = RequestMethod.POST)
     @ResponseBody
     public String addTag(String tag){
-        if(tag==null){
+        if(StringUtils.isBlank(tag)){
             throw new IllegalArgumentException("Tags param can not be null");
         }
         String[] tagsArray = tag.split(",");

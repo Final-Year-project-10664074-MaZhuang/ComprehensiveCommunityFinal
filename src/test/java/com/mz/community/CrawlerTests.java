@@ -26,10 +26,10 @@ public class CrawlerTests {
 
     @Test
     public void CrawlerSearchTest(){
-        String[] key = {"OpenCV"};
+        String[] key = {"javascript"};
         List<DiscussPost> crawlerFromStackOverFlow = crawlerService.getCrawlerFromStackOverFlow(key);
-        for (DiscussPost discussPost : crawlerFromStackOverFlow) {
+        /*for (DiscussPost discussPost : crawlerFromStackOverFlow) {
             elasticSearchService.saveDiscussPost(discussPost);
-        }
+        }*/
     }
 }

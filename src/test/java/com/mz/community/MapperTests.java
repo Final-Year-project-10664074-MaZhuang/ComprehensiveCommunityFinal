@@ -4,8 +4,10 @@ import com.mz.community.dao.mysqlMapper.DiscussPostMapper;
 import com.mz.community.dao.mysqlMapper.UserMapper;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.dao.neo4jMapper.NeoUserMapper;
+import com.mz.community.dao.neo4jMapper.TagsMapper;
 import com.mz.community.entity.DiscussPost;
 import com.mz.community.entity.Tags;
+import com.mz.community.entity.User;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,8 @@ public class MapperTests {
     private DiscussPostMapper discussPostMapper;
     @Autowired
     private NeoDiscussPostMapper neoDiscussPostMapper;
+    @Autowired
+    private TagsMapper tagsMapper;
     @Test
     public void testCrud(){
         System.out.println(userMapper.selectByName("SYSTEM"));
@@ -35,7 +39,8 @@ public class MapperTests {
     }
     @Test
     public void testSelectPosts(){
-        List<DiscussPost> discussPosts = discussPostMapper.selectDiscussPosts(0, 0, 10,0);
+        //List<DiscussPost> discussPosts = discussPostMapper.selectDiscussPosts(0, 0, 10,0);
+        List<DiscussPost> discussPosts = neoDiscussPostMapper.selectZeroReply(0, 0, 10);
         for (DiscussPost discuss : discussPosts) {
             System.out.println(discuss);
         }
@@ -96,5 +101,46 @@ public class MapperTests {
         for (int i = 0; i < name.length; i++) {
             neoDiscussPostMapper.insertTags(name[i]);
         }
+    }
+
+    @Test
+    public void testSelectRelatedTags(){
+        String tagName = ".*tomcat.*";
+        List<Tags> tagsList = tagsMapper.selectRelatedTags(tagName);
+        for (Tags tags : tagsList) {
+            System.out.println(tags.getTagName());
+        }
+    }
+
+    @Test
+    public void testSelectVisitSecond(){
+        double v=0.0;
+        try {
+           v = neoDiscussPostMapper.selectVisitSecondByUserId(18, 300335);
+            System.out.println(v);
+        }catch (Exception e){
+            System.out.println(v);
+        }
+    }
+
+    @Test
+    public void testUpdateVisitSecond(){
+        neoDiscussPostMapper.updateVisitSecond(300335,182,22.0);
+    }
+
+    @Test
+    public void testInsertUser(){
+        User user = new User();
+        user.setUsername("TestAccount2");
+        user.setPassword("25ac0a2e8bd0f28928de3c56149283d6");
+        user.setSalt("49f10");
+        user.setEmail("test2@qq.com");
+        user.setType(0);
+        user.setStatus(1);
+        user.setHeaderUrl("http://images.nowcoder.com/head/22t.png");
+        user.setCreateTime(new Date());
+
+        userMapper.insertUser(user);
+        neoUserMapper.insertUser(user);
     }
 }

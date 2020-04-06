@@ -10,7 +10,7 @@
 
     <insert id="insertCrawler" parameterType="java.util.List">
         <foreach collection="discussPostList" item="post">
-            MERGE(:DiscussPost{PostId:#{post.id},userId:#{post.userId},title:#{post.title},content:#{post.content},status:#{post.status},score:#{post.score},type:#{post.type},create_Time:'${post.createTime}',commentCount:#{post.commentCount},linkUrl:#{post.linkUrl}})
+            create(:DiscussPost{PostId:#{post.id},userId:#{post.userId},title:#{post.title},content:#{post.content},status:#{post.status},score:#{post.score},type:#{post.type},create_Time:'${post.createTime}',commentCount:#{post.commentCount},linkUrl:#{post.linkUrl}})
         </foreach>
     </insert>
 

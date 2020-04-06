@@ -7,12 +7,15 @@ import com.mz.community.entity.Event;
 import com.mz.community.entity.Message;
 import com.mz.community.service.*;
 import com.mz.community.util.CommunityConstant;
+import com.mz.community.util.MailClient;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -25,9 +28,15 @@ public class EventConsumer implements CommunityConstant {
     @Autowired
     private NeoFollowService neoFollowService;
     @Autowired
+    private NeoCommentService neoCommentService;
+    @Autowired
     private NeoLikeService neoLikeService;
     @Autowired
     private CrawlerService crawlerService;
+    @Autowired
+    private MailClient mailClient;
+    @Autowired
+    private TemplateEngine templateEngine;
 
     @Autowired
     private NeoDiscussPostMapper neoDiscussPostMapper;
@@ -79,7 +88,7 @@ public class EventConsumer implements CommunityConstant {
         }else if(TOPIC_UNFOLLOW.equals(event.getTopic())){
             neoFollowService.deleteFollow(event.getUserId(),event.getEntityId());
         }else if(TOPIC_COMMENT.equals(event.getTopic())){
-            neoFollowService.deleteFollow(event.getUserId(),event.getEntityId());
+            neoCommentService.addComment(event.getUserId(),event.getEntityId());
         }
 
     }
@@ -143,8 +152,40 @@ public class EventConsumer implements CommunityConstant {
             return;
         }
         List<DiscussPost> crawlerFromStackOverFlow = crawlerService.getCrawlerFromStackOverFlow(event.getTags());
-        for (DiscussPost discussPost : crawlerFromStackOverFlow) {
-            elasticSearchService.saveDiscussPost(discussPost);
+        Context context = new Context();
+        String content =null;
+        if (crawlerFromStackOverFlow!=null){
+            for (DiscussPost discussPost : crawlerFromStackOverFlow) {
+                elasticSearchService.saveDiscussPost(discussPost);
+            }
+            context.setVariable("content","Data crawl completed");
+            content=templateEngine.process("/mail/tagResult", context);
+            mailClient.sendMail("zhuang.ma@students.plymouth.ac.uk", "Data crawl completed", content);
+        }else {
+            context.setVariable("content","Data crawling failed, please check the code and Stack Overflow official website");
+            content=templateEngine.process("/mail/tagResult", context);
+            mailClient.sendMail("zhuang.ma@students.plymouth.ac.uk", "Data crawl failed", content);
+        }
+    }
+
+    @KafkaListener(topics = {TOPIC_VISITSECOND})
+    public void handleVisitSecond(ConsumerRecord record){
+        if (record == null || record.value() == null) {
+            LOGGER.error("Access time cannot be empty");
+            return;
+        }
+
+        Event event = JSONObject.parseObject(record.value().toString(), Event.class);
+        if (event == null) {
+            LOGGER.error("Access time format error");
+            return;
+        }
+        double second = 0.0;
+        try {
+            second=neoDiscussPostMapper.selectVisitSecondByUserId(event.getUserId(),event.getEntityId());
+            neoDiscussPostMapper.updateVisitSecond(event.getEntityId(),event.getUserId(),event.getSecond()+second);
+        }catch (Exception e){
+            neoDiscussPostMapper.insertVisitSecond(event.getEntityId(),event.getUserId(),event.getSecond());
         }
     }
 }

@@ -270,6 +270,7 @@ public class UserService implements CommunityConstant {
 
     public int updateHeader(int userId,String headerUrl){
         int rows = userMapper.updateHeader(userId, headerUrl);
+        neoUserMapper.updateHeader(userId,headerUrl);
         clearCache(userId);
         return rows;
     }

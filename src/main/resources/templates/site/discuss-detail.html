@@ -42,6 +42,7 @@
             </h6>
             <!-- Author -->
             <div class="media pb-3 border-bottom">
+                <input type="hidden" id="AuthorID" th:value="${user.id}">
                 <a th:href="@{|/user/profile/${user.id}|}">
                     <img th:src="${user.headerUrl}" class="align-self-start mr-4 rounded-circle user-header"
                          alt="Profile Picture">
@@ -64,7 +65,8 @@
                     </div>
                     <div>
                         <span class="badge badge-info" style="margin-right: 10px" th:each="tags:${postTags}">
-                            <a th:href="@{|/discuss/tag/${tags.tagName}|}" class="glyphicon glyphicon-tags" style="color: white">
+                            <a th:href="@{|/discuss/tag/${tags.tagName}|}" class="glyphicon glyphicon-tags"
+                               style="color: white">
                                 <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">Spring</span>
                             </a>
                         </span>
@@ -76,12 +78,52 @@
                 <textarea style="display: none" th:utext="${post.content}"></textarea>
             </div>
         </div>
+        <!-- relationship -->
+        <div class="container mt-3" th:if="${resultPosts.size()!=0}">
+            <h6><b class="square"></b> Related Question</h6>
+            <!-- article list -->
+            <ul class="list-unstyled mt-4">
+                <li class="media pb-3 pt-3 mb-3 border-bottom" th:each="resultMap:${resultPosts}">
+                    <div class="media-body">
+                        <h6 class="mt-0 mb-3">
+                            <a th:href="@{|/discuss/detail/${resultMap.post.id}|}"
+                               th:utext="${resultMap.post.title}" th:if="${resultMap.post.linkUrl==null}"></a>
+                            <a th:href="@{|${resultMap.post.linkUrl}|}" th:utext="${resultMap.post.title}"
+                               th:if="${resultMap.post.linkUrl!=null}"></a>
+                        </h6>
+                        <div class="mb-3" th:utext="${resultMap.post.content}">
+                            content
+                        </div>
+                        <div class="text-muted font-size-12">
+                            published on
+                            <b th:text="${resultMap.post.createTime}"></b>
+                            <ul class="d-inline float-right">
+                                <li class="d-inline ml-2">Likes <span th:text="${resultMap.likeCount}">11</span>
+                                </li>
+                                <li class="d-inline ml-2">|</li>
+                                <li class="d-inline ml-2">Reply <span
+                                        th:text="${resultMap.post.commentCount}">7</span></li>
+                            </ul>
+                            <div>
+                                <span class="badge badge-info" style="margin-right: 10px"
+                                      th:each="resultTags:${resultMap.postTags}">
+                                    <a th:href="@{|/discuss/tag/${resultTags.tagName}|}"
+                                       class="glyphicon glyphicon-tags" style="color: white">
+                                        <span th:utext="${resultTags.tagName}" th:if="${resultTags.tagName!=null}">String</span>
+                                    </a>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <!-- comment -->
         <div class="container mt-3">
             <!-- comment count-->
             <div class="row">
                 <div class="col-8">
-                    <h6><b class="square"></b> <i th:text="${post.commentCount}">30</i>Comments</h6>
+                    <h6><b class="square"></b> <i th:text="${post.commentCount}">30</i> Comments</h6>
                 </div>
                 <div class="col-4 text-right">
                     <a href="#replyform" class="btn btn-primary btn-sm">&nbsp;&nbsp;Comment&nbsp;&nbsp;</a>
@@ -143,7 +185,8 @@
                                                 <b th:text="${rvo.likeStatus==1?'Liked':'Likes'}">Likes</b>
                                                 (<i th:text="${rvo.likeCount}">11</i>)
                                             </a>
-                                        </li>-
+                                        </li>
+                                        -
                                         <li class="d-inline ml-2">|</li>
                                         <li class="d-inline ml-2"><a th:href="|#huifu-${rvoStat.count}|"
                                                                      data-toggle="collapse"
@@ -212,7 +255,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/global.js}"></script>
 <script th:src="@{/js/discuss.js}"></script>
-<script th:src="@{/js/editormd.min.js}"></script>
+<script th:src="@{/js/editormd.js}"></script>
 <script th:src="@{/js/lib/marked.min.js}"></script>
 <script th:src="@{/js/lib/prettify.min.js}"></script>
 <script type="text/javascript">

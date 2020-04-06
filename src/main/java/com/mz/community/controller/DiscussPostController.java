@@ -27,6 +27,8 @@ public class DiscussPostController implements CommunityConstant {
     @Autowired
     private CommentService commentService;
     @Autowired
+    private ElasticSearchService elasticSearchService;
+    @Autowired
     private DiscussPostService discussPostService;
     @Autowired
     private HostHolder hostHolder;
@@ -60,7 +62,7 @@ public class DiscussPostController implements CommunityConstant {
         post.setContent(content);
         post.setCreateTime(new Date());
         discussPostService.addDiscussPost(post);
-        if(tag==null){
+        if (tag == null) {
             throw new IllegalArgumentException("Tags param can not be null");
         }
         String[] tagsArray = tag.split(",");
@@ -72,7 +74,7 @@ public class DiscussPostController implements CommunityConstant {
                 .setTags(tagsArray);
         eventProducer.fireEvent(event);
         String redisKey = RedisKeyUtil.getPostScoreKey();
-        redisTemplate.opsForSet().add(redisKey,post.getId());
+        redisTemplate.opsForSet().add(redisKey, post.getId());
         return CommunityUtil.getJSONString(0, "Published successfully");
     }
 
@@ -96,6 +98,22 @@ public class DiscussPostController implements CommunityConstant {
         page.setLimit(5);
         page.setPath("/discuss/detail/" + discussPostId);
         page.setRows(post.getCommentCount());
+        org.springframework.data.domain.Page<DiscussPost> resultList = elasticSearchService.searchDiscussPost(post.getTitle(), 0, 5);
+        //compile data
+        List<Map<String,Object>> resultPosts = new ArrayList<>();
+        if(resultList!=null){
+            for (DiscussPost resultPost : resultList) {
+                if(resultPost.getId()!=post.getId()){
+                    Map<String,Object> map = new HashMap<>();
+                    map.put("post",resultPost);
+                    map.put("likeCount",likeService.findEntityLikeCount(ENTITY_TYPE_POST,resultPost.getId()));
+                    List<Tags> resultTags = neoDiscussPostMapper.selectTagsByDiscussPostId(resultPost.getId());
+                    map.put("postTags",resultTags);
+                    resultPosts.add(map);
+                }
+            }
+        }
+        model.addAttribute("resultPosts",resultPosts);
         //comment
         //reply
         //comment list
@@ -161,6 +179,7 @@ public class DiscussPostController implements CommunityConstant {
 
         return "/site/discuss-detail";
     }
+
     //Sticky
     @RequestMapping(path = "/top", method = RequestMethod.POST)
     @ResponseBody
@@ -212,31 +231,50 @@ public class DiscussPostController implements CommunityConstant {
         return CommunityUtil.getJSONString(0);
     }
 
-    @RequestMapping(path = "/tag/{tagName}",method = RequestMethod.GET)
-    public String getPostByTag(@PathVariable("tagName") String tagName,Model model, Page page){
+    @RequestMapping(path = "/tag/{tagName}", method = RequestMethod.GET)
+    public String getPostByTag(@PathVariable("tagName") String tagName, Model model, Page page) {
         page.setRows(tagsService.findPostByTagRows(tagName));
-        page.setPath("/tag/"+tagName);
+        page.setPath("/discuss/tag/" + tagName);
         List<DiscussPost> postByTag = tagsService.findPostByTag(tagName, page.getOffset(), page.getLimit());
-        List<Map<String,Object>> discussPosts = new ArrayList<>();
-        if (postByTag!=null){
+        List<Map<String, Object>> discussPosts = new ArrayList<>();
+        if (postByTag != null) {
             for (DiscussPost post : postByTag) {
-                Map<String,Object> map = new HashMap<>();
-                map.put("post",post);
+                Map<String, Object> map = new HashMap<>();
+                map.put("post", post);
                 List<Tags> tags = neoDiscussPostMapper.selectTagsByDiscussPostId(post.getId());
-                map.put("postTags",tags);
+                map.put("postTags", tags);
                 User user = userService.findUserById(post.getUserId());
-                map.put("user",user);
+                map.put("user", user);
                 long likeCount = likeService.findEntityLikeCount(ENTITY_TYPE_POST, post.getId());
                 map.put("likeCount", likeCount);
                 discussPosts.add(map);
             }
         }
         List<Tags> tags = discussPostService.findAllTags();
-        model.addAttribute("AllTags",tags);
+        model.addAttribute("AllTags", tags);
         List<Tags> hotTags = tagsService.findHotTags();
-        model.addAttribute("hotTags",hotTags);
-        model.addAttribute("discussPosts",discussPosts);
-        model.addAttribute("tagName",tagName);
+        model.addAttribute("hotTags", hotTags);
+        List<DiscussPost> zeroPostList = tagsService.findZeroPostByTag(tagName, page.getOffset(), page.getLimit());
+        model.addAttribute("zeroPostList", zeroPostList);
+        model.addAttribute("discussPosts", discussPosts);
+        model.addAttribute("tagName", tagName);
         return "site/tagPost";
+    }
+
+    @RequestMapping(path = "/visitTime", method = RequestMethod.POST)
+    @ResponseBody
+    public String setVisitTime(int postId, int AuthorID, double second) {
+        int currentUserId = hostHolder.getUser().getId();
+        if(AuthorID==currentUserId){
+            return CommunityUtil.getJSONString(0);
+        }
+        //Trigger delete post event
+        Event event = new Event()
+                .setTopic(TOPIC_VISITSECOND)
+                .setUserId(currentUserId)
+                .setEntityId(postId)
+                .setSecond(second);
+        eventProducer.fireEvent(event);
+        return CommunityUtil.getJSONString(0);
     }
 }

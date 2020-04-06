@@ -16,9 +16,21 @@
         where status=0 return id,userId,title,content,type,status,commentCount,linkUrl,score
         order by score skip #{offset} limit #{limit}
     </select>
+    <select id="selectZeroPostByTag" resultType="DiscussPost">
+        match(d:DiscussPost)-[r:TAGS]->(t:Tags{tagName:#{tagName}})
+        with d.PostId as id,d.userId as userId,d.content as content,d.type as type,
+            d.score as score,d.commentCount as commentCount,d.create_Time as createTime,
+            d.status as status,d.title as title,d.linkUrl as linkUrl
+        where status=0 and commentCount=0 return id,userId,title,content,type,status,commentCount,linkUrl,score
+        order by score, createTime skip #{offset} limit #{limit}
+    </select>
 
     <select id="selectPostByTagCount" resultType="int">
         match(d:DiscussPost)-[r:TAGS]->(t:Tags{tagName:#{tagName}}) return count(r)
+    </select>
+
+    <select id="selectRelatedTags" resultType="Tags">
+        match(emp:Tags) where emp.tagName =~#{tagName} return emp.tagName as tagName
     </select>
 
 </mapper>

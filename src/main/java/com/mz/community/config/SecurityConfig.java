@@ -53,6 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter implements Comm
                 "/data/**",
                 "/tagManagement",
                 "/addTags",
+                "/deleteAllES",
                 "/actuator/**"
         )
                 .hasAnyAuthority(

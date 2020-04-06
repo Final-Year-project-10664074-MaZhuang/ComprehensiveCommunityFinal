@@ -29,4 +29,7 @@ public class TagsService {
     }
 
 
+    public List<DiscussPost> findZeroPostByTag(String tagName, int offset, int limit) {
+        return tagsMapper.selectZeroPostByTag(tagName,offset,limit);
+    }
 }

@@ -6,7 +6,7 @@
     <insert id="insertFollow">
         match(u:User{UserId:#{userId}})
         match(d:User{UserId:#{entityId}})
-        create(u)-[:FOLLOWED]->(d)
+        MERGE(u)-[:FOLLOWED]->(d)
     </insert>
     <delete id="deleteFollow">
         match (:User{UserId:#{userId}})-[r:FOLLOWED]->(:User{UserId:#{entityId}}) delete r

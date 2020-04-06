@@ -6,9 +6,9 @@
     <insert id="insertLike">
         match(u:User{UserId:#{userId}})
         match(d:DiscussPost{PostId:#{postId}})
-        create(u)-[:LIKED]->(d)
+        MERGE(u)-[:LIKED]->(d)
     </insert>
     <delete id="deleteLike">
-        match (:User{UserId:#{userId}})-[r:LIKED]->(:DiscussPost{PostId:#{postId}}) delete r
+        match(:User{UserId:#{userId}})-[r:LIKED]->(:DiscussPost{PostId:#{postId}}) delete r
     </delete>
 </mapper>

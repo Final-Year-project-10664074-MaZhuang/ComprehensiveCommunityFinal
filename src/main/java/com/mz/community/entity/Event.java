@@ -12,6 +12,16 @@ public class Event {
     private String[] tags;
     private int likeStatus;
     private int status;
+    private double second;
+
+    public double getSecond() {
+        return second;
+    }
+
+    public Event setSecond(double second) {
+        this.second = second;
+        return this;
+    }
 
     public int getStatus() {
         return status;

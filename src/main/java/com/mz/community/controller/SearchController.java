@@ -48,11 +48,9 @@ public class SearchController implements CommunityConstant {
                 map.put("likeCount",likeService.findEntityLikeCount(ENTITY_TYPE_POST,post.getId()));
                 List<Tags> tags = neoDiscussPostMapper.selectTagsByDiscussPostId(post.getId());
                 map.put("postTags",tags);
-
                 discussPosts.add(map);
             }
         }
-
         model.addAttribute("discussPosts",discussPosts);
         model.addAttribute("keyword",keyword);
         //comment pagination

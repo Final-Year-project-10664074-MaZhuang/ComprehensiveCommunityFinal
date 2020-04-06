@@ -12,4 +12,8 @@ public interface TagsMapper {
     List<DiscussPost> selectPostByTag(String tagName,int offset,int limit);
 
     int selectPostByTagCount(String tagName);
+
+    List<Tags> selectRelatedTags(String tagName);
+
+    List<DiscussPost> selectZeroPostByTag(String tagName, int offset, int limit);
 }

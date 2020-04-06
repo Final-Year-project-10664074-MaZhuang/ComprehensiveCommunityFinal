@@ -67,3 +67,30 @@ function setDelete() {
         }
     );
 }
+var second = 0;
+window.setInterval(function () {
+    if($("#isLogin").val()!=null){
+        second++;
+    }
+});
+
+window.onbeforeunload = function () {
+    if($("#isLogin").val()!=null){
+        if (second >= 10000) {
+            $.post(
+                CONTEXT_PATH + "/discuss/visitTime",
+                {"postId": $("#postId").val(), "second": second / 1000, "AuthorID": $("#AuthorID").val()},
+                function (data) {
+                    data = $.parseJSON(data);
+                    if (data.code == 0) {
+
+                    } else {
+                        alert(data.msg);
+                    }
+                }
+            );
+        } else {
+            console.log("eeeee");
+        }
+    }
+};

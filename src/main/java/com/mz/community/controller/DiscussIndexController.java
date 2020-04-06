@@ -9,6 +9,7 @@ import com.mz.community.service.DiscussPostService;
 import com.mz.community.service.LikeService;
 import com.mz.community.service.TagsService;
 import com.mz.community.service.UserService;
+import com.mz.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,6 +37,8 @@ public class DiscussIndexController {
     private LikeService likeService;
     @Autowired
     private TagsService tagsService;
+    @Autowired
+    private HostHolder hostHolder;
 
     @RequestMapping(path = "/discussIndex",method = RequestMethod.GET)
     public String getDiscussIndex(Model model, Page page,
@@ -62,6 +65,12 @@ public class DiscussIndexController {
         model.addAttribute("AllTags",tags);
         List<Tags> hotTags = tagsService.findHotTags();
         model.addAttribute("hotTags",hotTags);
+        if(hostHolder.getUser()!=null){
+            List<DiscussPost> zeroList = neoDiscussPostMapper.selectZeroReply(0,page.getOffset(),page.getLimit());
+            model.addAttribute("zeroReply",zeroList);
+        }else {
+            model.addAttribute("zeroReply",null);
+        }
         model.addAttribute("discussPosts",discussPosts);
         model.addAttribute("orderMode", orderMode);
         return "site/discussIndex";

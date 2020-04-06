@@ -17,6 +17,8 @@ public interface NeoDiscussPostMapper {
 
     List<Tags> selectTagsByDiscussPostId(int postId);
 
+    List<DiscussPost> selectZeroReply(int userId, int offset, int limit);
+
     int insertDiscussPost(DiscussPost discussPost);
 
     int insertTags(String tagName);
@@ -28,4 +30,10 @@ public interface NeoDiscussPostMapper {
     int updateDiscussPostScore(int postId,double score);
 
     int selectTagsTagNumber(String tagName);
+
+    int insertVisitSecond(int entityId, int userId, double second);
+
+    double selectVisitSecondByUserId(int userId,int entityId);
+
+    void updateVisitSecond(int entityId, int userId, double second);
 }

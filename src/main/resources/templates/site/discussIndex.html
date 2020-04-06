@@ -13,7 +13,7 @@
     <link rel="stylesheet" th:href="@{/css/global.css}"/>
     <link rel="stylesheet" th:href="@{/css/bootstrap.css}"/>
     <link rel="stylesheet" th:href="@{/css/editormd.min.css}"/>
-    <title>HomePage</title>
+    <title>Question</title>
 </head>
 <body>
 <div class="nk-container">
@@ -96,8 +96,9 @@
                     </li>
                 </ul>
                 <button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal"
-                        data-target="#publishModal" th:if="${loginUser!=null}">Post Article
+                        data-target="#publishModal" th:if="${loginUser!=null}">Ask Question
                 </button>
+                <input type="hidden" id="isLogin" th:value="${loginUser}">
             </div>
             <!-- Pop-up box -->
             <div class="modal fade container-fluid" id="publishModal" tabindex="-1" role="dialog"
@@ -214,7 +215,8 @@
                                 <div>
                                 <span class="badge badge-info" style="margin-right: 10px"
                                       th:each="tags:${map.postTags}">
-                                    <a th:href="@{|/discuss/tag/${tags.tagName}|}" class="glyphicon glyphicon-tags" style="color: white">
+                                    <a th:href="@{|/discuss/tag/${tags.tagName}|}" class="glyphicon glyphicon-tags"
+                                       style="color: white">
                                         <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">Spring</span>
                                     </a>
                                 </span>
@@ -226,12 +228,20 @@
                 <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
                     <h5>Hot Tags</h5>
                     <hr>
-                        <span class="badge badge-info" style="margin-right: 10px"
-                              th:each="hotTag:${hotTags}">
-                            <a th:href="@{|/discuss/tag/${hotTag.tagName}|}" class="glyphicon glyphicon-tags" style="color: white">
+                    <span class="badge badge-info" style="margin-right: 10px"
+                          th:each="hotTag:${hotTags}">
+                            <a th:href="@{|/discuss/tag/${hotTag.tagName}|}" class="glyphicon glyphicon-tags"
+                               style="color: white">
                                 <span th:utext="${hotTag.tagName}" th:if="${hotTag.tagName!=null}">Spring</span>
                             </a>
                         </span>
+                    <hr>
+                    <br>
+                    <h5>0 Answer</h5>
+                    <hr>
+                    <div th:each="zero:${zeroReply}">
+                        <a th:href="@{|/discuss/detail/${zero.id}|}" th:utext="${zero.title}"></a>
+                    </div>
                     <hr>
                 </div>
             </div>
@@ -279,7 +289,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/global.js}"></script>
 <script th:src="@{/js/index.js}"></script>
-<script th:src="@{/js/editormd.min.js}"></script>
+<script th:src="@{/js/editormd.js}"></script>
 <script th:src="@{/js/languages/en.js}"></script>
 <script type="text/javascript">
     $(function () {
@@ -288,7 +298,8 @@
             height: 350,
             path: CONTEXT_PATH + "/js/lib/",
             delay: 0,
-            watch: false,
+            watch: true,
+            emoji: true,
             placeholder: "Detail Information"
         });
     });

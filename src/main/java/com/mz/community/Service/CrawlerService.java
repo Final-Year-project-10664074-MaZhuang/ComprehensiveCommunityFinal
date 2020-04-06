@@ -22,79 +22,100 @@ public class CrawlerService {
     private NeoCrawlerDiscussPostMapper neoCrawlerDiscussPostMapper;
     @Autowired
     private NeoDiscussPostMapper neoDiscussPostMapper;
+    @Autowired
+    private DiscussPostService discussPostService;
 
     public List<DiscussPost> getCrawlerFromStackOverFlow(String[] tagsName) {
-        boolean start = false;
-        int postId = neoCrawlerDiscussPostMapper.selectMaxPostId();
-        int count = 1;
-        //Setting environment variables
-        System.setProperty("webdriver.chrome.driver", CrawlerService.class.getClassLoader().getResource("chromedriver.exe").getPath());
-        //Open browser
-        WebDriver webDriver = new ChromeDriver();
-        List<DiscussPost> discussPostList = new ArrayList<>();
-        List<Tags> tagsList = new ArrayList<>();
-        //Find related tags
-        for (int i = 0; i < tagsName.length; i++) {
-            Tags tags = neoDiscussPostMapper.selectTagByTagName(tagsName[i].toLowerCase());
-            if (tags != null) {
-                continue;
-            }
-            neoDiscussPostMapper.insertTags(tagsName[i]);
-            start = true;
-            webDriver.get("https://stackoverflow.com/questions/tagged/" + tagsName[i] + "?tab=votes&pagesize=50");
-            if (i == 0) {
-                WebElement closeElement = webDriver.findElement(By.xpath("//div[@class='grid--cell']//a[@class='s-btn s-btn__muted s-btn__icon js-notice-close']"));
-                closeElement.click();
-            }
-            //Pages number
-            for (int j = 0; j < 10; j++) {
-                List<WebElement> questionElements = webDriver.findElements(By.xpath("//div[@class='question-summary']"));
-                for (WebElement questionElement : questionElements) {
-                    DiscussPost discussPost = new DiscussPost();
-                    WebElement stats = questionElement.findElement(By.xpath("div[@class='statscontainer']//div[@class='stats']"));
-                    String answered = null;
-                    try {
-                        answered = stats.findElement(By.xpath("div[@class='status answered-accepted']")).findElement(By.tagName("strong")).getText();
-                    } catch (Exception e) {
-                        continue;
-                    }
-                    WebElement questionSummaryElement = questionElement.findElement(By.xpath("div[@class='summary']"));
-                    WebElement questionLinkElement = questionSummaryElement.findElement(By.className("question-hyperlink"));
-                    WebElement excerpt = questionSummaryElement.findElement(By.className("excerpt"));
-                    List<WebElement> tagElements = questionSummaryElement.findElements(By.className("post-tag"));
-                    String[] tagNames = new String[tagElements.size()];
-                    discussPost.setId(postId + count++);
-                    discussPost.setUserId(182);
-                    discussPost.setType(4);
-                    discussPost.setStatus(0);
-                    discussPost.setLinkUrl(questionLinkElement.getAttribute("href"));
-                    discussPost.setTitle(questionLinkElement.getText());
-                    discussPost.setContent(excerpt.getText());
-                    discussPost.setScore(Double.parseDouble(stats.findElement(By.className("vote-count-post")).getText()));
-                    discussPost.setCommentCount(Integer.parseInt(answered));
-                    discussPost.setCreateTime(new Date());
-                    for (int k = 0; k < tagElements.size(); k++) {
-                        Tags tag = new Tags();
-                        tag.setTagName(tagElements.get(k).getText().toLowerCase());
-                        tagsList.add(tag);
-                        tagNames[k] = tag.getTagName();
-                    }
-                    discussPost.setTagName(tagNames);
-                    discussPostList.add(discussPost);
+        if (tagsName == null) {
+            throw new IllegalArgumentException("Parameter cannot be empty");
+        }
+        try {
+            boolean start = false;
+            //Setting environment variables
+            System.setProperty("webdriver.chrome.driver", CrawlerService.class.getClassLoader().getResource("chromedriver.exe").getPath());
+            WebDriver webDriver = new ChromeDriver();
+            //System.setProperty("webdriver.chrome.driver", CrawlerService.class.getClassLoader().getResource("chromedriver").getPath());
+            /*ChromeOptions options = new ChromeOptions();
+            //chrome install location
+            System.setProperty("webdriver.chrome.bin", "/opt/google/chrome/chrome");
+
+            //chromederiver store location
+            System.setProperty("webdriver.chrome.driver", "/usr/bin/chromedriver");
+            //No interface parameters
+            options.addArguments("headless");
+            //Disable sandbox
+            options.addArguments("no-sandbox");
+            options.addArguments("disable-gpu");
+            //Open browser
+            WebDriver webDriver = new ChromeDriver(options);*/
+            List<DiscussPost> discussPostList = new ArrayList<>();
+            List<Tags> tagsList = new ArrayList<>();
+            //Find related tags
+            for (int i = 0; i < tagsName.length; i++) {
+                Tags tags = neoDiscussPostMapper.selectTagByTagName(tagsName[i].toLowerCase());
+                if (tags != null) {
+                    continue;
                 }
-                webDriver.findElement(By.xpath("//a[contains(text(),'Next')]")).click();
+                neoDiscussPostMapper.insertTags(tagsName[i]);
+                start = true;
+                webDriver.get("https://stackoverflow.com/questions/tagged/" + tagsName[i] + "?tab=votes&pagesize=50");
+                if (i == 0) {
+                    WebElement closeElement = webDriver.findElement(By.xpath("//div[@class='grid--cell']//a[@class='s-btn s-btn__muted s-btn__icon js-notice-close']"));
+                    closeElement.click();
+                }
+                //Pages number
+                for (int j = 0; j < 10; j++) {
+                    List<WebElement> questionElements = webDriver.findElements(By.xpath("//div[@class='question-summary']"));
+                    for (WebElement questionElement : questionElements) {
+                        DiscussPost discussPost = new DiscussPost();
+                        WebElement stats = questionElement.findElement(By.xpath("div[@class='statscontainer']//div[@class='stats']"));
+                        String answered = null;
+                        try {
+                            answered = stats.findElement(By.xpath("div[@class='status answered-accepted']")).findElement(By.tagName("strong")).getText();
+                        } catch (Exception e) {
+                            continue;
+                        }
+                        WebElement questionSummaryElement = questionElement.findElement(By.xpath("div[@class='summary']"));
+                        WebElement questionLinkElement = questionSummaryElement.findElement(By.className("question-hyperlink"));
+                        WebElement excerpt = questionSummaryElement.findElement(By.className("excerpt"));
+                        List<WebElement> tagElements = questionSummaryElement.findElements(By.className("post-tag"));
+                        String[] tagNames = new String[tagElements.size()];
+                        //discussPost.setId(postId + count++);
+                        discussPost.setUserId(3);
+                        discussPost.setType(4);
+                        discussPost.setStatus(0);
+                        discussPost.setLinkUrl(questionLinkElement.getAttribute("href"));
+                        discussPost.setTitle(questionLinkElement.getText());
+                        discussPost.setContent(excerpt.getText());
+                        discussPost.setScore(Double.parseDouble(stats.findElement(By.className("vote-count-post")).getText()));
+                        discussPost.setCommentCount(Integer.parseInt(answered));
+                        discussPost.setCreateTime(new Date());
+                        for (int k = 0; k < tagElements.size(); k++) {
+                            Tags tag = new Tags();
+                            tag.setTagName(tagElements.get(k).getText().toLowerCase());
+                            tagsList.add(tag);
+                            tagNames[k] = tag.getTagName();
+                        }
+                        discussPost.setTagName(tagNames);
+                        discussPostList.add(discussPost);
+                    }
+                    webDriver.findElement(By.xpath("//a[contains(text(),'Next')]")).click();
+                }
             }
-        }
-        webDriver.quit();
-        if (start) {
-            List<DiscussPost> DiscussPostCollect = discussPostList.stream().distinct().collect(Collectors.toList());
-            List<Tags> tagCollect = tagsList.stream().distinct().collect(Collectors.toList());
-            neoCrawlerDiscussPostMapper.insertCrawler(DiscussPostCollect);
-            neoCrawlerDiscussPostMapper.insertCrawlerTags(tagCollect);
-            for (DiscussPost discussPost : DiscussPostCollect) {
-                neoDiscussPostMapper.insertRelationDiscussPost(182, discussPost.getId(), discussPost.getTagName());
+            webDriver.quit();
+            if (start) {
+                List<DiscussPost> DiscussPostCollect = discussPostList.stream().distinct().collect(Collectors.toList());
+                List<Tags> tagCollect = tagsList.stream().distinct().collect(Collectors.toList());
+                discussPostService.addDiscussPostList(DiscussPostCollect);
+                neoCrawlerDiscussPostMapper.insertCrawler(DiscussPostCollect);
+                neoCrawlerDiscussPostMapper.insertCrawlerTags(tagCollect);
+                for (DiscussPost discussPost : DiscussPostCollect) {
+                    neoDiscussPostMapper.insertRelationDiscussPost(3, discussPost.getId(), discussPost.getTagName());
+                }
             }
+            return discussPostList.stream().distinct().collect(Collectors.toList());
+        } catch (Exception e) {
+            return null;
         }
-        return discussPostList.stream().distinct().collect(Collectors.toList());
     }
 }
