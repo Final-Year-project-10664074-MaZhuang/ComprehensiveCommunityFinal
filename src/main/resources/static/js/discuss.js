@@ -70,7 +70,10 @@ function setDelete() {
 var second = 0;
 window.setInterval(function () {
     if($("#isLogin").val()!=null){
+        //console.log("not null");
         second++;
+    }else {
+        //console.log($("#isLogin").val());
     }
 });
 

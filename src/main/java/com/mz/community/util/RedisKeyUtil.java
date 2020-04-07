@@ -12,6 +12,11 @@ public class RedisKeyUtil {
     private static final String PREFIX_POST = "post";
     private static final String PREFIX_UV = "uv";
     private static final String PREFIX_DAU = "DAU";
+    private static final String PREFIX_CRAWLER = "crawler";
+
+    public static String getCrawlerKey(){
+        return PREFIX_CRAWLER + SPLIT + "linkUrl";
+    }
 
     //Likes of an entity
     //like:entity:entityType:entityId->set(userId)

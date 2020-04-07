@@ -12,4 +12,8 @@ public class NeoCommentService {
     public void addComment(int userId,int postId){
         neoCommentMapper.insertComment(userId,postId);
     }
+
+    public void updateCommentCount(int postId, int commentCount) {
+        neoCommentMapper.updateCommentCount(postId,commentCount);
+    }
 }

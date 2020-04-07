@@ -26,7 +26,7 @@ public class CrawlerTests {
 
     @Test
     public void CrawlerSearchTest(){
-        String[] key = {"javascript"};
+        String[] key = {"java"};
         List<DiscussPost> crawlerFromStackOverFlow = crawlerService.getCrawlerFromStackOverFlow(key);
         /*for (DiscussPost discussPost : crawlerFromStackOverFlow) {
             elasticSearchService.saveDiscussPost(discussPost);

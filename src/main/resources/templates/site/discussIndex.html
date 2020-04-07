@@ -32,6 +32,7 @@
                 </button>
                 <!-- function -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <input type="hidden" id="isLogin" th:value="${loginUser}">
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item ml-3 btn-group-vertical">
                             <a class="nav-link" th:href="@{/index}">HomePage</a>
@@ -98,7 +99,6 @@
                 <button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal"
                         data-target="#publishModal" th:if="${loginUser!=null}">Ask Question
                 </button>
-                <input type="hidden" id="isLogin" th:value="${loginUser}">
             </div>
             <!-- Pop-up box -->
             <div class="modal fade container-fluid" id="publishModal" tabindex="-1" role="dialog"
@@ -240,9 +240,11 @@
                     <h5>0 Answer</h5>
                     <hr>
                     <div th:each="zero:${zeroReply}">
-                        <a th:href="@{|/discuss/detail/${zero.id}|}" th:utext="${zero.title}"></a>
+                        <a th:href="@{|/discuss/detail/${zero.id}|}" >
+                            <span class="badge badge-danger" th:utext="${zero.title}">12</span>
+                        </a>
+                        <hr>
                     </div>
-                    <hr>
                 </div>
             </div>
 
@@ -275,7 +277,7 @@
         <div class="container col-lg-9 col-md-12 col-sm-12 col-xs-12">
             <p class="m-0 text-center text-white">
                 © 2020
-                <a href="https://github.com/Final-Year-project-10664074-MaZhuang/ComprehensiveCommunityFinal">
+                <a href="https://github.com/Final-Year-project-10664074-MaZhuang/ComprehensiveCommunityFinal/tree/FinalVersion">
                     By Zhuang Ma(10664074)
                 </a>
             </p>

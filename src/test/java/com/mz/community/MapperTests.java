@@ -8,6 +8,7 @@ import com.mz.community.dao.neo4jMapper.TagsMapper;
 import com.mz.community.entity.DiscussPost;
 import com.mz.community.entity.Tags;
 import com.mz.community.entity.User;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -142,5 +143,15 @@ public class MapperTests {
 
         userMapper.insertUser(user);
         neoUserMapper.insertUser(user);
+    }
+
+    @Test
+    public void testRelationZeroReply(){
+        List<DiscussPost> list = neoDiscussPostMapper.selectRelationZeroReply(4, 1, 3);
+        for (DiscussPost discussPost : list) {
+            if(StringUtils.isNotBlank(discussPost.getTitle())){
+                System.out.println(discussPost.getId());
+            }
+        }
     }
 }

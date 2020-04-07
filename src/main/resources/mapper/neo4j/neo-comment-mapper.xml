@@ -8,4 +8,7 @@
         match(d:DiscussPost{PostId:#{postId}})
         MERGE(u)-[:COMMENT]->(d)
     </insert>
+    <update id="updateCommentCount">
+        match(d:DiscussPost{PostId:#{postId}}) set d.commentCount=#{commentCount}
+    </update>
 </mapper>

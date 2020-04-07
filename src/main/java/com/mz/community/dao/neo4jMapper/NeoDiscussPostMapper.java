@@ -19,6 +19,8 @@ public interface NeoDiscussPostMapper {
 
     List<DiscussPost> selectZeroReply(int userId, int offset, int limit);
 
+    List<DiscussPost> selectRelationZeroReply(int userId,int offset, int limit);
+
     int insertDiscussPost(DiscussPost discussPost);
 
     int insertTags(String tagName);

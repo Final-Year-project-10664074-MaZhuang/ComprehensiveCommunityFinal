@@ -40,7 +40,14 @@ public interface CommunityConstant {
      * user
      */
     int ENTITY_TYPE_USER = 3;
-
+    /**
+     * topic:addPost
+     */
+    String TOPIC_RECOMMEND_POST = "recommendPost";
+    /**
+     * topic:addPost
+     */
+    String TOPIC_ADD_POST = "addPost";
     /**
      * topic:comment
      */

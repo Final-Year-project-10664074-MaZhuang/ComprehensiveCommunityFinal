@@ -67,7 +67,7 @@ public class DiscussPostController implements CommunityConstant {
         }
         String[] tagsArray = tag.split(",");
         Event event = new Event()
-                .setTopic(TOPIC_PUBLISH)
+                .setTopic(TOPIC_ADD_POST)
                 .setUserId(user.getId())
                 .setEntityType(ENTITY_TYPE_POST)
                 .setEntityId(post.getId())
@@ -75,6 +75,15 @@ public class DiscussPostController implements CommunityConstant {
         eventProducer.fireEvent(event);
         String redisKey = RedisKeyUtil.getPostScoreKey();
         redisTemplate.opsForSet().add(redisKey, post.getId());
+
+        event = new Event()
+                .setTopic(TOPIC_RECOMMEND_POST)
+                .setUserId(user.getId())
+                .setEntityType(ENTITY_TYPE_POST)
+                .setEntityId(post.getId())
+                .setTags(tagsArray);
+        eventProducer.fireEvent(event);
+
         return CommunityUtil.getJSONString(0, "Published successfully");
     }
 

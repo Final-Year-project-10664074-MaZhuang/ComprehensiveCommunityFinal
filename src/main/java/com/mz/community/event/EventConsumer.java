@@ -46,7 +46,7 @@ public class EventConsumer implements CommunityConstant {
     private DiscussPostService discussPostService;
     @Autowired
     private ElasticSearchService elasticSearchService;
-    @KafkaListener(topics = {TOPIC_COMMENT,TOPIC_LIKE,TOPIC_FOLLOW})
+    @KafkaListener(topics = {TOPIC_COMMENT,TOPIC_LIKE,TOPIC_FOLLOW,TOPIC_UNFOLLOW})
     public void handleCommentMessage(ConsumerRecord record){
         if(record==null||record.value()==null){
             LOGGER.error("The content of the message is empty");
@@ -89,6 +89,8 @@ public class EventConsumer implements CommunityConstant {
             neoFollowService.deleteFollow(event.getUserId(),event.getEntityId());
         }else if(TOPIC_COMMENT.equals(event.getTopic())){
             neoCommentService.addComment(event.getUserId(),event.getEntityId());
+            neoCommentService.updateCommentCount(event.getEntityId(),event.getCommentCount());
+            messageService.addMessage(message);
         }
 
     }
@@ -96,6 +98,23 @@ public class EventConsumer implements CommunityConstant {
     //Consumer Post Article Event
     @KafkaListener(topics = {TOPIC_PUBLISH})
     public void handlePublishMessage(ConsumerRecord record) {
+        if (record == null || record.value() == null) {
+            LOGGER.error("The content of the message is empty");
+            return;
+        }
+
+        Event event = JSONObject.parseObject(record.value().toString(), Event.class);
+        if (event == null) {
+            LOGGER.error("Message format error");
+            return;
+        }
+        DiscussPost post = discussPostService.findDiscussPostById(event.getEntityId());
+        elasticSearchService.saveDiscussPost(post);
+    }
+
+    //Consumer add Post Article Event
+    @KafkaListener(topics = {TOPIC_ADD_POST})
+    public void handleAddMessage(ConsumerRecord record) {
         if (record == null || record.value() == null) {
             LOGGER.error("The content of the message is empty");
             return;
@@ -119,7 +138,6 @@ public class EventConsumer implements CommunityConstant {
         neoDiscussPostMapper.insertDiscussPost(post);
         neoDiscussPostMapper.insertRelationDiscussPost(post.getUserId(),post.getId(),tags);
         elasticSearchService.saveDiscussPost(post);
-        neoDiscussPostMapper.updateDiscussPostStatus(event.getEntityId(),event.getStatus());
     }
 
     //Consumer delete Article Event

@@ -13,6 +13,16 @@ public class Event {
     private int likeStatus;
     private int status;
     private double second;
+    private int commentCount;
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
+    public Event setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+        return this;
+    }
 
     public double getSecond() {
         return second;
