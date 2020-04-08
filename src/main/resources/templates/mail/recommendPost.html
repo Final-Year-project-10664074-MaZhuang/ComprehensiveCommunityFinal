@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="icon" href="https://github.com/Ma-Zhuang/Pic/blob/master/1583260475126.png?raw=true"/>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+		  crossorigin="anonymous">
+	<link rel="stylesheet" href="http://www.fyp10664074.com/css/global.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="http://www.fyp10664074.com/css/discuss-detail.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="http://www.fyp10664074.com/css/editormd.preview.min.css" crossorigin="anonymous">
+	<link rel="stylesheet" href="http://www.fyp10664074.com/css/bootstrap.css" crossorigin="anonymous">
+    <title>Recommend Question</title>
+</head>
+<body>
+<div class="main">
+	<p>
+		Dear <b th:text="${targetName}"></b>,
+	</p>
+	<p>
+		<b th:text="${AuthorName}"></b> posted a question you may be interested in,
+		please click the
+		<a th:href="${url}">link</a> for details.
+		<br>
+	<hr>
+	<div class="container">
+		<!-- title -->
+		<h6 class="mb-4">
+			<img src="http://static.nowcoder.com/images/img/icons/ico-discuss.png"/>
+			<span th:utext="${title}"></span>
+		</h6>
+		<!-- Author -->
+		<div class="media pb-3 border-bottom">
+			<span>
+				<img th:src="${AuthorHeaderUrl}" class="align-self-start mr-4 rounded-circle user-header"
+					 alt="Profile Picture">
+			</span>
+			<div class="media-body">
+				<div class="mt-0 text-warning" th:utext="${AuthorName}"></div>
+				<div>
+                        <span class="badge badge-info" style="margin-right: 10px" th:each="tags:${postTags}">
+                            <span class="glyphicon glyphicon-tags"
+							   style="color: white">
+                                <span th:utext="${tags.tagName}" th:if="${tags.tagName!=null}">Spring</span>
+                            </span>
+                        </span>
+				</div>
+			</div>
+		</div>
+		<!-- content -->
+		<div class="mt-4 mb-3 content" id="post-view">
+			<textarea style="display: none" th:utext="${content}"></textarea>
+		</div>
+	</div>
+	<hr>
+    <p>
+        Thanks,
+    </p>
+    <p>
+        The Q&A Comprehensive Community Team
+    </p>
+</div>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+		crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
+<script src="http://www.fyp10664074.com/js/editormd.js" crossorigin="anonymous"></script>
+<script src="http://www.fyp10664074.com/js/lib/marked.min.js" crossorigin="anonymous"></script>
+<script src="http://www.fyp10664074.com/js/lib/prettify.min.js" crossorigin="anonymous"></script>
+<script type="text/javascript">
+	$(function () {
+		editormd.markdownToHTML("post-view", {});
+	});
+</script>
+</html>

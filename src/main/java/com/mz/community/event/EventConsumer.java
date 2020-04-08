@@ -2,9 +2,8 @@ package com.mz.community.event;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
-import com.mz.community.entity.DiscussPost;
-import com.mz.community.entity.Event;
-import com.mz.community.entity.Message;
+import com.mz.community.dao.neo4jMapper.NeoUserMapper;
+import com.mz.community.entity.*;
 import com.mz.community.service.*;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.MailClient;
@@ -12,15 +11,13 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Component
 public class EventConsumer implements CommunityConstant {
@@ -31,6 +28,8 @@ public class EventConsumer implements CommunityConstant {
     private NeoCommentService neoCommentService;
     @Autowired
     private NeoLikeService neoLikeService;
+    @Autowired
+    private NeoUserMapper neoUserMapper;
     @Autowired
     private CrawlerService crawlerService;
     @Autowired
@@ -46,6 +45,12 @@ public class EventConsumer implements CommunityConstant {
     private DiscussPostService discussPostService;
     @Autowired
     private ElasticSearchService elasticSearchService;
+
+    @Value("${community.path.domain}")
+    private String domain;
+    @Value("${server.servlet.context-path}")
+    private String contextPath;
+
     @KafkaListener(topics = {TOPIC_COMMENT,TOPIC_LIKE,TOPIC_FOLLOW,TOPIC_UNFOLLOW})
     public void handleCommentMessage(ConsumerRecord record){
         if(record==null||record.value()==null){
@@ -204,6 +209,46 @@ public class EventConsumer implements CommunityConstant {
             neoDiscussPostMapper.updateVisitSecond(event.getEntityId(),event.getUserId(),event.getSecond()+second);
         }catch (Exception e){
             neoDiscussPostMapper.insertVisitSecond(event.getEntityId(),event.getUserId(),event.getSecond());
+        }
+    }
+
+    @KafkaListener(topics ={TOPIC_RECOMMEND_POST})
+    public void handleRecommendPost(ConsumerRecord record){
+        if (record == null || record.value() == null) {
+            LOGGER.error("Access time cannot be empty");
+            return;
+        }
+
+        Event event = JSONObject.parseObject(record.value().toString(), Event.class);
+        if (event == null) {
+            LOGGER.error("Access time format error");
+            return;
+        }
+        List<User> users = neoUserMapper.selectRecommendPostByTags(event.getTags(),event.getUserId());
+        if(users.size()>0){
+            List<Tags> postTags = new ArrayList<>();
+            Tags tags = new Tags();
+            String[] tagsArray = new String[event.getTags().length];
+            for (String tag : tagsArray) {
+                tags.setTagName(tag);
+                postTags.add(tags);
+            }
+            DiscussPost discussPostById = discussPostService.findDiscussPostById(event.getEntityId());
+            User PostUser = neoUserMapper.selectById(discussPostById.getUserId());
+            Context context = new Context();
+            context.setVariable("AuthorId", PostUser.getId());
+            context.setVariable("AuthorName", PostUser.getUsername());
+            context.setVariable("AuthorHeaderUrl", PostUser.getHeaderUrl());
+            context.setVariable("title", discussPostById.getTitle());
+            context.setVariable("content", discussPostById.getContent());
+            context.setVariable("postTags",postTags);
+            String url = domain + contextPath + "/discuss/detail/"+discussPostById.getId();
+            context.setVariable("url", url);
+            for (User user : users) {
+                context.setVariable("targetName", user.getUsername());
+                String contents = templateEngine.process("/mail/recommendPost", context);
+                mailClient.sendMail("2686224016@qq.com", "New question you may be interested in", contents);
+            }
         }
     }
 }

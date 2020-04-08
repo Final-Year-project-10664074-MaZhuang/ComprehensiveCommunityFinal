@@ -154,4 +154,21 @@ public class MapperTests {
             }
         }
     }
+
+    @Test
+    public void testRecommendPost(){
+        String[] tags = {"jdk"};
+        List<User> users = neoUserMapper.selectRecommendPostByTags(tags,4);
+        for (User user : users) {
+            System.out.println(user.getId()+":"+user.getUsername()+":"+user.getEmail());
+        }
+    }
+
+    @Test
+    public void testSelectUser(){
+        User user = neoUserMapper.selectById(5);
+        System.out.println(user.getId());
+        System.out.println(user.getUsername());
+        System.out.println(user.getHeaderUrl());
+    }
 }

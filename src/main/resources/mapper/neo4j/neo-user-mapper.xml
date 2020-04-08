@@ -6,6 +6,14 @@
     <select id="selectByName" resultType="User">
         match(n:User) where n.username='${username}' return n.username as username
     </select>
+    <select id="selectById" resultType="User">
+        match(u:User{UserId:#{id}}) return u.UserId as id, u.Username as username,u.header_url as headerUrl
+    </select>
+    <select id="selectRecommendPostByTags" resultType="User">
+        match(u:User)-[*..3]->(t:Tags)
+        where t.tagName in #{tags} and u.UserId &lt;&gt; 3 and u.UserId &lt;&gt; #{AuthorId}
+        return distinct u.UserId as id,u.Username as username,u.email as email
+    </select>
     <insert id="insertUser" parameterType="User">
         create(:User{UserId:#{id},Username:#{username},email:#{email},type:#{type},status:1,header_url:#{headerUrl}})
     </insert>

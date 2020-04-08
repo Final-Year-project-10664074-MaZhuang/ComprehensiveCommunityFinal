@@ -9,7 +9,7 @@
         with d.PostId as id,d.userId as userId,d.content as content,d.type as type,
             d.score as score,d.commentCount as commentCount,d.create_Time as createTime,
             d.status as status,d.title as title,d.linkUrl as linkUrl
-        where status=0 and commentCount=0 and userId &lt;&gt; #{userId} return id,userId,title,content,type,status,commentCount,linkUrl,score
+        where status &lt;&gt; 2 and commentCount=0 and userId &lt;&gt; #{userId} return id,userId,title,content,type,status,commentCount,linkUrl,score
         order by score, createTime skip #{offset} limit #{limit}
     </select>
 
@@ -20,7 +20,7 @@
             d.PostId as id,d.userId as userId,d.content as content,d.type as type,
             d.score as score,d.commentCount as commentCount,d.create_Time as createTime,
             d.status as status,d.title as title,d.linkUrl as linkUrl
-        where commentCount=0 and type &lt;&gt; 4 and userId &lt;&gt; #{userId}
+        where commentCount=0 and type &lt;&gt; 4 and userId &lt;&gt; #{userId} and status &lt;&gt; 2
           and not exists((u)-[]->(d))
             return distinct id,userId,title,content,type,status,commentCount,linkUrl,score
         order by score skip #{offset} limit #{limit}
@@ -31,11 +31,11 @@
     </select>
 
     <select id="selectTagsTagNumber" resultType="int">
-        match(:DiscussPost)-[r:TAGS]-(:Tags{tagName:#{tagName}}) return count(r)
+        match(d:DiscussPost)-[r:TAGS]-(:Tags{tagName:#{tagName}}) where d.status &lt;&gt; 2 return count(r)
     </select>
 
     <select id="selectTagsByDiscussPostId" resultType="Tags">
-        MATCH (:DiscussPost{PostId:#{postId}})-[:TAGS]->(n:Tags) return n.tagName as tagName
+        MATCH (d:DiscussPost{PostId:#{postId}})-[:TAGS]->(n:Tags) where d.status &lt;&gt; 2 return n.tagName as tagName
     </select>
 
     <select id="selectTags" resultType="Tags">
@@ -43,12 +43,12 @@
     </select>
 
     <select id="selectAllTags" resultType="Tags">
-        MATCH (:DiscussPost)-[r:TAGS]->(n:Tags) with n.tagName as tagName,count(r) as c
+        MATCH (:DiscussPost)-[r:TAGS]->(n:Tags) where d.status &lt;&gt; 2 with n.tagName as tagName,count(r) as c
             return tagName order by c desc skip #{offset} limit #{limit}
     </select>
 
     <select id="selectVisitSecondByUserId" resultType="double">
-        match(:User{UserId:#{userId}})-[r:VISIT]->(:DiscussPost{PostId:#{entityId}}) return r.second
+        match(:User{UserId:#{userId}})-[r:VISIT]->(d:DiscussPost{PostId:#{entityId}}) where d.status &lt;&gt; 2 return r.second
     </select>
 
 

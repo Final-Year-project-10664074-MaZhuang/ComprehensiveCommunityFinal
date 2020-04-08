@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mz.community.dao.neo4jMapper.TagsMapper">
     <select id="selectHotTags" resultType="Tags">
-        match(d:DiscussPost)-[r:TAGS]->(t:Tags) with count(r) as c,t.tagName as tagName
+        match(d:DiscussPost)-[r:TAGS]->(t:Tags) where d.status &lt;&gt; 2 with count(r) as c,t.tagName as tagName
         return tagName order by c desc limit 10
     </select>
 
@@ -13,7 +13,7 @@
         with d.PostId as id,d.userId as userId,d.content as content,d.type as type,
             d.score as score,d.commentCount as commentCount,d.create_Time as createTime,
             d.status as status,d.title as title,d.linkUrl as linkUrl
-        where status=0 return id,userId,title,content,type,status,commentCount,linkUrl,score
+        where status=0 and status &lt;&gt; 2 return id,userId,title,content,type,status,commentCount,linkUrl,score
         order by score skip #{offset} limit #{limit}
     </select>
     <select id="selectZeroPostByTag" resultType="DiscussPost">
@@ -21,12 +21,12 @@
         with d.PostId as id,d.userId as userId,d.content as content,d.type as type,
             d.score as score,d.commentCount as commentCount,d.create_Time as createTime,
             d.status as status,d.title as title,d.linkUrl as linkUrl
-        where status=0 and commentCount=0 return id,userId,title,content,type,status,commentCount,linkUrl,score
+        where status=0 and commentCount=0 and status &lt;&gt; 2 return id,userId,title,content,type,status,commentCount,linkUrl,score
         order by score, createTime skip #{offset} limit #{limit}
     </select>
 
     <select id="selectPostByTagCount" resultType="int">
-        match(d:DiscussPost)-[r:TAGS]->(t:Tags{tagName:#{tagName}}) return count(r)
+        match(d:DiscussPost)-[r:TAGS]->(t:Tags{tagName:#{tagName}}) where d.status &lt;&gt; 2 return count(r)
     </select>
 
     <select id="selectRelatedTags" resultType="Tags">
