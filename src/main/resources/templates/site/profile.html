@@ -22,10 +22,10 @@
             <div class="position-relative">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{|/user/profile/${loginUser.id}|}">Personal information</a>
+                        <a class="nav-link active" th:href="@{|/user/profile/${user.id}|}">Personal information</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{|/myPost/${loginUser.id}|}">My posts</a>
+                        <a class="nav-link" th:href="@{|/myPost/${user.id}|}"><b th:utext="${user.username}"></b> Posted</a>
                     </li>
                 </ul>
             </div>

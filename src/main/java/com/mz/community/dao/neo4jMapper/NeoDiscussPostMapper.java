@@ -1,5 +1,6 @@
 package com.mz.community.dao.neo4jMapper;
 
+import com.mz.community.entity.Category;
 import com.mz.community.entity.DiscussPost;
 import com.mz.community.entity.Tags;
 import org.apache.ibatis.annotations.Mapper;
@@ -38,4 +39,8 @@ public interface NeoDiscussPostMapper {
     double selectVisitSecondByUserId(int userId,int entityId);
 
     void updateVisitSecond(int entityId, int userId, double second);
+
+    List<Category> selectAllCategory();
+
+    List<Tags> selectAllTagsByCategory(String categoryName);
 }

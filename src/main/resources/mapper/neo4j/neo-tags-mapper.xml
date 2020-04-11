@@ -33,4 +33,8 @@
         match(emp:Tags) where emp.tagName =~#{tagName} return emp.tagName as tagName
     </select>
 
+    <insert id="insertCategory">
+        create (c:Category{name:#{cate}})
+    </insert>
+
 </mapper>

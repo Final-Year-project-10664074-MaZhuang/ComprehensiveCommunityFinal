@@ -2,9 +2,11 @@ package com.mz.community;
 
 import com.mz.community.dao.mysqlMapper.DiscussPostMapper;
 import com.mz.community.dao.mysqlMapper.UserMapper;
+import com.mz.community.dao.neo4jMapper.NeoCrawlerDiscussPostMapper;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.dao.neo4jMapper.NeoUserMapper;
 import com.mz.community.dao.neo4jMapper.TagsMapper;
+import com.mz.community.entity.Category;
 import com.mz.community.entity.DiscussPost;
 import com.mz.community.entity.Tags;
 import com.mz.community.entity.User;
@@ -16,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,6 +34,8 @@ public class MapperTests {
     private DiscussPostMapper discussPostMapper;
     @Autowired
     private NeoDiscussPostMapper neoDiscussPostMapper;
+    @Autowired
+    private NeoCrawlerDiscussPostMapper neoCrawlerDiscussPostMapper;
     @Autowired
     private TagsMapper tagsMapper;
     @Test
@@ -170,5 +175,40 @@ public class MapperTests {
         System.out.println(user.getId());
         System.out.println(user.getUsername());
         System.out.println(user.getHeaderUrl());
+    }
+
+    @Test
+    public void testSelectAllCategory(){
+        List<Category> categoryList = neoDiscussPostMapper.selectAllCategory();
+        for (Category category : categoryList) {
+            System.out.println(category.getName());
+        }
+    }
+
+    @Test
+    public void testSelectAllTagsByCategory(){
+        List<Tags> tagsList = neoDiscussPostMapper.selectAllTagsByCategory("java");
+        for (Tags tags : tagsList) {
+            System.out.println(tags.getTagName());
+        }
+    }
+
+    @Test
+    public void testInsertCategory(){
+        int html = tagsMapper.insertCategory("html");
+        System.out.println(html);
+    }
+
+    @Test
+    public void testInsertCategoryAndTags(){
+        String[] tags={"fragmentShader","vertexShader"};
+        List<Tags> tagsList = new ArrayList<>();
+        for (String tag : tags) {
+            Tags tags1 = new Tags();
+            tags1.setTagName(tag);
+            tagsList.add(tags1);
+        }
+        int opengl = neoCrawlerDiscussPostMapper.insertCrawlerTags(tagsList, "opengl");
+        System.out.println(opengl);
     }
 }

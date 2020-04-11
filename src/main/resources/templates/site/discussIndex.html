@@ -89,11 +89,11 @@
                 <!-- Filter by -->
                 <ul class="nav nav-tabs mb-3">
                     <li class="nav-item">
-                        <a th:class="|nav-link ${orderMode==1?'active':''}|" th:href="@{/discussIndex(orderMode=1)}">Most
-                            Popular</a>
+                        <a th:class="|nav-link ${orderMode==0?'active':''}|" th:href="@{/discussIndex(orderMode=0)}">Newest</a>
                     </li>
                     <li class="nav-item">
-                        <a th:class="|nav-link ${orderMode==0?'active':''}|" th:href="@{/discussIndex(orderMode=0)}">Newest</a>
+                        <a th:class="|nav-link ${orderMode==1?'active':''}|" th:href="@{/discussIndex(orderMode=1)}">Most
+                            Popular</a>
                     </li>
                 </ul>
                 <button type="button" class="btn btn-primary btn-sm position-absolute rt-0" data-toggle="modal"
@@ -129,30 +129,41 @@
                                         commas)：</label>
                                     <input type="text" class="form-control" id="tag-name" onclick="showSelectTag();">
                                     <div id="selectTags" class="tag-tab">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <li class="nav-item">
-                                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home"
-                                                   role="tab" aria-controls="home" aria-selected="true">Select Tags</a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile"
-                                                   role="tab" aria-controls="profile" aria-selected="false">Create
-                                                    Tags</a>
+                                        <!--<ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li class="nav-item" th:each="category:${categoryList}">
+                                                <a class="nav-link" id="home-tab" data-toggle="tab" th:href="|#${category.category.name}|"
+                                                   role="tab" aria-controls="home" aria-selected="true" th:utext="${category.category.name}">Select Tags</a>
                                             </li>
                                         </ul>
                                         <div class="tab-content" id="myTabContent" style="margin-top: 10px">
-                                            <div class="tab-pane fade show active" id="home" role="tabpanel"
-                                                 aria-labelledby="home-tab">
+                                                <div class="tab-pane fade active show" role="tabpanel"
+                                                     aria-labelledby="home-tab" th:each="categorys:${categoryList}" th:id="${categorys.category.name}">
                                                 <span class="badge badge-info" style="margin-right: 10px"
-                                                      th:each="tag:${AllTags}">
+                                                      th:each="tag:${categorys.tagsList}">
                                                     <span class="glyphicon glyphicon-tags">
                                                         <b onclick="selectTag(this)" th:data-tag="${tag.tagName}"
                                                            th:utext="${tag.tagName}">String</b>
                                                     </span>
                                                 </span>
-                                            </div>
+                                                </div>
                                             <div class="tab-pane fade" id="profile" role="tabpanel"
                                                  aria-labelledby="profile-tab">...
+                                            </div>-->
+                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                            <li role="presentation" th:each="category: ${categoryList}">
+                                                <a class="nav-link" th:href="${'#'+category.category.name}" aria-controls="home" role="tab"
+                                                   id="home-tab" data-toggle="tab" th:utext="${category.category.name}">Select Tags</a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content" id="myTabContent" style="margin-top: 10px">
+                                            <div class="tab-pane" th:id="${categorys.category.name}" th:each="categorys:${categoryList}">
+                                                <span class="badge badge-info" style="margin-right: 10px"
+                                                      th:each="tag:${categorys.tagsList}">
+                                                    <span class="glyphicon glyphicon-tags">
+                                                        <b onclick="selectTag(this)" th:data-tag="${tag.tagName}"
+                                                           th:utext="${tag.tagName}">String</b>
+                                                    </span>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>

@@ -14,6 +14,6 @@ public interface NeoCrawlerDiscussPostMapper {
 
     int insertCrawler(@Param("discussPostList") List<DiscussPost> discussPostList);
 
-    int insertCrawlerTags(@Param("tagsList") List<Tags> tagsList);
+    int insertCrawlerTags(@Param("tagsList") List<Tags> tagsList,String category);
 
 }

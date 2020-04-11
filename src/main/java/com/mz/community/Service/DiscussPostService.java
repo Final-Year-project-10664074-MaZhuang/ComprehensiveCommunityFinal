@@ -143,4 +143,8 @@ public class DiscussPostService {
     public int addDiscussPostList(List<DiscussPost> discussPostCollect) {
         return discussPostMapper.insertDiscussPostList(discussPostCollect);
     }
+
+    public List<Tags> findAllTagsByCategory(String categoryName) {
+        return neoDiscussPostMapper.selectAllTagsByCategory(categoryName);
+    }
 }

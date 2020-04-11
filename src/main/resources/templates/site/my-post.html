@@ -12,7 +12,7 @@
 <body>
 <div class="nk-container">
     <!-- header -->
-    <header th:replace="index::header">
+    <header th:replace="site/discussIndex::header">
     </header>
 
     <!-- content -->
@@ -22,13 +22,13 @@
             <div class="position-relative">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <a class="nav-link" th:href="@{|/user/profile/${loginUser.id}|}">Personal Information</a>
+                        <a class="nav-link" th:href="@{|/user/profile/${user.id}|}">Personal Information</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" th:href="@{|/myPost/${loginUser.id}|}">My Post</a>
+                        <a class="nav-link active" th:href="@{|/myPost/${user.id}|}"><b th:utext="${user.username}"></b> Posted</a>
                     </li>
                 </ul>
-                <a th:href="@{|/user/profile/${loginUser.id}|}" class="text-muted position-absolute rt-0">Back to
+                <a th:href="@{|/user/profile/${user.id}|}" class="text-muted position-absolute rt-0">Back to
                     profile&gt;</a>
             </div>
             <!-- My post -->

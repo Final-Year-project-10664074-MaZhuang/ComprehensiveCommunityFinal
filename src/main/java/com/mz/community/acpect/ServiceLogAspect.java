@@ -19,7 +19,7 @@ import java.util.Date;
 public class ServiceLogAspect {
     private static final Logger logger = LoggerFactory.getLogger(ServiceLogAspect.class);
 
-    @Pointcut("execution(* com.mz.community.Service.*.*(..))")
+    @Pointcut("execution(* com.mz.community.service.*.*(..))")
     public void pointcut() {
 
     }

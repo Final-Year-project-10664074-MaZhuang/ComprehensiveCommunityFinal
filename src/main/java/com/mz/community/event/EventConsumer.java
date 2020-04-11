@@ -174,7 +174,7 @@ public class EventConsumer implements CommunityConstant {
             LOGGER.error("crawler format error");
             return;
         }
-        List<DiscussPost> crawlerFromStackOverFlow = crawlerService.getCrawlerFromStackOverFlow(event.getTags());
+        List<DiscussPost> crawlerFromStackOverFlow = crawlerService.getCrawlerFromStackOverFlow(event.getTags(),event.getCategory());
         Context context = new Context();
         String content =null;
         if (crawlerFromStackOverFlow!=null){
@@ -226,22 +226,20 @@ public class EventConsumer implements CommunityConstant {
         }
         List<User> users = neoUserMapper.selectRecommendPostByTags(event.getTags(),event.getUserId());
         if(users.size()>0){
-            List<Tags> postTags = new ArrayList<>();
+            /*List<Tags> postTags = new ArrayList<>();
             Tags tags = new Tags();
             String[] tagsArray = new String[event.getTags().length];
             for (String tag : tagsArray) {
                 tags.setTagName(tag);
                 postTags.add(tags);
-            }
+            }*/
             DiscussPost discussPostById = discussPostService.findDiscussPostById(event.getEntityId());
             User PostUser = neoUserMapper.selectById(discussPostById.getUserId());
             Context context = new Context();
-            context.setVariable("AuthorId", PostUser.getId());
             context.setVariable("AuthorName", PostUser.getUsername());
             context.setVariable("AuthorHeaderUrl", PostUser.getHeaderUrl());
             context.setVariable("title", discussPostById.getTitle());
-            context.setVariable("content", discussPostById.getContent());
-            context.setVariable("postTags",postTags);
+            //context.setVariable("postTags",postTags);
             String url = domain + contextPath + "/discuss/detail/"+discussPostById.getId();
             context.setVariable("url", url);
             for (User user : users) {

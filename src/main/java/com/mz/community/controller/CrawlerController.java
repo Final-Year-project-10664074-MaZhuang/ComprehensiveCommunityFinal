@@ -2,6 +2,8 @@ package com.mz.community.controller;
 
 import com.mz.community.dao.elasticsearch.DiscussPostRepository;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
+import com.mz.community.dao.neo4jMapper.TagsMapper;
+import com.mz.community.entity.Category;
 import com.mz.community.entity.Event;
 import com.mz.community.entity.Page;
 import com.mz.community.entity.Tags;
@@ -29,6 +31,8 @@ public class CrawlerController implements CommunityConstant {
     private DiscussPostRepository discussRepository;
     @Autowired
     private NeoDiscussPostMapper neoDiscussPostMapper;
+    @Autowired
+    private TagsMapper tagsMapper;
     @RequestMapping(path = "/deleteAllES",method = RequestMethod.GET)
     public void deleteAllES(){
         discussRepository.deleteAll();
@@ -49,20 +53,40 @@ public class CrawlerController implements CommunityConstant {
             tags.add(map);
         }
         model.addAttribute("AllTags",tags);
+        List<Category> categoryList = neoDiscussPostMapper.selectAllCategory();
+        model.addAttribute("categoryList",categoryList);
         return "site/admin/addTags";
     }
 
     @RequestMapping(path = "/addTags",method = RequestMethod.POST)
     @ResponseBody
-    public String addTag(String tag){
-        if(StringUtils.isBlank(tag)){
+    public String addTag(String tag,String category){
+        if(StringUtils.isBlank(tag) && StringUtils.isBlank(category)){
             throw new IllegalArgumentException("Tags param can not be null");
         }
         String[] tagsArray = tag.split(",");
         Event event = new Event()
                 .setTopic(TOPIC_CRAWLER)
-                .setTags(tagsArray);
+                .setTags(tagsArray)
+                .setCategory(category);
         eventProducer.fireEvent(event);
         return CommunityUtil.getJSONString(0, "Add tag successfully");
+    }
+
+    @RequestMapping(path = "/addCategory",method = RequestMethod.POST)
+    @ResponseBody
+    public String addCategory(String category){
+        if(StringUtils.isBlank(category)){
+            throw new IllegalArgumentException("Tags param can not be null");
+        }
+        String[] categoryArray = category.split(",");
+        try {
+            for (String cate : categoryArray) {
+                int i = tagsMapper.insertCategory(cate);
+            }
+            return CommunityUtil.getJSONString(0, "Add category successfully");
+        }catch (Exception e){
+            return CommunityUtil.getJSONString(1, "Add category failure");
+        }
     }
 }

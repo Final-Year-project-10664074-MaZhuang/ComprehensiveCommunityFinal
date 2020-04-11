@@ -10,10 +10,20 @@ public class Event {
     private int entityId;
     private int entityUserId;
     private String[] tags;
+    private String category;
     private int likeStatus;
     private int status;
     private double second;
     private int commentCount;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public Event setCategory(String category) {
+        this.category = category;
+        return this;
+    }
 
     public int getCommentCount() {
         return commentCount;

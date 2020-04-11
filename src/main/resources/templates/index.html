@@ -77,7 +77,8 @@
         <div class="container-fluid col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <img class="logo" src="https://github.com/Ma-Zhuang/Pic/blob/master/Q&ALOGO472x472.png?raw=true">
             <form class="form-inline logo" method="get" th:action="@{/search}">
-                <input class="searchBar" type="search">
+                <input class="searchBar" type="search" aria-label="Search" name="keyword"
+                       th:value="${keyword}">
                 <button class="btnSearch" type="submit" style="color:white" ;>Search</button>
             </form>
         </div>

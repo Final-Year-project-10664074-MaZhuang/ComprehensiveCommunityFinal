@@ -16,4 +16,6 @@ public interface TagsMapper {
     List<Tags> selectRelatedTags(String tagName);
 
     List<DiscussPost> selectZeroPostByTag(String tagName, int offset, int limit);
+
+    int insertCategory(String cate);
 }

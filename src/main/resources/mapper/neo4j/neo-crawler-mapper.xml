@@ -15,8 +15,12 @@
     </insert>
 
     <insert id="insertCrawlerTags" parameterType="java.util.List">
-        <foreach collection="tagsList" item="tags">
-            MERGE(:Tags{tagName:#{tags.tagName}})
+        <foreach collection="tagsList" item="tags" index="index">
+            <!--MERGE(:Tags{tagName:#{tags.tagName}})-->
+            MERGE(t${index}:Tags{tagName:#{tags.tagName}})
+            with t${index} as t${index}
+            match(c${index}:Category{name:#{category}})
+            create(t${index})-[:BELONG]->(c${index})
         </foreach>
     </insert>
 

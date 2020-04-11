@@ -1,10 +1,7 @@
 package com.mz.community.controller;
 
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
-import com.mz.community.entity.DiscussPost;
-import com.mz.community.entity.Page;
-import com.mz.community.entity.Tags;
-import com.mz.community.entity.User;
+import com.mz.community.entity.*;
 import com.mz.community.service.DiscussPostService;
 import com.mz.community.service.LikeService;
 import com.mz.community.service.TagsService;
@@ -42,7 +39,7 @@ public class DiscussIndexController {
 
     @RequestMapping(path = "/discussIndex", method = RequestMethod.GET)
     public String getDiscussIndex(Model model, Page page,
-                                  @RequestParam(name = "orderMode", defaultValue = "1") int orderMode) {
+                                  @RequestParam(name = "orderMode", defaultValue = "0") int orderMode) {
         page.setRows(discussPostService.findDiscussPostRows(0));
         page.setPath("/discussIndex?orderMode=" + orderMode);
 
@@ -61,8 +58,19 @@ public class DiscussIndexController {
                 discussPosts.add(map);
             }
         }
-        List<Tags> tags = discussPostService.findAllTags();
-        model.addAttribute("AllTags", tags);
+
+        List<Category> categoryList = neoDiscussPostMapper.selectAllCategory();
+        List<Map<String, Object>> AllTags = new ArrayList<>();
+        if (categoryList!=null){
+            for (Category category : categoryList) {
+                Map<String,Object> map = new HashMap<>();
+                map.put("category",category);
+                List<Tags> tagsList = discussPostService.findAllTagsByCategory(category.getName());
+                map.put("tagsList",tagsList);
+                AllTags.add(map);
+            }
+        }
+        model.addAttribute("categoryList", AllTags);
         List<Tags> hotTags = tagsService.findHotTags();
         model.addAttribute("hotTags", hotTags);
         if (hostHolder.getUser() != null) {
@@ -73,9 +81,9 @@ public class DiscussIndexController {
                 List<DiscussPost> zeroList = neoDiscussPostMapper.selectZeroReply(hostHolder.getUser().getId(), page.getOffset(), page.getLimit());
                 model.addAttribute("zeroReply", zeroList);
             }
-
         } else {
-            model.addAttribute("zeroReply", null);
+            List<DiscussPost> zeroList = neoDiscussPostMapper.selectZeroReply(0, page.getOffset(), page.getLimit());
+            model.addAttribute("zeroReply", zeroList);
         }
         model.addAttribute("discussPosts", discussPosts);
         model.addAttribute("orderMode", orderMode);

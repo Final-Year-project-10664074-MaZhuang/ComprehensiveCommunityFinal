@@ -1,7 +1,6 @@
 package com.mz.community;
 
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
-import com.mz.community.entity.DiscussPost;
 import com.mz.community.service.CrawlerService;
 import com.mz.community.service.ElasticSearchService;
 import org.junit.Test;
@@ -10,8 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-
-import java.util.List;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -26,7 +23,7 @@ public class CrawlerTests {
 
     @Test
     public void CrawlerSearchTest(){
-        String[] key = {"java"};
+        /*String[] key = {"java"};
         List<DiscussPost> crawlerFromStackOverFlow = crawlerService.getCrawlerFromStackOverFlow(key);
         /*for (DiscussPost discussPost : crawlerFromStackOverFlow) {
             elasticSearchService.saveDiscussPost(discussPost);

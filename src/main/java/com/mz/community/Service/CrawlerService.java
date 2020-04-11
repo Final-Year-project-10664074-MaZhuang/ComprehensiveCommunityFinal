@@ -29,7 +29,7 @@ public class CrawlerService {
     @Autowired
     private RedisTemplate redisTemplate;
 
-    public List<DiscussPost> getCrawlerFromStackOverFlow(String[] tagsName) {
+    public List<DiscussPost> getCrawlerFromStackOverFlow(String[] tagsName,String category) {
         String crawlerKey = RedisKeyUtil.getCrawlerKey();
         if (tagsName == null) {
             throw new IllegalArgumentException("Parameter cannot be empty");
@@ -53,6 +53,7 @@ public class CrawlerService {
             options.addArguments("disable-gpu");
             //Open browser
             WebDriver webDriver = new ChromeDriver(options);*/
+
             List<DiscussPost> discussPostList = new ArrayList<>();
             List<Tags> tagsList = new ArrayList<>();
             //Find related tags
@@ -120,8 +121,8 @@ public class CrawlerService {
                 List<Tags> tagCollect = tagsList.stream().distinct().collect(Collectors.toList());
                 if(DiscussPostCollect.size()!=0&&tagCollect.size()!=0){
                     discussPostService.addDiscussPostList(DiscussPostCollect);
+                    neoCrawlerDiscussPostMapper.insertCrawlerTags(tagCollect,category);
                     neoCrawlerDiscussPostMapper.insertCrawler(DiscussPostCollect);
-                    neoCrawlerDiscussPostMapper.insertCrawlerTags(tagCollect);
                     for (DiscussPost discussPost : DiscussPostCollect) {
                         neoDiscussPostMapper.insertRelationDiscussPost(3, discussPost.getId(), discussPost.getTagName());
                     }

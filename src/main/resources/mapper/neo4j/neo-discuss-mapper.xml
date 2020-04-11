@@ -26,6 +26,14 @@
         order by score skip #{offset} limit #{limit}
     </select>
 
+    <select id="selectAllCategory" resultType="Category">
+        MATCH (n:Category) RETURN n.name as name order by name desc
+    </select>
+
+    <select id="selectAllTagsByCategory" resultType="Tags">
+        match(t:Tags)-[:BELONG]->(:Category{name:#{categoryName}}) return t.tagName as tagName
+    </select>
+
     <select id="selectTagByTagName" resultType="Tags">
         match(n:Tags) where n.tagName=#{tagName} return n.tagName as tagName
     </select>
@@ -43,7 +51,7 @@
     </select>
 
     <select id="selectAllTags" resultType="Tags">
-        MATCH (:DiscussPost)-[r:TAGS]->(n:Tags) where d.status &lt;&gt; 2 with n.tagName as tagName,count(r) as c
+        MATCH (d:DiscussPost)-[r:TAGS]->(n:Tags) where d.status &lt;&gt; 2 with n.tagName as tagName,count(r) as c
             return tagName order by c desc skip #{offset} limit #{limit}
     </select>
 
