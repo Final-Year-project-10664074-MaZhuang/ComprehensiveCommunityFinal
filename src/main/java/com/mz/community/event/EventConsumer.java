@@ -175,19 +175,12 @@ public class EventConsumer implements CommunityConstant {
             return;
         }
         List<DiscussPost> crawlerFromStackOverFlow = crawlerService.getCrawlerFromStackOverFlow(event.getTags(),event.getCategory());
-        Context context = new Context();
-        String content =null;
         if (crawlerFromStackOverFlow!=null){
             for (DiscussPost discussPost : crawlerFromStackOverFlow) {
                 elasticSearchService.saveDiscussPost(discussPost);
             }
-            context.setVariable("content","Data crawl completed");
-            content=templateEngine.process("/mail/tagResult", context);
-            mailClient.sendMail("zhuang.ma@students.plymouth.ac.uk", "Data crawl completed", content);
         }else {
-            context.setVariable("content","Data crawling failed, please check the code and Stack Overflow official website");
-            content=templateEngine.process("/mail/tagResult", context);
-            mailClient.sendMail("zhuang.ma@students.plymouth.ac.uk", "Data crawl failed", content);
+            LOGGER.error("Data crawl failed");
         }
     }
 

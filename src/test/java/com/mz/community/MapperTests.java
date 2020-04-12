@@ -211,4 +211,27 @@ public class MapperTests {
         int opengl = neoCrawlerDiscussPostMapper.insertCrawlerTags(tagsList, "opengl");
         System.out.println(opengl);
     }
+
+    @Test
+    public void testInsertCrawlerPost(){
+        List<DiscussPost> discussPostList = new ArrayList<>();
+        String[] tags = {"java","c++"};
+        for (int i = 0; i < 500; i++) {
+            DiscussPost discussPost = new DiscussPost();
+            discussPost.setId(1000+i);
+            discussPost.setUserId(3);
+            discussPost.setType(4);
+            discussPost.setStatus(0);
+            discussPost.setLinkUrl("href");
+            discussPost.setTitle("test insert");
+            discussPost.setContent("test insert");
+            discussPost.setScore(1.2);
+            discussPost.setCommentCount(10);
+            discussPost.setCreateTime(new Date());
+            discussPost.setTagName(tags);
+            discussPostList.add(discussPost);
+        }
+        int i = neoCrawlerDiscussPostMapper.insertCrawler(discussPostList);
+        System.out.println(i);
+    }
 }

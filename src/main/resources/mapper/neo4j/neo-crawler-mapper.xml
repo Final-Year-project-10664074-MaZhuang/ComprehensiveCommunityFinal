@@ -20,7 +20,7 @@
             MERGE(t${index}:Tags{tagName:#{tags.tagName}})
             with t${index} as t${index}
             match(c${index}:Category{name:#{category}})
-            create(t${index})-[:BELONG]->(c${index})
+            MERGE(t${index})-[:BELONG]->(c${index})
         </foreach>
     </insert>
 
