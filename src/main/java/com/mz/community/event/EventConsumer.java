@@ -238,7 +238,7 @@ public class EventConsumer implements CommunityConstant {
             for (User user : users) {
                 context.setVariable("targetName", user.getUsername());
                 String contents = templateEngine.process("/mail/recommendPost", context);
-                mailClient.sendMail("2686224016@qq.com", "New question you may be interested in", contents);
+                mailClient.sendMail(user.getEmail(), "New question you may be interested in", contents);
             }
         }
     }
