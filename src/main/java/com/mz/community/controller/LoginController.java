@@ -3,7 +3,7 @@ package com.mz.community.controller;
 import com.google.code.kaptcha.Producer;
 import com.mz.community.entity.AccessToken;
 import com.mz.community.entity.User;
-import com.mz.community.service.UserService;
+import com.mz.community.Service.UserService;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.CommunityUtil;
 import com.mz.community.util.RedisKeyUtil;

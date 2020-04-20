@@ -1,5 +1,4 @@
-package com.mz.community.service;
-
+package com.mz.community.Service;
 import com.mz.community.dao.mysqlMapper.CommentMapper;
 import com.mz.community.dao.neo4jMapper.NeoCommentMapper;
 import com.mz.community.entity.Comment;

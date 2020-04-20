@@ -1,4 +1,4 @@
-package com.mz.community.service;
+package com.mz.community.Service;
 
 import com.mz.community.dao.neo4jMapper.NeoFollowMapper;
 import org.springframework.beans.factory.annotation.Autowired;

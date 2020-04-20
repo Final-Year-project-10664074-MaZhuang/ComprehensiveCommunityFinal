@@ -1,4 +1,4 @@
-package com.mz.community.service;
+package com.mz.community.Service;
 
 import com.mz.community.dao.neo4jMapper.TagsMapper;
 import com.mz.community.entity.DiscussPost;

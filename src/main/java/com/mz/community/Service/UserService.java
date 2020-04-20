@@ -1,4 +1,4 @@
-package com.mz.community.service;
+package com.mz.community.Service;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;

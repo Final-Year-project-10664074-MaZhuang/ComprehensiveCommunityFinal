@@ -1,4 +1,4 @@
-package com.mz.community.service;
+package com.mz.community.Service;
 
 import com.mz.community.dao.elasticsearch.DiscussPostRepository;
 import com.mz.community.entity.DiscussPost;

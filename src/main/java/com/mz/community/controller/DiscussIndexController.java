@@ -2,10 +2,7 @@ package com.mz.community.controller;
 
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.entity.*;
-import com.mz.community.service.DiscussPostService;
-import com.mz.community.service.LikeService;
-import com.mz.community.service.TagsService;
-import com.mz.community.service.UserService;
+import com.mz.community.Service.*;
 import com.mz.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

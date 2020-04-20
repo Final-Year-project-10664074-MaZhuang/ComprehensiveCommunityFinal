@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.dao.neo4jMapper.NeoUserMapper;
 import com.mz.community.entity.*;
-import com.mz.community.service.*;
+import com.mz.community.Service.*;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.MailClient;
 import org.apache.kafka.clients.consumer.ConsumerRecord;

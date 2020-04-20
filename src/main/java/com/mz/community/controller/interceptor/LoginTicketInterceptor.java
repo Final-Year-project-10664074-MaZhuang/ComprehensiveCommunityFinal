@@ -2,7 +2,7 @@ package com.mz.community.controller.interceptor;
 
 import com.mz.community.entity.LoginTicket;
 import com.mz.community.entity.User;
-import com.mz.community.service.UserService;
+import com.mz.community.Service.UserService;
 import com.mz.community.util.CookieUtil;
 import com.mz.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;

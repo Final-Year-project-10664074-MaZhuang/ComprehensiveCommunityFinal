@@ -1,4 +1,4 @@
-package com.mz.community.service;
+package com.mz.community.Service;
 
 import com.mz.community.dao.neo4jMapper.NeoCrawlerDiscussPostMapper;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
