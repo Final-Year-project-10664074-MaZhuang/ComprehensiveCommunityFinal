@@ -17,4 +17,8 @@
     <insert id="insertUser" parameterType="User">
         create(:User{UserId:#{id},Username:#{username},email:#{email},type:#{type},status:1,header_url:#{headerUrl}})
     </insert>
+
+    <update id="updateHeader">
+        match(u:User{UserId:#{id}}) set u.header_url=#{headerUrl}
+    </update>
 </mapper>

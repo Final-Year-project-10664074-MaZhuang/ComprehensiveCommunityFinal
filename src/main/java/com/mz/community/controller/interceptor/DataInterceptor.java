@@ -1,7 +1,7 @@
 package com.mz.community.controller.interceptor;
 
 import com.mz.community.entity.User;
-import com.mz.community.service.DataService;
+import com.mz.community.Service.DataService;
 import com.mz.community.util.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

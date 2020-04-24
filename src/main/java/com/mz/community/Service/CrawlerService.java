@@ -10,7 +10,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -46,10 +45,10 @@ public class CrawlerService {
         try {
             boolean start = false;
             //Setting environment variables
-            /*System.setProperty("webdriver.chrome.driver", CrawlerService.class.getClassLoader().getResource("chromedriver.exe").getPath());
-            WebDriver webDriver = new ChromeDriver();*/
+            System.setProperty("webdriver.chrome.driver", CrawlerService.class.getClassLoader().getResource("chromedriver.exe").getPath());
+            WebDriver webDriver = new ChromeDriver();
             //System.setProperty("webdriver.chrome.driver", CrawlerService.class.getClassLoader().getResource("chromedriver").getPath());
-            ChromeOptions options = new ChromeOptions();
+            /*ChromeOptions options = new ChromeOptions();
             //chrome install location
             System.setProperty("webdriver.chrome.bin", "/opt/google/chrome/chrome");
 
@@ -61,7 +60,7 @@ public class CrawlerService {
             options.addArguments("no-sandbox");
             options.addArguments("disable-gpu");
             //Open browser
-            WebDriver webDriver = new ChromeDriver(options);
+            WebDriver webDriver = new ChromeDriver(options);*/
             //Find related tags
             for (int i = 0; i < tagsName.length; i++) {
                 Tags tags = neoDiscussPostMapper.selectTagByTagName(tagsName[i].toLowerCase());
@@ -69,13 +68,13 @@ public class CrawlerService {
                     continue;
                 }
                 neoDiscussPostMapper.insertTags(tagsName[i]);
-                webDriver.get("https://stackoverflow.com/questions/tagged/" + tagsName[i] + "?tab=votes&pagesize=50");
+                webDriver.get("https://stackoverflow.com/questions/tagged/" + tagsName[i] + "?tab=votes&pagesize=15");
                 if (i == 0) {
                     WebElement closeElement = webDriver.findElement(By.xpath("//div[@class='grid--cell']//a[@class='s-btn s-btn__muted s-btn__icon js-notice-close']"));
                     closeElement.click();
                 }
                 //Pages number
-                for (int j = 0; j < 10; j++) {
+                for (int j = 0; j < 2; j++) {
                     List<DiscussPost> discussPostList = new ArrayList<>();
                     List<Tags> tagsList = new ArrayList<>();
                     List<WebElement> questionElements = webDriver.findElements(By.xpath("//div[@class='question-summary']"));

@@ -1,8 +1,8 @@
 package com.mz.community;
 
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
-import com.mz.community.service.CrawlerService;
-import com.mz.community.service.ElasticSearchService;
+import com.mz.community.Service.CrawlerService;
+import com.mz.community.Service.ElasticSearchService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
