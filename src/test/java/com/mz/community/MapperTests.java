@@ -40,8 +40,8 @@ public class MapperTests {
     private TagsMapper tagsMapper;
     @Test
     public void testCrud(){
-        System.out.println(userMapper.selectByName("SYSTEM"));
-        System.out.println(neoUserMapper.selectByName("SYSTEM"));
+        System.out.println(userMapper.selectByName("Genshushu"));
+        //System.out.println(neoUserMapper.selectByName("SYSTEM"));
     }
     @Test
     public void testSelectPosts(){

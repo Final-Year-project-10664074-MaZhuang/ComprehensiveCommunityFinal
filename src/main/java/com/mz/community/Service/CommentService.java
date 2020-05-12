@@ -1,8 +1,6 @@
 package com.mz.community.Service;
 import com.mz.community.dao.mysqlMapper.CommentMapper;
-import com.mz.community.dao.neo4jMapper.NeoCommentMapper;
 import com.mz.community.entity.Comment;
-import com.mz.community.entity.DiscussPost;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.SensitiveFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +16,6 @@ import java.util.List;
 public class CommentService implements CommunityConstant {
     @Autowired
     private CommentMapper commentMapper;
-
-    @Autowired
-    private NeoCommentMapper neoCommentMapper;
 
     @Autowired
     private SensitiveFilter sensitiveFilter;
@@ -45,11 +40,6 @@ public class CommentService implements CommunityConstant {
         comment.setContent(HtmlUtils.htmlEscape(comment.getContent()));
         comment.setContent(sensitiveFilter.filter(comment.getContent()));
         int rows = commentMapper.insertComment(comment);
-
-        DiscussPost post = discussPostService.findDiscussPostById(comment.getEntityId());
-        if(post.getUserId()!=userId){
-            neoCommentMapper.insertComment(userId,post.getId());
-        }
 
         //update comment count
         if (comment.getEntityType() == ENTITY_TYPE_POST) {

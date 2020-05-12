@@ -90,7 +90,7 @@ public class DiscussIndexController {
     @RequestMapping(path = "/myPost/{userId}", method = RequestMethod.GET)
     public String getMyPostPage(@PathVariable("userId") int userId, Page page, @RequestParam(name = "orderMode", defaultValue = "1") int orderMode,
                                 Model model) {
-        if (userId == 182) {
+        if (userId == 3) {
             return "/site/Crawler-post";
         }
         User user = userService.findUserById(userId);

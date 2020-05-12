@@ -22,7 +22,6 @@ public class Page {
         if (current >= 1) {
             this.current = current;
         }
-
     }
 
     public int getLimit() {
@@ -95,6 +94,6 @@ public class Page {
     public int getTo() {
         int to = current + 2;
         int total = getTotal();
-        return to > getTotal() ? total : to;
+        return to > total ? total : to;
     }
 }

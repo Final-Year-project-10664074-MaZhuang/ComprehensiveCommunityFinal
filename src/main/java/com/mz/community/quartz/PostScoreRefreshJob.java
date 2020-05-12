@@ -20,7 +20,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class PostScoreRefreshJob implements Job, CommunityConstant {
+public class PostScoreRefreshJob implements Job,CommunityConstant {
     private static final Logger logger = LoggerFactory.getLogger(PostScoreRefreshJob.class);
 
     @Autowired

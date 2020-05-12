@@ -93,8 +93,10 @@ public class EventConsumer implements CommunityConstant {
         }else if(TOPIC_UNFOLLOW.equals(event.getTopic())){
             neoFollowService.deleteFollow(event.getUserId(),event.getEntityId());
         }else if(TOPIC_COMMENT.equals(event.getTopic())){
-            neoCommentService.addComment(event.getUserId(),event.getEntityId());
-            neoCommentService.updateCommentCount(event.getEntityId(),event.getCommentCount());
+            if(event.getEntityType()==1){
+                neoCommentService.addComment(event.getUserId(),event.getEntityId());
+                neoCommentService.updateCommentCount(event.getEntityId(),event.getCommentCount());
+            }
             messageService.addMessage(message);
         }
 
