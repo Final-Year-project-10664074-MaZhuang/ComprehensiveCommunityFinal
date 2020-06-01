@@ -1,10 +1,13 @@
 package com.mz.community.event;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mz.community.Service.*;
 import com.mz.community.dao.neo4jMapper.NeoDiscussPostMapper;
 import com.mz.community.dao.neo4jMapper.NeoUserMapper;
-import com.mz.community.entity.*;
-import com.mz.community.Service.*;
+import com.mz.community.entity.DiscussPost;
+import com.mz.community.entity.Event;
+import com.mz.community.entity.Message;
+import com.mz.community.entity.User;
 import com.mz.community.util.CommunityConstant;
 import com.mz.community.util.MailClient;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
@@ -17,7 +20,10 @@ import org.springframework.stereotype.Component;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Component
 public class EventConsumer implements CommunityConstant {
@@ -179,7 +185,11 @@ public class EventConsumer implements CommunityConstant {
         List<DiscussPost> crawlerFromStackOverFlow = crawlerService.getCrawlerFromStackOverFlow(event.getTags(),event.getCategory());
         if (crawlerFromStackOverFlow!=null){
             for (DiscussPost discussPost : crawlerFromStackOverFlow) {
-                elasticSearchService.saveDiscussPost(discussPost);
+                try {
+                    elasticSearchService.saveDiscussPost(discussPost);
+                }catch (Exception e){
+                    LOGGER.error("Data crawl failed, store into es failed");
+                }
             }
         }else {
             LOGGER.error("Data crawl failed");

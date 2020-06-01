@@ -50,6 +50,11 @@ public class LoginController implements CommunityConstant {
     @Autowired
     private Producer kaptchaProducer;
 
+    @RequestMapping(path="/forget",method = RequestMethod.GET)
+    public String getForgetPage(){
+        return "site/forget";
+    }
+
     @RequestMapping(path = "/register",method = RequestMethod.GET)
     public String getRegisterPage(){
         return "/site/register";

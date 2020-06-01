@@ -45,12 +45,12 @@ public class MapperTests {
     }
     @Test
     public void testSelectPosts(){
-        //List<DiscussPost> discussPosts = discussPostMapper.selectDiscussPosts(0, 0, 10,0);
+        /*//List<DiscussPost> discussPosts = discussPostMapper.selectDiscussPosts(0, 0, 10,0);
         List<DiscussPost> discussPosts = neoDiscussPostMapper.selectZeroReply(0, 0, 10);
         for (DiscussPost discuss : discussPosts) {
             System.out.println(discuss);
         }
-        System.out.println(discussPostMapper.selectDiscussPostRows(0));
+        System.out.println(discussPostMapper.selectDiscussPostRows(0));*/
     }
 
     @Test

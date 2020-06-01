@@ -48,7 +48,6 @@ public class DiscussPostService {
     //post count cache
     private LoadingCache<Integer, Integer> postRowsCache;
 
-
     //init
     @PostConstruct
     public void init() {

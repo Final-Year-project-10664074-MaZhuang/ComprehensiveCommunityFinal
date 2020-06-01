@@ -33,6 +33,8 @@ public class DiscussIndexController {
     private TagsService tagsService;
     @Autowired
     private HostHolder hostHolder;
+    @Autowired
+    private ZeroReplyService zeroReplyService;
 
     @RequestMapping(path = "/discussIndex", method = RequestMethod.GET)
     public String getDiscussIndex(Model model, Page page,
@@ -75,11 +77,11 @@ public class DiscussIndexController {
             if (zeroRelationList.size()>0){
                 model.addAttribute("zeroReply", zeroRelationList);
             }else {
-                List<DiscussPost> zeroList = neoDiscussPostMapper.selectZeroReply(hostHolder.getUser().getId(), page.getOffset(), page.getLimit());
+                List<DiscussPost> zeroList = zeroReplyService.findZeroReply(hostHolder.getUser().getId(), page.getOffset(), page.getLimit());
                 model.addAttribute("zeroReply", zeroList);
             }
         } else {
-            List<DiscussPost> zeroList = neoDiscussPostMapper.selectZeroReply(0, page.getOffset(), page.getLimit());
+            List<DiscussPost> zeroList = zeroReplyService.findZeroReply(0, page.getOffset(), page.getLimit());
             model.addAttribute("zeroReply", zeroList);
         }
         model.addAttribute("discussPosts", discussPosts);

@@ -54,7 +54,7 @@
                     </div>
                     <div class="col-sm-4">
                         <img th:src="@{/kaptcha}" id="kaptcha" style="width:100px;height:40px;" class="mr-2"/>
-                        <a href="javascript:refresh_kaotcha();" class="font-size-12 align-bottom">Refresh Code</a>
+                        <a href="javascript:refresh_kaptcha();" class="font-size-12 align-bottom">Refresh Code</a>
                     </div>
                 </div>
                 <div class="form-group row mt-4">
@@ -63,7 +63,7 @@
                         <input type="checkbox" id="remember-me" name="rememberme"
                                th:checked="${param.rememberme}">
                         <label class="form-check-label" for="remember-me">remember me</label>
-                        <a href="forget.html" class="text-danger float-right">forget password?</a>
+                        <a th:href="@{/forget}" class="text-danger float-right">forget password?</a>
                     </div>
                 </div>
                 <div class="form-group row mt-4">
@@ -74,7 +74,11 @@
                     <div class="col-sm-2"></div>
                     <div class="col-sm-10 text-center">
                         <br>
-                        <a href="https://github.com/login/oauth/authorize?client_id=c879b05c56023c6499fa&redirect_uri=http://www.fyp10664074.com/callback&scope=user&state=1"
+                        <!--deploy-->
+                        <!--<a href="https://github.com/login/oauth/authorize?client_id=c879b05c56023c6499fa&redirect_uri=http://www.fyp10664074.com/callback&scope=user&state=1"
+                           class="btn btn-info text-white form-control">GitHub Login</a>-->
+                        <!--develop 8e9addec2afad925ca62ae877acec1a8565edddf-->
+                        <a href="https://github.com/login/oauth/authorize?client_id=6b32e3022b6f21a1ef24&redirect_uri=http://localhost:8080/callback&scope=user&state=1"
                            class="btn btn-info text-white form-control">GitHub Login</a>
                     </div>
                 </div>
@@ -92,7 +96,7 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" crossorigin="anonymous"></script>
 <script th:src="@{/js/global.js}"></script>
 <script>
-    function refresh_kaotcha() {
+    function refresh_kaptcha() {
         var path = CONTEXT_PATH + "/kaptcha?p=" + Math.random();
         $("#kaptcha").attr("src", path);
     }
